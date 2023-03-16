@@ -1,0 +1,158 @@
+\documentclass[12pt,twoside]{article}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz,graphicx,amsmath,amsfonts,amscd,amssymb,bm,cite,epsfig,epsf,url}
+\usepackage[hang,flushmargin]{footmisc}
+\usepackage[colorlinks=true,urlcolor=blue,citecolor=blue]{hyperref}
+\usepackage{amsthm,multirow,wasysym,appendix}
+\usepackage{array,subcaption} 
+% \usepackage[small,bf]{caption}
+\usepackage{bbm}
+\usepackage{pgfplots}
+\usetikzlibrary{spy}
+\usepgfplotslibrary{external}
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{arrows,automata}
+\usepackage{thmtools}
+\usepackage{blkarray} 
+\usepackage{textcomp}
+\usepackage[left=0.8in,right=1.0in,top=1.0in,bottom=1.0in]{geometry}
+
+\input{macros}
+
+\begin{document}
+
+\begin{center}
+{\large{\textbf{Homework 4}} } \vspace{0.2cm}\\
+Due Feb 19 at 11 pm
+\\
+\end{center}
+\input{hwstatement.tex}\\
+
+\begin{enumerate}
+
+
+\item (Watering a plant)
+Two absentminded roommates share a plant. On any given day, the first one gives the plant an amount of water that is uniformly distributed between 0 and 1 liter. The second one gives the plant an amount of water that is uniformly distributed between 0 and 2 liters, independently from the first. Derive the pdf of the water received by the plant each day and plot it.
+
+\begin{itemize}
+\color{blue}
+\item let$\Tilde{a}\sim \mathcal{U}(0,1)$ represent the amount of water the fist roommate gives the plant 
+\item let$\Tilde{a}\sim \mathcal{U}(0,2)$ represent the amount of water the second roommate gives the plant 
+\item and let $\Tilde{s}=\Tilde{a}+\Tilde{b}$ represent the sum of there water 
+\item as we know $\Tilde{a},\Tilde{b}$ are independent it by theorem 9.31 the pdf of $\Tilde{s}$ will be $f_{\Tilde{s}}(s)=f_{\Tilde{a}}*\f_{\Tilde{b}}(s)=\int_{a=-\infty}^{\infty}f_{\Tilde{a}}(a)f_{\Tilde{b}}(s-a)da$
+\item we know that $f_{\Tilde{a}}(a)=1$ if $a\in [0,1]$ and 0 otherwise and we know that $f_{\Tilde{a}}(b)=\frac{1}{2}$ if $a\in [0,2]$ and 0 otherwise
+\item so we want to look at the values s can take keeping in mind that $f_{\Tilde{a}}, f_{\Tilde{b}}$ will only both be non zero if $a\in[0,1]$ and $a\in[s-2,s]$
+\begin{itemize}
+    \item if $s\leq 0$ then $s-a$ has no overlap with [0,2] and thus $f_{\Tilde{s}}(s)=\int_{a=-\infty}^{\infty}f_{\Tilde{a}}(a)f_{\Tilde{b}}(s-a)da=0$
+    \item if $s\in[0,1]$ then 
+    $f_{\Tilde{s}}(s)=\int_{a=-\infty}^{\infty}f_{\Tilde{a}}(a)f_{\Tilde{b}}(s-a)da=\int_{a=0}^{s}\frac{1}{2}da=\frac{s}{2}$
+     \item if $s\in[1,2]$ then 
+    $f_{\Tilde{s}}(s)=\int_{a=-\infty}^{\infty}f_{\Tilde{a}}(a)f_{\Tilde{b}}(s-a)da=\int_{a=0}^{1}\frac{1}{2}da=\frac{1}{2}$
+\item if $s\in[2,3]$ then 
+    $f_{\Tilde{s}}(s)=\int_{a=-\infty}^{\infty}f_{\Tilde{a}}(a)f_{\Tilde{b}}(s-a)da=\int_{a=s-2}^{1}\frac{1}{2}da=\frac{3-s}{2}$    
+        \item if $s\geq 3$ then $s-a$ has no overlap with [0,2] and thus $f_{\Tilde{s}}(s)=\int_{a=-\infty}^{\infty}f_{\Tilde{a}}(a)f_{\Tilde{b}}(s-a)da=0$
+\end{itemize}
+\item we can do a sanity check and integrate the whole pdf over 1 to see it does indeed integrate to 1. 
+\item \includegraphics[width=10cm]{homework/homework_4/immages/q_1_!.png}
+\item directly implementing my formula yielded the first plot
+\item \includegraphics[width=10cm]{homework/homework_4/immages/q_1_2.png}
+\item simulation gave me the second plot
+\item it is encouraging that they agree
+\end{itemize}
+
+
+
+\newpage
+\item (Confidence intervals) The following are $1-\alpha$ confidence intervals for a certain quantity $\mu$, estimated using the sample mean of the observed data. \vspace{0.2cm}\\
+\begin{tabular}{>{\centering\arraybackslash}m{0.05\linewidth} >{\centering\arraybackslash}m{0.9\linewidth} }
+ A  &
+  \includegraphics[width=0.7\linewidth]{./hw4/figs/confidence_intervals_exam_20}   \\
+  B &
+  \includegraphics[width=0.7\linewidth]{./hw4/figs/confidence_intervals_exam_500} 
+\end{tabular}
+\begin{enumerate}
+\item Estimate $\alpha$.
+\begin{itemize}
+\color{blue}
+    \item each of the fugues has approx 40 confidence intervals and about 4 fail to capture the parameter in each. so i would estimate $\alpha=.1$.
+\end{itemize}
+\item In each scenario choose whether you think $X=A$ and $Y=B$, or $X=B$ and $Y=A$. \begin{itemize}
+\item In plot X the confidence intervals are based on the central limit theorem. In plot Y they are built using Chebyshev's inequality (everything else is the same).
+
+
+\item In plot X the confidence intervals are built using more data than in plot Y (everything else is the same).
+\item In plot X the data are sampled from a distribution that has higher variance than plot Y (everything else is the same).
+\begin{itemize}
+     \color{blue}
+    \item in the first case i think X=B and Y=A. this makes sense since the central limit theorem gives us a tighter bound on our uncertainty than Chebyshev's inequality so confidence intervals fit using that estimation would be smaller
+    \item in the second case i think X=B and Y=A. this makes sense since assuming the assumptions of the central limit theorem are met, more data would result in lower standard error and thus tighter confidence intervals 
+    \item in the first case i think X=A and Y=B. this makes sense as the width of confidence intervals are still determined by the variance of the underlying population we are trying to estimate so if there is more variance it is reasonable that we would have wider confidence intervals holding all else equal
+\end{itemize}
+
+
+\end{itemize}
+\end{enumerate}
+\newpage
+\item (Cholesterol) We want to determine whether men have higher cholesterol than women in a certain population. We pick $200$ men and $100$ women independently at random with replacement from the population and compute their average cholesterol levels.  
+
+\begin{enumerate}
+\item Let $\sigma_{\text{men}}$ and $\sigma_{\text{women}}$ denote the standard deviations of the cholesterol level for the men and women in the population respectively. What is the standard error of the difference between the average cholesterol levels computed from our data?
+\begin{itemize}
+\color{blue}
+    \item we are told that we are independently and randomly from a population. thus as our goal is to understand the difference between men and woman within our population, we can think of our large sample as made up two independent sub samples from the sub-populations of men and woman respectively
+    \item further we know in both cases we have a frailly large number of samples (at least 100)
+    \item thus i would argue that the assumptions of the central limit theorem are met. and it is reasonable to model the average cholesterol on our samples as two Gaussian random variables with mean's equal to there sub population mean and standard error equal to $\frac{\sigma_{men}}{\sqrt{200}}$,$\frac{\sigma_{women}}{\sqrt{100}}$ respectively
+    \item so call the average cholesterol in our sample of men $\Tilde{m}_{men}=\frac{1}{n}\Sigma_{i=1}^{n}\Tilde{x}_{men}_{i}$ where $\Tilde{x}_{men}_{i}$ is the cholesterol of the ith man in our sample and call the average cholesterol in our sample of woman $\Tilde{m}_{women}=\frac{1}{n}\Sigma_{i=1}^{n}\Tilde{x}_{women}_{i}$ where $\Tilde{x}_{women}_{i}$ is the cholesterol of the ith woman in our sample
+    \item thus we can writ the difference between average cholesterol in men and women in our sample as $\Tilde{d}=\Tilde{m}_{men}-\Tilde{m}_{women}$
+    \item as our samples were taken independently we know  $var(\Tilde{d})=var(\Tilde{m}_{men})+var(\Tilde{m}_{women})-2cov(\Tilde{m}_{men},\Tilde{m}_{women})=var(\Tilde{m}_{men})+var(\Tilde{m}_{women})=\frac{\sigma_{men}^2}{200}$+$\frac{\sigma_{women}^2}{100}$
+    \item and thus the standard deviation of our estimator is $se(\Tilde{d})=\frac{\sigma_{men}}{\sqrt{200}}+\frac{\sigma_{women}}{10}$
+\end{itemize}
+
+
+\item The average cholesterol levels we observe are 200 for the men and 180 for the women. Assuming $\sigma_{\text{men}} = \sigma_{\text{women}}=10$, compute a 95\% confidence interval for the difference between the mean cholesterol level for men and women in the population using the central limit theorem. %(Use the fact that $\Phi(1.95)=0.025$, where $\Phi$ is the cdf of a standard Gaussian.)
+\begin{itemize}
+    \color{blue}
+    \item we can in general write a $1-\alpha$ confidence interval as $\Tilde{\mathcal{I}}_{1-\alpha}=[\Tilde{m}-c_{\alpha}se(m),\Tilde{m}+c_{\alpha}se(m)]$
+    \item so all we really need is to get the parts 
+    \begin{itemize}
+        \item as we have $\1-\alpha=.95$ we know $c_{\alpha}=1.96$
+        \item we defined our estimator of the difference between the average cholesterol level of men and women as $\Tilde{d}=\Tilde{m}_{men}-\Tilde{m}_{women}$ and we are given values for this estimate thus  $\Tilde{d}=\Tilde{m}_{men}-\Tilde{m}_{women}=200-180=20$ 
+        \item we solved for the standard error above as  $se(\Tilde{d})=\frac{\sigma_{men}}{\sqrt{200}}+\frac{\sigma_{women}}{10}$ which we can evaluate here as  $se(\Tilde{d})=\frac{10}{\sqrt{200}}+\frac{10}{10}=1.707$
+    \end{itemize}
+    \item thus we can construct a 95\% confidence interval for the difference in average cholesterol between men and woman from our estimate as $\Tilde{\mathcal{I}}_{95}=[20-(1.96)*(1.707),20+(1.96)*(1.707)]=[16.65,23.34]$
+\end{itemize}
+
+
+\end{enumerate}
+\newpage
+\item (Blood pressure cont. HW3)
+The table in \texttt{cardio.csv} records the systolic blood pressure (\textit{``ap\_hi"}) of a cohort of patients. In HW3, we compared the Chebyshev bound with the probability that \textit{ap\_hi} deviates from the corresponding population mean via Monte Carlo simulations.
+
+\begin{enumerate}
+    \item  Try to use the central limit theorem to approximate the probability. Plot the new approximation in the same plot as HW3 Q4.
+    \begin{itemize}
+        \color{blue}
+        \item 
+        \includegraphics[width=10cm]{homework/homework_3/immages/hw_4_1.png}
+        \item we can see that for a fixed $\alpha$ (in this case .5) the central limit theorem establishes a much more tight bound on the probability of our sample mean deviating then Chebyshev bound 
+    \end{itemize}
+
+    
+    \item Compute approximate $1-\alpha$ confidence intervals of the sample mean for 50 batches of $n$ samples for $n \in \keys{50, 100}$ and $\alpha \in \keys{0.05, 0.1, 0.5}$. For each $n$ and $\alpha$, plot the confidence intervals together with the population mean of the full dataset and count the number of times that the population mean does not fall in the confidence interval. How do the values of $n$ and $\alpha$ influence (1) the length of the intervals and (2) the probability that the population mean belongs to the interval?
+    \begin{itemize}
+        \color{blue}
+        \item the charts are bellow this response. 
+        \item 1. $1-\alpha$ is the portion of confidence intervals over many samples that contain the true population parameter, so as $\alpha$ rises the confidence interval gets more narrow. Other things being equal as the number of samples rise our variance of the sample mean should fall so the width of the interval is reducing in n
+        \item 2. $1-\alpha$ is the portion of confidence intervals over many samples that contain the true population parameter, so as $\alpha$ rises the chance that our population parameter is in the confidence interval falls. As n goes up we are basing our estimator on more data so the likelihood of the estimator contains the true population parameter is rising in n. 
+        \item \includegraphics[width=10cm]{homework/homework_3/immages/hw_4_2.png}
+        \item \includegraphics[width=10cm]{homework/homework_3/immages/hw_4_3.png}
+        \item \includegraphics[width=10cm]{homework/homework_3/immages/hw_4_4.png}
+        \item \includegraphics[width=10cm]{homework/homework_3/immages/hw_4_5.png}
+        \item \includegraphics[width=10cm]{homework/homework_3/immages/hw_4_6.png}
+        \item \includegraphics[width=10cm]{homework/homework_3/immages/hw_4_7.png}
+    \end{itemize}
+\end{enumerate}
+
+
+\end{enumerate}
+\end{document}

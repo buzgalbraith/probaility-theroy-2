@@ -1,0 +1,125 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\title{vidio 4: THE POWER OF HYPOTHESIS TESTS}
+\author{wbg231 }
+\date{December 2022}
+\newcommand{\R}{$\mathbb{R}$}
+\newcommand{\B}{$\beta$}
+\newcommand{\A}{$\alpha$}
+\newcommand{\D}{\Delta}
+
+\newcommand{\avector}[2]{(#1_2,\ldots,#1_{#2})}
+\newcommand{\makedef}[2]{$\textbf{#1}$:#2 }
+\usepackage{tikz,graphicx,hyperref,amsmath,amsfonts,amscd,amssymb,bm,cite,epsfig,epsf,url}
+
+\begin{document}
+
+\maketitle
+
+\section{introduction}
+\begin{itemize}
+\item \href{https://www.youtube.com/watch?v=CfWdLJm7ObE&list=PLBEf5mJtE6KuZ5NBQMuWIMsiOOrV9ibzm&index=81&ab_channel=CarlosFernandez-Granda}{video link }
+\item today we are going to talk about the power of a hypothesis test. 
+\item the power of the test is the probability of finding an effect if it exists. 
+\subsection{hypothesis testing}
+\item steps 
+\begin{enumerate}
+    \item chose a  conjecture 
+    \item chose a null 
+    \item chose a test stat 
+    \item chose a significance level $\alpha$
+    \itme gather data and compute test stat 
+    \itme compute p value 
+    \item reject null if p value $\leq \alpha$
+\end{enumerate}
+\item if we do this right the false positive rate is bounded by $\alpha$
+\subsection{is it enough to control false positives}
+\item no, we also have false negatives, we need to balance between these two.
+\item the power is the probability of finding a true positive
+\subsection{parametric testing }
+\item distribution of the test stat depends on parameter $\theat$
+\item we define the power function $$pow(\theta)=P(\textbf{reject the null hyptoshsi})=P(pv(\Tilde{t}_{\theta})\leq \alpha)$$ so this is a function from $\theta$ to the prob of rejecting a true positive 
+\subsection{power function in terms of the null set}
+\item for any$\theta$ within our null hypothesis $\theta \in \Theta_{null}$
+\item power function an also be described in terms of the null $pow(\theta)=P(\textbf{false postive})=\alpha$
+\subsection{power function in terms of the alternative set }
+\item for any$\theta$ within our null hypothesis $\theta \in \Theta_{alt}$
+\item power function an also be described in terms of the null $pow(\theta)=P(\textbf{true postive})$
+\section{die example}
+\item conjecture probability of rolling a 3 is $\theta>\frac{1}{6}$
+\item null $\theta\leq \frac{1}{6}$
+\item test stat the number of 3's out of n rolls
+\item the distribution of the test stat is binomial with parameters n and $\theta$ if we assume die rolls are iid. 
+\item the power function in this context is $pow(\theta)=P(\textbf{reject the null}) = P(ov(\Tilde{t}_{\theta}\leq \alpha)=P(\Tilde{t}_{\theta}\leq \tau)$ where $\tau$ is some threshold 
+\subsection{rejection region}
+\item $\mathcal{R}=\{ \tau:P(\Tilde{t}_{null}\geq\tau)\leq \alpha \}$ that is values of the test stat that would cause us to reject the null 
+\item we define the  threshold $\tau=min_{1\leq \tau \leq n}\{ \tau:P(\Tilde{t}_{null}\geq\tau)\leq \alpha \}$ that is the smallest value of the test sat for which we reject. 
+\item thus we reject if and only if the test stat $\geq \tau_{threshold}$
+
+\item thus if $\tau>  \tau_{threshold}\Rightarrow \tau\not\in \mathcal{R}$ and $\tau\leq \tau_{threshold}\Rightarrow \tau\in \mathcal{R}\Rightarrow P(\Tilde{t}_{null}\leq \tau)\leq P(\Tilde{t}_{null}\leq \tau_{threshold})\leq \alpha$
+\item so if we are above the rejection threshold we reject the null 
+\item so how do we compute the threshold? 
+\item $\tau_{threshold}=min_{1\leq \tau \leq n}\{ \tau:P(\Tilde{t}_{null}\geq\tau)\leq \alpha \}=min_{1\leq \tau\leq }\{\tau :\Sigma_{i=\tau}^{b}\begin{pmatrix}n\\i\end{pmatrix}\theta^{i}_{null}(1-\theta_{null})^{n-i}\leq \alpha\}$ for the die roll example we can compute this for any level of$\alpha$
+\item as the $\alpha$ level rises our threshold gets lower, so it is easier to reject our null hypothesis 
+\item the rejection threshold is useful to how we computed the power function 
+\item that thing only depends on the null hypothesis 
+\subsection{power function}
+\item the power function is the likelihood that we reject the null for any value of $\theta$
+\item that is power
+$pow(\theta)=P(\textbf{reject the null hyptoshsi})=P(\Tilde{t}_{\theta}\leq \tau_{threshold})=Sigma_{i=\tau_{threshold}}^{b}\begin{pmatrix}n\\i\end{pmatrix}\theta^{i}_{null}(1-\theta_{null})^{n-i}$ 
+\item so the threshold was computed on the null hypothesis but we can evaluate this on different values of $\theta$
+\item call $\theta_{null}$ the point where the null changes to the alternative
+\item so for $\tehat\leq \theta_{null}$ the power function should be less than the sigfngencelevle and thus the probability of rejoicing is bounded by the exigence level 
+\item r $\tehat\geq \theta_{null}$ ie theta is in our alternative hypothesis then the power function tells us the likely hood of us deducing a true positive
+\item so for different levels of $\alpha$ we are less likely to detect a true positive ie lower power
+\item so big $\alpha$ low chance of type 1 error large chance of type 2 error, and for small $\alpha$ that is flipped/
+\item that being said if the actual thing we are looking for ie the effect size is very large we still have high power regardless of the level of $\alpha$
+\subsection{dependence on alpha}
+\item $\forall \alpha_1\leq \alpha_2$ we can see that $pow(\alpha_1)=P(pv(\Tilde{t}_{\theta}\leq \alpha_1)\leq pow(\alpha_2)$
+\item so in other words for a really high $\alpha$ we will always detect an effect if it is there. 
+\item but as $\alpha$ goes up the prob of a false positive also goes up. 
+\item so there is a trade off between the prob of true and false positive 
+\subsection{key question}
+\item how can we increase power while keeping $\alpha$ fixed. basically just gather more data. 
+\item $\theta$ is our effect size. when $\theta\leq \theta_{null}$ we want $pow(\theta)\leq \aleph$ otherwise we want the opposite. 
+\item as our data goes up the our curves get sharper. 
+\item when n is to low, we say that the study is underpowerd. ie we have a low likelihood of finding an effect size if it is there 
+\subsection{free throw example}
+\item alternative free throw percentage different at home than away 
+\itme null percentage is the same 
+\item test stat is percentage at home minus percentage away (this is a 1 sided two sample test) 
+\item we could also take the absolute value of his shooting percentage at home versus away as a test stat (that would make it a two sized test) 
+\subsection{one tailed test vs two tail}
+\item the test stat is approximately Gaussian and we compute our p value based off of one tail
+\item in the two tailed we take p values form both tails of the distribution 
+\item the power function has two parameters when the alternative hypothesis holds his away and home shot percentage 
+\item we are going to fix the home percentage and see how the power function changes as a function of the away percentage
+\item we can derive this using the rejection reign and all that. 
+\item the null is that it is the came 
+\item the power function is bounded at $\alpha$ at the null hypotenuse value 
+\item when they are not the same we are int eh alternate hypothesis 
+\itme for a case where the true effect is that he shoots only slighter worse than away  then the one tailed and two tailed both have a fairly high hence of missing it, but the one tailed is more likely to catch it than the two tailed. so the one sided test has more power in this case
+\item but if it turns out he shoots very well away then with the one tail led test we will never find this but with the two tailed we might, os in that car we would have more power in the two tailed test
+\item the power function allows us to see for what effect sizes and sample sizes we would see an effect. 
+\section{monte carlo estimation}
+\item power is hard to compute analytically 
+\item we can simulate it using monte carlo estimation tho 
+\item so chose a parameter $\theta$
+\item then do the following 
+\begin{itemize}
+    \item simulate n indent samples of the test stat $\Tilde{t}_{\theta}$ can them $t_1...t_n$
+    \item power $\aprox$ the fraction null hepatitis rejections ie $pow(\theta)=P(pv(\Tilde{t}_{\theta})\leq \alpha)\approx \frac{\Sigma_{i=1}^{n}\mathbb{I}(pv(t_i)\leq \alpha)}{k}$
+\end{itemize}
+\item so that is how we estimate power 
+\subsection{example}
+\item he is going through a monte carlo example
+\item when the the null hypothesis holds, 
+\item lets see the probability density for each of the p-values. it should be approximately uniform, which is what we want 
+\item since then the chance that we reject the null (ie make a false positive) is equal to $\alpha$
+\item if there is an effect 
+\item then we can see that many more more of the p values are bellow the significance threshold, and the likelihood that we see that  is the power.
+
+
+
+\end{itemize}
+\end{document}

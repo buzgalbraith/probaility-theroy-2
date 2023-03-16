@@ -1,0 +1,117 @@
+\documentclass[12pt,twoside]{article}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz,graphicx,amsmath,amsfonts,amscd,amssymb,bm,cite,epsfig,epsf,url}
+\usepackage[hang,flushmargin]{footmisc}
+\usepackage[colorlinks=true,urlcolor=blue,citecolor=blue]{hyperref}
+\usepackage{amsthm,multirow,wasysym,appendix}
+\usepackage{array,subcaption} 
+% \usepackage[small,bf]{caption}
+\usepackage{bbm}
+\usepackage{pgfplots}
+\usetikzlibrary{spy}
+\usepgfplotslibrary{external}
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{arrows,automata}
+\usepackage{thmtools}
+\usepackage{blkarray} 
+\usepackage{textcomp}
+\usepackage[left=0.8in,right=1.0in,top=1.0in,bottom=1.0in]{geometry}
+
+\input{macros}
+
+\begin{document}
+
+\begin{center}
+{\large{\textbf{Homework 5}} } \vspace{0.2cm}\\
+Due  March 5 at 11 pm
+\\
+\end{center}
+\input{hwstatement.tex}\\
+
+\begin{enumerate}
+
+
+\item (Modified bootstrap Gaussian confidence interval)
+\begin{enumerate}
+\item Explain how to modify the bootstrap Gaussian confidence interval for the correlation coefficient using Fisher's transformation. 
+\begin{itemize}
+\color{blue}
+    \item the fisher transformation of the sample correlation coefficient  $h(\Tilde{\rho})=\frac{1}{2}log(\frac{1+p}{1-p})$ is a scaled version of the log function and thus is monotonic. 
+    \item further it has been proven that under the fisher transform 
+    $M(\Tilde{\rho}) \sim \mathcal{N}(M(\rho_{pop}), \sigma^2)$ thus by theorem 9.52  we can construct a percentile bootstrap confidence interval on rho
+    \item to accomplish this we take $k$ bootstrap batches of size n from our sample x call them $\Tilde{b_{i}^{k}}$
+    \item then we compute the estimator value on each of our bootstrap samples call it $\Tilde{w_i}=cor(\Tilde{b_{i}})$
+    \item then we find a $q_{\frac{\alpha}{2}}:P(\Tilde{w_i}\leq q_{\frac{\alpha}{2}})={\frac{\alpha}{2}} $ and  $q_{1-\frac{\alpha}{2}}:P(\Tilde{w_i}\leq  q_{1-\frac{\alpha}{2}} ) =1-{\frac{\alpha}{2}} $ 
+    and form a confidence interval $$\Tilde{\mathcal{I}}_{1-\alpha}=[q_{\frac{\alpha}{2}},q_{1-\frac{\alpha}{2}}]$$
+    \item this is important, as due to the knowledge of the fisher transform and it's properties, we know that even in settings where our original sample size was low, and thus the estimator on it may not be Gaussian we can use bootstrap percentile confidence intervals
+    \item it is also help full as we do not need to explicit use the fisher transform it's self as long as we know it applies
+\end{itemize}
+
+
+\item 
+Apply your method on the correlation between \textit{footlength} and \textit{stature} in \texttt{ANSUR\ II\ MALE\ Public.csv} to compute 0.95 confidence intervals from $n$ samples. Plot them along with non-modified 0.95 bootstrap Gaussian confidence intervals and also with the population correlation coefficient.
+\begin{itemize}
+    \color{blue}
+    \item \includegraphics[width=10cm]{homework/homework_5/immages/quistion1b_1.png}
+    \item \includegraphics[width=10cm]{homework/homework_5/immages/quistion1b_2.png}
+\end{itemize}
+
+
+\item Estimate and report the probability that the population correlation belongs to each type of confidence interval.
+\begin{itemize}
+    \color{blue}
+    \item using samples of size 25, $\alpha=.05$ and constricting $10,000$ bootstraps i found that the Gaussian confidence intervals captured the population correlation coefficient $90.43\%$ of the time, and the percentile confidence interval $91.81\%$ of the time 
+\end{itemize}
+\end{enumerate}
+\newpage
+\item (Confidence intervals for the variance) 
+\begin{enumerate}
+\item Explain how to build a $1-\alpha$ bootstrap Gaussian confidence intervals for the population variance from $n$ data points.
+\begin{itemize}
+    \color{blue}
+    \item let k be the number of bootstraps you want to make 
+    \item initialize a list boostrap\_variances of length k 
+    \item loop k times
+    \begin{itemize}
+    \item sample n individuals randomly, independently and with replacement from your original sample $X$ call this your boot strap sample
+    \item calculate the sample variance of your bootstrap sample and add it to the  boostrap\_variances list
+        \end{itemize}
+    \item calculate the sample variance of the boostrap\_variances list and store it as estimated\_standard\_error 
+    \item output a confidence interval as\\ $\mathcal{I}=[se(\text{original sample})-c_{\alpha}*estimated\_standard\_error,se(\text{original sample})+c_{\alpha}*estimated\_standard\_error]$
+\end{itemize}
+
+\item Explain how to build a $1-\alpha$ bootstrap percentile confidence intervals for the population variance from $n$ data points.
+\begin{itemize}
+    \color{blue}
+    \item let k be the number of bootstraps you want to make 
+    \item initialize a list boostrap\_variances of length k 
+    \item loop k times
+    \begin{itemize}
+    \item sample n individuals randomly, independently and with replacement from your original sample $X$ call this your boot strap sample
+    \item calculate the sample variance of your bootstrap sample and add it to the  boostrap\_variances list
+        \end{itemize}
+    \item calculate a value $q_{\frac{\alpha}{2}}$ such that the proportion of elements in our  boostrap\_variances less than of equal to  $q_{\frac{\alpha}{2}}$ is $\frac{\alpha}{2}$
+   \item calculate a value $q_{1-\frac{\alpha}{2}}$ such that the proportion of elements in our  boostrap\_variances less than of equal to  $q_{1-\frac{\alpha}{2}}$ is $1-\frac{\alpha}{2}$
+    \item output a confidence interval as\\ $\mathcal{I}=[q_{\frac{\alpha}{2}},q_{1-\frac{\alpha}{2}}]$
+\end{itemize}
+
+
+
+
+\item Build 0.95 bootstrap Gaussian and percentile confidence intervals for the population variance of \textit{stature} in \texttt{ANSUR\ II\ MALE\ Public.csv} setting $n=100$. Plot the confidence intervals along with the true population variance. 
+\begin{itemize}
+    \color{blue}
+    \item \includegraphics[width=10cm]{homework/homework_5/immages/quistion2b_1.png}
+\end{itemize}
+
+\item Estimate and report the probability that the population variance belongs to each type of confidence interval.
+
+\begin{itemize}
+    \color{blue}
+    \item using samples of size 25, $\alpha=.05$ and constricting $10,000$ bootstraps i found that the Gaussian confidence intervals captured the population correlation coefficient $94.45\%$ of the time, and the percentile confidence interval $93.01\%$ of the time
+\end{itemize}
+
+\end{enumerate}
+
+\end{enumerate}
+\end{document}

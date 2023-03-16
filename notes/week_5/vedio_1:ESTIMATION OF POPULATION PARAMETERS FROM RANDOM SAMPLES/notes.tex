@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\title{Vedio 1: ESTIMATION OF POPULATION PARAMETERS FROM RANDOM SAMPLES}
+\author{wbg231 }
+\date{December 2022}
+\newcommand{\R}{$\mathbb{R}$}
+\newcommand{\B}{$\beta$}
+\newcommand{\A}{$\alpha$}
+\newcommand{\D}{\Delta}
+
+\newcommand{\avector}[2]{(#1_2,\ldots,#1_{#2})}
+\newcommand{\makedef}[2]{$\textbf{#1}$:#2 }
+\usepackage{tikz,graphicx,hyperref,amsmath,amsfonts,amscd,amssymb,bm,cite,epsfig,epsf,url}
+
+\begin{document}
+
+\maketitle
+
+\section{introduction}
+\href{https://www.youtube.com/watch?v=XtiH5kytdnw&list=PLBEf5mJtE6KuZ5NBQMuWIMsiOOrV9ibzm&index=77}{video link}
+\begin{itemize}
+\item this is an overview video for this week last week and the week before material 
+\item so i am going to just take high level notes
+\subsection{random sampling}
+\item we want to estimate a population parameter, from a limited sample 
+\item the best we can do is take a random subset of people and use that to characterize the total population
+\item the mean of the sample is a random variable, so there is some uncertainty
+\item in random sampling we need to uniformly and independently (ie with replacement) pick people from the population
+\item sample mean is approximated by the sample mean, 
+\item we are taking a frequentest perspective where the parameter of interest is a fixed real thing 
+\section{the bias and consistency}
+\item the bias of an estimator is the mean of the error of our estimator if we have an estimator x and a true parameter $\gama$ the bias is $E[E[x]-\gamma]$
+\item standard error is the standard deviation of the error around the mean. for an estimator $se[h(x_1...x_n)]=\sqrt{E[h(x_1...x_n)-\gama)^2]}$
+\item the standard error tells us how concentrated the estimator is around the population parameter 
+\item for the sample mean we have $se(m)-\frac{\sigma_{pop}}{\sqrt{n}}$
+\item so as n goes up our standard error falls. 
+\item we want to know $P(|m_n-\mu|>\epsilon)$ that is the probability of oru sample mean of size n being some number $\epsilon$ off from the population parameter this thing goes to 0
+\section{law of large numbers}
+\item if $x_1//x_n$ are random independent variables with mean $\mu$ and variance $\sigma^2$ with mean $m_n=\frac{1}{n}\Sigma_{i=1}^{n} x_i$
+\item then $P(|m_{n}-\mu|>\epsilon)\leq \frac{\sigma^2}{n\epsilon^2}$ which converges to zero for any epsilon
+\item that is the sample mean converges to there mean which is the population mean with high probability 
+\item so the sample mean is a consistent estimator
+\item so we have a bound between the sample and population mean , but it is not very tight and so does not really give a good approximation of the probabilistic behavior of the sample mean 
+\section{sums of independent random variables}
+\item the pmf of n indecent random variables is the pmf of there sums which in the limit goes to the Gaussian since the convolution kind of smooth things out 
+\item this holds for both continuous and discrete rvs so if an and b are independent rv then $f_{a+b}(s)=f_{a}*f_b(s)$
+\item keep in mind by this the average is also a convolution 
+\subsection{central limit theorem}
+\item given a sequence of random samples $x_1...x_n$
+\item the sample mean of those points $\Tilde{m}_n$ has $E[m_n]=\mu$ and $se[m_n]=\frac{\sigma_{pop}}{\sqrt{n}}$ 
+\item further as as n approaches infinity $\Tilde{m}_n$ converges to a Gaussian with mean $\mu$ and standard deviation $se[\Tilde{m}]$
+\item naturally we just apply this approximation to finite n values
+\item this is a much better approximation than the law of large numbers
+\section{confidence intervals}
+\item by the central limit theorem we know the sample mean is a Gaussian with a certain mean and variance, so we can use our knowledge of the distribution to calculate an interval with a certain probability of containing the population parameter
+\item the confidence interval is basically $i=[m-se(m)z,m-se(m)z]$
+\item keep in mind that we are only estimating things from our one sample
+\item keep in mind that as n increases we have less and less uncertainty around our estimate, but the probability that they contain the population parameter has not changes
+\subsection{bootstrap}
+\item we take our available data n measurements
+\item and we do iid sub sampling form our population with replacement 
+\item so we can build many batches of sub-samples (bootstrap samples)from our one real sample
+\item then we can compute the standard error of the estimator of these bootstrap samples
+\item the original data is fixed, but the bootstrap samples and there means are variable
+\item the bootstrap is a very good estimate of the standard error of our sample mean 
+\item they are not going to be centred at the same place, but the standard deviation its self will likely be quite close
+\item so we could plug our bootstrap estimated of standard error into our confidence interval and then can build confidence intervals for more general samples
+\item so we can produce many bootstrap samples compute there estimator and then find there standard error as a bunch of confidence intervals 
+\item and this is a good estimate of the true standard error
+\item but this fails if our estimator is not Gaussian 
+\item if it is not Gaussian we can modify the bootstrap to construct an interval around the sample meant hat contains the population mean with high probability
+\item so we can do the percentile bootstrap confidence  intervals
+\end{itemize}
+\end{document}

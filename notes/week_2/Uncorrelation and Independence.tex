@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\title{vedio 2: Uncorrelation and Independence}
+\author{wbg231 }
+\date{December 2022}
+\newcommand{\R}{$\mathbb{R}$}
+\newcommand{\B}{$\beta$}
+\newcommand{\A}{$\alpha$}
+\newcommand{\D}{\Delta}
+
+\newcommand{\avector}[2]{(#1_2,\ldots,#1_{#2})}
+\newcommand{\makedef}[2]{$\textbf{#1}$:#2 }
+\usepackage{tikz,graphicx,hyperref,amsmath,amsfonts,amscd,amssymb,bm,cite,epsfig,epsf,url}
+
+\begin{document}
+
+\maketitle
+
+\section{introduction}
+\begin{itemize}
+\item \href{https://www.youtube.com/watch?v=t9TNCYYK8ck&list=PLBEf5mJtE6KuZ5NBQMuWIMsiOOrV9ibzm&index=62}{video link}
+\item we want to establish the difference between Independence and Uncorrelation 
+\section{uncorelated data}
+\item if$\rho_{a,b}\geq 0$ and $cov(a,b)$ then a and b are positively correlated. there is a positive linear relationship between the two ie they are proportional
+\item when $\rho_{a,b}=0$ there is no linear dependence we just guess that mean and the residual is the original data
+\section{independent data}
+\item if a and b are independent then $cov(a,b)=E[ab]-E[a]E[b]=E[a]E[b]-E[a]E[b]=0$
+\item Independence implies uncorelation but it does not go the other way 
+\item the logic is more or less that Independence means A and B have no relationship at all uncorealtion means that a and b have no linear relationship
+\section{Gaussian random variables}
+\item covariance for uncorrelated Gaussian random variables with zero mean and unit variance 
+\item $\Sigma=\begin{pmatrix} 1 & \rho\\ \rho & 1 \end{pmatrix}$
+\item recall that the off digaonl of $\Sigma$ is the correlation between a and b so we have $\Sigma=\begin{pmatrix} 1 & \rho\\ \rho & 1 \end{pmatrix}=\begin{pmatrix} 1 & 0\\ 0 & 1 \end{pmatrix}=I$
+\item then we have $\Sigma^{-1}=I$
+\item so we joint pdf $f_{a,b}(a,b)=\frac{1}{2\pi \sqrt{\Sigma}}e^{\frac{-1}{2}\begin{pmatrix}
+    a\\b
+\end{pmatrix}^t\Sigma^{-1}\begin{pmatrix}
+    a\\b
+\end{pmatrix}}=\frac{1}{2\pi}e^{-\frac{a^2}+b^2{2}}=\frac{1}{2\pi}e^{-\frac{a^2}{2}}\frac{1}{2\pi}e^{-\frac{b^2}{2}}=f_{a}(a)f_{b}(b)$
+\item so in other words Gaussian random variables that are uncorrelated are independent completely
+\item keep in mind that this is not always the case there are situations where uncorrelated random variables will not be independent 
+\section{uncorrelated residual }
+\item recall in the linear regression problem that a and the residual $a-l(a)$ are uncorrelated 
+\item however, the residual and a do not have to be independent
+
+\end{itemize}
+\end{document}

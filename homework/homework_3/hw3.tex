@@ -1,0 +1,188 @@
+\documentclass[12pt,twoside]{article}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz,graphicx,amsmath,amsfonts,amscd,amssymb,bm,cite,epsfig,epsf,url}
+\usepackage[hang,flushmargin]{footmisc}
+\usepackage[colorlinks=true,urlcolor=blue,citecolor=blue]{hyperref}
+\usepackage{amsthm,multirow,wasysym,appendix}
+\usepackage{array,subcaption} 
+% \usepackage[small,bf]{caption}
+\usepackage{bbm}
+\usepackage{pgfplots}
+\usetikzlibrary{spy}
+\usepgfplotslibrary{external}
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{arrows,automata}
+\usepackage{thmtools}
+\usepackage{blkarray} 
+\usepackage{textcomp}
+\usepackage[left=0.8in,right=1.0in,top=1.0in,bottom=1.0in]{geometry}
+
+\input{macros}
+
+\begin{document}
+
+\begin{center}
+{\large{\textbf{Homework 3}} } \vspace{0.2cm}\\
+Due Feb 12 at 11 pm
+\\
+\end{center}
+\input{hwstatement.tex}\\
+
+\begin{enumerate}
+
+
+\item (Markov's and Chebyshev's inequalities are tight)
+In this problem we show that Markov's and Chebyshev's inequalities cannot be improved without further assumptions, because there exist random variables for which they are tight. 
+\begin{enumerate}
+\item For any $c >0$ and any $0 < \theta < 1$, build a nonnegative random variable $\ra$ such that 
+\begin{align}
+\P\brac{\ra \geq c} = \theta = \frac{\E\sqbr{ \ra }}{c}.
+\end{align} 
+\begin{itemize}
+    \item the conditions of Markov's inequality are met so we know that $P(\Tilde{a}\geq c)\leq \frac{E[\Tilde{a}]}{c}$
+    \item for any $c$ suppose that we define a non-negative random variable $\Tilde{a}$ such that $P(\Tilde{a}\in\{0,c\})=1$ ie $\Tilde{a}$ can only take on values of 0 or c. 
+    \item if this is the case we can write $E[\Tilde{a}]=\Sigma_{a\in \mathbb{R}}aP(\Tilde{a}=a)=0P(\Tilde{a}=0)+\Sigma_{a=1}^{c-1}aP(\Tilde{a}=a)+cP(\Tilde{a}=c)\leq 0P(\Tilde{a}=0)+(c)\Sigma_{a=1}^{c-1}P(\Tilde{a}=a)+cP(\Tilde{a}=c)=0+0+P(\Tilde{a}=c)$ further since $\Tilde{a}$ only takes on values c or 0 we know that $P(\Tilde{a}=c)=P(\Tilde{a}\geq c)$ thus we have $E[\Tilde{a}]\leq c P(\Tilde{a}\geq c)\Rightarrow P(\Tilde{a}\geq c) \geq \frac{E[\Tilde{a}]}{c}$ 
+    \item so thus we know$  P(\Tilde{a}\geq c) \geq \frac{E[\Tilde{a}]}{c}$ and  $P(\Tilde{a}\geq c) \leq \frac{E[\Tilde{a}]}{c}$ which implies that $ P(\Tilde{a}\geq c) =\frac{E[\Tilde{a}]}{c}$
+\end{itemize}
+
+\item For any $c >0$, any $0 < \theta < 1$ and any $\mu \in \R$, build a random variable $\rb$ with mean $\mu$ and finite variance, such that 
+\begin{align}
+\P\brac{ | \rb - \mu | \geq c} = \theta = \frac{\var\ssqbr{\rb} }{c^2}.
+\end{align} 
+\begin{itemize}
+    \item here we want to build $\Tilde{b}$ such that $(\Tilde{b}-\mu)^2$ satisfy  $P((\Tilde{b}-\mu)^{2}\in \{0,c\})=1$
+    \item observe that regardless of the value of $\mu$ if $\Tilde{b}=\sqrt{\mu}$ we have $(\Tilde{b}^{2}-\mu)^2=(\mu-\mu)^2=0$
+    \item similarly regardless of the value of $\mu$ if $\Tilde{b}=\sqrt{\mu+c^2}$ then $(\Tilde{b}^{2}-\mu)^2=(c^2+\mu-\mu)^2=c^2$
+    \item so if we  design $\Tilde{b}$ such that $P(\Tilde{b}\in \{\mu, c^2+\mu\})=1$ then the random variable $(\Tilde{b}-\mu)^2$ will satisfy our conditions from part one and thus have $P((\Tilde{b}-\mu)^2\geq c)=\frac{E[(\Tilde{b}-\mu)^2]}{c}$
+    \item then we can see $P(|\Tilde{b}-\mu|)=P((\Tilde{b}-\mu)^2\geq c^2)= \frac{E[\Tilde{b}-\mu]^2}{c^2}=\frac{var(\Tilde{b})}{c^2}$
+\end{itemize}
+\end{enumerate}
+\newpage
+\item (Online poll) In online polls, young people are often overrepresented. In this problem we study how to correct for this. When answering the questions use the following notation: $\alpha$ is the proportion of young people (between 18 and 35 years old) in the population, $\theta_1$ the proportion of young people in the population who will vote for the Democratic candidate, $\theta_2$ the proportion of old people in the population who will vote for the Democratic candidate, $n_1$ the number of young people in the poll, and $n_2$ the number of old people in the poll. Assume that $\alpha$ is known.
+\begin{enumerate}
+\item Derive an estimator of the proportion of voters that will vote for the Democratic candidate, as a function of the number of young people $y$ and the number of old people $o$ in the poll that intend to vote Democrat. 
+\begin{itemize}
+    \item we can design an estimator $p=p(o,y)=\alpha(\frac{y}{n_1})+(1-\alpha)(\frac{0}{n_2})$
+\end{itemize}
+\item Evaluate your estimator for a poll with 100 participants where 60 intend to vote for the Democratic candidate. Out of the 100 participants, 70 are young, and 50 of them intend to vote for the Democratic candidate. The fraction of young people among voters in general is 25\%. 
+\begin{itemize}
+    \item for a poll with 100 participants where 60 intend to vote for the Democratic candidate our estimator would return a proportion of democrat voters equal to $0.4285714285714286$
+\end{itemize}
+
+
+\item Under what assumptions is your estimator unbiased? Justify your answer mathematically.
+\begin{itemize}
+    \item we can see that the true proportion of democrat voters in the population is $p_{pop}=\alpha(\theta_1)+(a-\alpha)(\theta_2)$
+    \item we can find the expectation of our estimator p as $E[p]=E[\alpha(\frac{y}{n_1})+(1-\alpha)(\frac{0}{n_2})]=E[\alpha(\frac{y}{n_1})]+E[(1-\alpha)(\frac{0}{n_2})]=\frac{\alpha}{n_1}E[y]+\frac{1-\alpha}{n_2}E[o]$
+    \item note that we can write $Y=\Sigma_{i=1}{n_1}1(\text{ young person i votes democrat)})$ that is $Y$ (the number of young people in the sample who voted democrat) is the sum of the number of people who chose to vote democrat and
+    \item similarly for old people we have $o=\Sigma_{i=1}{n_2}1(\text{ old person i votes democrat)})$
+    \item we assume that the young people $y_i$ and old people $o_i$ are sampled IID from respective populations $Y_{pop}, O_{pop}$ and further that the sampling from $Y_{pop}$ is independent of the sampling from $O_{pop}$
+    \item if this is the case we can write $y=\Sigma_{i=1}^{n}1(\text{ young person i votes democrat)})=\Sigma_{i=1}{n_1}(y_i)$
+    \item thus $E[y]=E[\Sigma_{i=1}{n_1}(y_i)]=(n_1)\Sgima_{i=1}^{n_1}E[y_i]$
+    \item as we assumed $y_i$ is iid we know from lecture $E[y_i]=\frac{1}{N}\Sigma_{i=1}^{N}Y_iP(y_i=Y_i)=\theta_1$
+    \item thus we have $E[y]=E[\Sigma_{i=1}^{n_1}(y_i)]=(n_1)\Sgima_{i=1}^{n_1}E[y_i]=(n-1)(\theta_1)$
+    \item this allows us to write $\frac{E[y]}{n_1}=\frac{\tehta_1 (n_1)}{n_1}=\theta_1$
+    \item we can do the same argument for old people to show that under our assumptions $\frac{E[O]}{N_2}=\theta_2$
+    \item thus $E[p]=E[\alpha(\frac{y}{n_1})+(1-\alpha)(\frac{0}{n_2})]=E[\alpha(\frac{y}{n_1})]+E[(1-\alpha)(\frac{0}{n_2})]=\frac{\alpha}{n_1}E[y]+\frac{1-\alpha}{n_2}E[o]=\alpha (\tehta_1)+(1-\alpha)\theta_2$
+    \item so we can finally see that under our assumptions $p_{pop}-E[p]=\alpha (\tehta_1)+(1-\alpha)\theta_2-\alpha (\tehta_1)+(1-\alpha)\theta_2=0$ and thus $p$ is an unbiased estimator of $p_{pop}$
+    \end{itemize}
+
+\item Show that your estimator is consistent as $n_1 \rightarrow \infty$ and  $n_2 \rightarrow \infty$.
+\begin{itemize}
+    \item we want to show that as $lim_{n_1,n_2\rightarrow \infty}P(|p-p_{pop}|\geq \epsilon=0) $ for any positive $\epsilon$
+    \item first we showed that P is unbiased under random sampling assumptions above
+    \item now we want to look at the variance of our estimator p.
+    \item $var(p)=var(\alpha(\frac{y}{n_1})+(1-\alpha)(\frac{0}{n_2}))$ 
+    \item  as we assumed samples are random iid are drawn independently from the young and old populations  $var(p)=var(\alpha(\frac{y}{n_1})+(1-\alpha)(\frac{0}{n_2}))=\frac{\alpha^2}{n_1^2}var(y)+\frac{(1-\alpha)^2}{n_2^2}var(o)$
+    \item from here we can say that $var(p)={\alpha^2}var(\frac{y}{n_1})+(1-\alpha)^2var(\frac{o}{n_2})$ 
+    \item we can see that $var(\frac{y}{n_1})$ is variance of a sample proportion of an unbiased rv thus $var(\frac{y}{n_1})=var(\frac{1}{n_1}\Sigma_{i=1}^{n_1}\frac{y_i}{n_1}=\frac{1}{n_1^2}\Sigma_{i=1}^{n}var(\frac{y_i}{n-1})=\frac{1}{n_1^{4}}\Sigma_{i=1}^{n}var({y_i})$
+    \item $var(y_i)=var((n_1)\Sigma_{i=1}^{n_1}y_i)=n_1^{2}\Sigma_{i=1}^{n}var(y_i)=n_1^{2}\sigma_{y}$ where $\sigma_{y}$ is the population variance of young people. using the fact that $var(y_i)=\Sigma_{i=1}^{N}(Y_{pop_i}-\theta_1)^2P(y_i=Y_{pop_i})=\frac{1}{n}\Sigma_{i=1}^{N}(Y_{pop_i}-\theta_1)^2=\sigma_{y}^2$
+    \item so finally we have $var(\frac{y}{n_1})=var(\frac{1}{n_1}\Sigma_{i=1}^{n_1}\frac{y_i}{n_1}=\frac{1}{n_1^2}\Sigma_{i=1}^{n}var(\frac{y_i}{n-1})=\frac{1}{n_1^{4}}\Sigma_{i=1}^{n}var({y_i})=\frac{\sigma_{y}^2}{n_1^2}$
+    \item we can repeat the $var(\frac{0}{n_2})=\frac{\sigma_{0}^2}{n_2^2}$
+    \item this finally yields that $var(p)=\frac{\alpha^2 \sigma_{y}^2}{n_1^{2}}+\frac{(1-\alpha)^2 \sigma_{o}^2}{n_2^{2}}$
+    \item from here we can use Chebyshev's inequality and see that $P(|p-\alpha(\theta_1)+(1-\alpha)(\theta_2)|\geq  \epsilon)\leq \frac{var(p)}{\epsilon^2}=\frac{\alpha\sigma_{y}^2}{n_1^2 \epsilon^2}+\frac{(1-\alpha)\sigma_{o}^2}{n_2^2 \epsilon^2}$
+    \item we know that $\epsilon, \alpha$ are fixed thus as $n_1,n_2\rightarrow \infty$ this quantity will approach zero meaning the estimator is consistent 
+\end{itemize}
+
+
+\end{enumerate}
+\newpage
+\item (Consistency of the sample median) Let $\rx_1$, $\rx_2$, \ldots be a sequence of i.i.d. random variables from a distribution with median $\gamma$. We assume that $\gamma$ is the only point that satisfies $F_{\rx_i}(\gamma) = 1/2$. Let $\widetilde{md}_n$ denote the median of the $n$ first elements of the sequence. In this problem we establish that for any $\epsilon > 0$
+\begin{align}
+\label{eq:emp_median}
+\lim_{n\rightarrow \infty} \P\brac{ \abs{ \widetilde{md}_n - \gamma} \geq  \epsilon} = 0,
+\end{align}
+so the sample median is a consistent estimator of the median. Specifically, the goal is to prove
+\begin{align}
+\label{eq:emp_median_geq}
+\lim_{n\rightarrow \infty} \P\brac{  \widetilde{md}_n  \geq \gamma + \epsilon} = 0,
+\end{align}
+because the same argument can be used to prove
+\begin{align}
+\label{eq:emp_median_leq}
+\lim_{n\rightarrow \infty} \P\brac{  \widetilde{md}_n  \leq \gamma - \epsilon} = 0,
+\end{align}
+and combining \eqref{eq:emp_median_geq} and \eqref{eq:emp_median_leq} yields \eqref{eq:emp_median}.
+\begin{enumerate}
+\item Let $\rnd{b}$ be the number of elements in $\keys{\rx_1, \ldots, \rx_n}$ greater or equal to $\gamma + \epsilon$. Explain why
+
+
+\begin{align}
+\P\brac{\widetilde{md}_n \geq \gamma + \epsilon} & \leq \P \brac{ \rnd{b} \geq \frac{n+1}{2} }. \label{eq:bound_ry_frac}
+\end{align}
+\begin{itemize}
+    \item $P(\Tilde{m}_{dn}\geq  \gamma +\epsilon)$ can be expressed in terms of $\Tilde{b}$ such that if n is odd we can write $P(\Tilde{m}d_{n}\geq \gamma + \epsilon)=P(\Tilde{b}\geq \frac{n+1}{2})$
+    \item if n is even then it must be the case that both $\frac{n}{2}$ and $\frac{n}{2}+1$ are greater than $\gamma + \epsilon$ so in this case $P(\Tilde{m}d_{n}\geq \gamma + \epsilon)=P(\Tilde{b}\geq \frac{n}{2}+1)\leq P(\Tilde{b}\geq \frac{n+1}{2})$
+    \item thus as probabilities are always positive we can conclude $P(\Tilde{m}_{dn}\leq \gamma +\epsilon)\leq P(\Tilde{b}\geq \frac{n+1}{2})$ which was what we wanted to show. 
+\end{itemize}
+
+
+\item Use Chebyshev's inequality and \eqref{eq:bound_ry_frac} to prove \eqref{eq:emp_median_geq}. (Hint: By the assumption that $\gamma$ is the only point that satisfies $F_{\rx_i}(\gamma) = 1/2$, there exists a constant  $\epsilon'>0$ such that for any $i$ the probability that $\rx_i > \gamma + \epsilon$ is $\P\brac{\rx_i > \gamma + \epsilon} = 1/2 - \epsilon' := \theta$.)
+\begin{itemize}
+    \item first note that  $E[\Tilde{b}]=E[\frac{1}{n}\Sigma_{i=1}^{n}1(x_i\geq \lambda +\epsilon)]=\frac{1}{n}\Sigma_{i=1}^{n}E[1(x_i\geq \lambda +\epsilon)]=\frac{1}{n}\Sigma_{i=1}^{n}P(x_i\geq \gamma +\epsilon)=1/2 -\epsilon^{*}$
+    \item we can use this to write Chebyshev's as $P(|\Tilde{b}-1/2 +\epsilon^{*})|\geq \frac{n+1}{2}\leq \frac{var(\Tilde{b})}{(\frac{n+1}{2})^2}$ 
+    \item as we can see $\Tilde{b}$ is bernuli we can write that $var(b)=E[\Tilde{b}](1-E[\Tilde{b}])=(1/2 -\epsilon^{*})(1/2 +\epsilon^{*})$
+    \item and thus $P(|\Tilde{b}-1/2 +\epsilon^{*})|\leq \frac{n+1}{2}\leq \frac{var(\Tilde{b})}{(\frac{n+1}{2})^2}=\frac{(1/2 -\epsilon^{*})(1/2 +\epsilon^{*})}{(\frac{n+1}{2})^2}$ and as $n\rightarrow \infty$ we can see $\frac{(1/2 -\epsilon^{*})(1/2 +\epsilon^{*})}{(\frac{n+1}{2})^2}\rightarrow 0$
+    
+    \item if $\Tilde{b}-1/2 +\epsilon^{*}\geq 0$  we can write $P(|\Tilde{b}-1/2 +\epsilon^{*})|\geq \frac{n+1}{2})=P(\Tilde{b}-1/2 +\epsilon^{*}\geq \frac{n+1}{2})=P(\Tilde{b}|\geq \frac{n+1}{2}+1/2 -\epsilon^{*})$ then we can finally write $P(\Tilde{m}d_n\geq \lambda +\epsilon+1/2-\epsilon^{*})= P(\Tilde{m}d_n\geq \lambda +\epsilon^{``})\leq P(\Tilde{b}\geq \frac{n+1}{2}+1/2 -\epsilon^{*})\leq  \frac{(1/2 -\epsilon^{*})(1/2 +\epsilon^{*})}{(\frac{n+1}{2})^2}$ and thus as n approach's infinity we can see that $\lim_{n\rightarrow \infty} \P\brac{  \widetilde{md}_n  \geq \gamma + \epsilon} = 0$ holds
+    \item     \item if $\Tilde{b}-1/2 +\epsilon^{*}< 0$  we can write $P(|\Tilde{b}-1/2 +\epsilon^{*})|\geq \frac{n+1}{2})=P(-\Tilde{b}+1/2 -\epsilon^{*}\geq \frac{n+1}{2})=P(-\Tilde{b}|\geq \frac{n+1}{2}-1/2 +\epsilon^{*})=P(\Tilde{b}\leq -\frac{n+1}{2}+1/2 -\epsilon^{*})$ then we can finally write $P(\Tilde{m}d_n\geq +1/2-\epsilon^{*}-\lambda +\epsilon)= P(\Tilde{m}d_n\geq \lambda +\epsilon^{``})\leq P(\Tilde{b}\geq \frac{n+1}{2}+1/2 -\epsilon^{*})\leq  \frac{(1/2 -\epsilon^{*})(1/2 +\epsilon^{*})}{(\frac{n+1}{2})^2}$ and thus as n approach's infinity we can see that $\lim_{n\rightarrow \infty} \P\brac{  \widetilde{md}_n  \geq \gamma + \epsilon} = 0$ holds
+\end{itemize}
+
+\newpage
+\end{enumerate}
+\item (Blood Pressure) The table in \texttt{cardio.csv} records the systolic blood pressure (\textit{``ap\_hi"}) of patients. Randomly sample subsets consisting of $0.1\%, 0.2\%, \cdots, 99.9\%$ of the full dataset. 
+\begin{enumerate}
+\item Compute and plot the bias and variance of these subsets as a function of the number of samples. Interpret your findings.
+\begin{enumerate} 
+    \item \includegraphics[width=10cm]{homework/homework_3/immages/Figure_1.png}
+    \begin{itemize}
+        \item as can be seen from the above plot sample bias goes down as the proportion of the population used in a sample. further it seems like sample bias is stabilizes with a sample that is around 20$\%$ of the population and stops falling
+    \end{itemize} 
+    \\ \includegraphics[width=10cm]{homework/homework_3/immages/Figure_2.png}
+        \begin{itemize}
+                \item as can be seen from the above plot sample variance goes down as the proportion of the population used in a sample. further it seems like sample variance is stabilizes with a sample that is around 20$\%$ of the population and stops falling
+    \end{itemize}
+\end{enumerate}
+
+
+\item Approximate the probability that \textit{ap\_hi} deviates from the corresponding population mean via Monte Carlo simulations, and compare it to the Chebyshev bound that we use to prove the law of large numbers.
+\begin{itemize}
+\item i was not entirely sure how we were supposed to show this, but here are some figures that i think illustrate the relationship well.
+\begin{enumerate}
+    \item \includegraphics[width=10cm]{homework/homework_3/immages/Figure_4.png}
+    \begin{itemize}
+        \item the variance of our data is 23719.178472621654 which is very high. so thus we would need $\epsilon\geq154.01031937055924$ to bound $P(|\Tilde{x}-\mu|\geq \epsilon)\leq 1$
+        \item so as can  be seen from this chart and Chebyshev's inequality vies us a very louse bound for this data  
+    \end{itemize}
+    \item \includegraphics[width=12cm]{homework/homework_3/immages/Figure_3.png}
+    \begin{itemize}
+        \item this graph shows the empirical probability calculated using Monte Carlo methods that the sample mean is bellow various values of $\epsilon$ 
+        \item each line shows how the path of this likelihood varies for different sample sizes
+        \item the real take away of this, is we can establish a frailly tight bound using simulation 
+    \end{itemize}
+    \item so in conclusion for samples with high variance and a well defined mean, empirical methods can be better used to bound the probability that our estimator will differ from the population parameter more tightly than Chebyshev's inequality 
+\end{enumerate}
+\end{itemize}
+\end{enumerate}
+\end{enumerate}
+\end{document}

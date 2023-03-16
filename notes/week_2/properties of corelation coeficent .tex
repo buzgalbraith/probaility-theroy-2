@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\title{video 1 pretties of correlation coefficient}
+\author{wbg231 }
+\date{December 2022}
+\newcommand{\R}{$\mathbb{R}$}
+\newcommand{\B}{$\beta$}
+\newcommand{\A}{$\alpha$}
+\newcommand{\D}{\Delta}
+
+\newcommand{\avector}[2]{(#1_2,\ldots,#1_{#2})}
+\newcommand{\makedef}[2]{$\textbf{#1}$:#2 }
+\usepackage{tikz,graphicx,hyperref,amsmath,amsfonts,amscd,amssymb,bm,cite,epsfig,epsf,url}
+
+\begin{document}
+
+\maketitle
+
+\section{introduction}
+\begin{itemize}
+\item 
+\href{https://www.youtube.com/watch?v=oWhVVLUjYvU&list=PLBEf5mJtE6KuZ5NBQMuWIMsiOOrV9ibzm&index=61}{vedio link} this is the first vedio 
+
+\item recall that for two random variables a and b the minimum mean squared error estimator of g given a is $l(a)=\sigma(b)\rho_{a,b}s(a)+\mu_{b}$
+\item what is the mean squared error of this estimator? 
+\item $E[(L(a)-b)^2]=E[(\sigma(b)\rho_{a,b}s(a)+\mu_{b}-b)^2]=E[(\sigma(b)\rho_{a,b}s(a)-s(b)\sigma_{b})^2]=\sigma_{b}^2E[(\rho_{a,b}s(a)-s(b))^2]=\sigma^2_{b}(\rho_{a,b}^2E[s(a)^2]+E[s(b)^2]-2\rho_{a,b}E[s(a)s(b)])=\sigma^2_{b}(\rho_{a,b}^2+1-2\rho_{a,b}^2)=\sigma_{b}^2(1-\rho^2_{a,b})$
+\item so this is saying that the mean squared error of the best linear estimate of b given a is the variance of b times 1- the correlation coefficient between a and b squared. 
+\subsection{property 1}
+\item our first goal is to show that $-1\leq \rho_{a,b}\leq 1$ 
+\item recall that the mean squared error of our estimator is $E[(b-l(a))^2]=\sigma_{b}^2(1-\rho^2_{a,b})$
+\item notice further mse is $E[(b-l(a))^2] \geq 0$
+\item meaning that $\sigma_{b}^2(1-\rho^2_{a,b})\geq 0$ meaning that $\rho_{a,b}^{2}\leq 1$ meaning that $-1\leq \rho_{a,b}\leq 1$ which is what we wanted to show 
+\subsection{property 2 }
+\item we want to show that $\rho_{ab}=\pm 1$ then we have linear dependence
+\item note that if $E[a^2]=0$ then $a=0$ with probability 1. this makes sense because the variance of the rv is 0 so it is a constant.
+\item if $|rho_{a,b}|=1$ then our mse becomes  $E[(b-l(a))^2]=\sigma_{b}^2(1-\rho^2_{a,b})=0$ so the mean squared of our residual is zero, thus our residual is zero, and b is equal to the linear estimate 
+\item but the linear estimate is an afine function of a , thus there is complete linear dependence between a and b. 
+\section{property 3}
+\item we want to quantity how much variance is explained by our linear estimate
+\item recall that b can be expressed as b=l(a)+(b-L(a)) where the second term is the residual of b. 
+\item note that $var(a+b)=var(a)+var(b)+2cov(a,b)$  so when there is positive covariance then the variance will go up. if the covariance is negative then then the randomness kind of cancels out 
+\item so if a and b are uncorrelated then $cov(a,b)=0$. meaning that for two uncorrelated variables $var(a+b)=var(a)+var(b)+2cov(a,b)=var(a)+var(b)$
+\item so lets look at the residual $E[b-l(a)]=E[b-\sigma_{b}s(a)-\mu_{b}]=\mu_{b}-\mu_{b}-\sigma_{b}\rho_{a,b}\frac{\mu_{a}-\mu{a}}{\sigma_{a}}=0$
+\item this makes sense because if the mean of the residual were not zero we could always try to correct for it and get a better linear estimator.
+\item $cov(a,b-l(a))=E[(a-\mu_{a})(b-\sigma_{b}\rho_{a,b}\frac{(a-\mu_{a}}{\sigma_{a}})-\mu_{b})]-E[b]E[L(a)]=E[(a-\mu_{a})(b-\sigma_{b}\rho_{a,b}\frac{(a-\mu_{a}}{\sigma_{a}})-\mu_{b})]=E[(\frac{\sigma_{a}(a-\mu_{a})}{\sigma_{a}})-(   (\frac{\sigma_{b}(b-\mu_{b})}{\sigma_{b}}) \rho_{a,b}s(a)) ]=\sigma_{a}\sigma_{b}E[s(a)(s(b)-\rho_{a,b}s(a)]=\sigma_{a}\sigma_{b}(E[s(a)(s(b)]-E[\rho_{a,b}s(a)])=\sigma_{a}\sigma_{b}\rho_{a,b}-\rho_{a,b}E[s(a)^2])=\sigma_{a}\sigma_{b}(\rho_{a,b}-\rho_{a,b})=0$
+\item so in other words there is no linear relationship between the linear estimator and the residual this makes sense because if there was a linear relationship between the residual and a we could add that linear part to our linear estimator 
+\item so note that because the residual is uncorrelated with a it is uncorrelated with any afine function of a including $l(a)$
+\item so we know that $cov(b-l(a),l(a))=0$
+\item this allows us to write that $var(b)=var(l(a)+(b-l(a))=var(l(a))+var(b-l(a))-2cov(a,b-l(a))=var(l(a))+var(b-l(a))$ 
+\item so $var(b-l(a))=E[(b-l(a))^2]-E[b-l(a)]=E[(b-l(a))^2]=(1-\rho_{a,b}^2)var(b)$ in other words we know that the variance of our residual is equal to the mean squared error of our estimator which is a percentage of the var(b).  
+\item so this allows us to write $var(l(a))=var(b)-var(b)(1-\rho_{a,b}^2)=var(b)\rho_{a,b}^2$ 
+\item so we now can see that the variance of our linear estimator is the square of our correlation of determination times the variance of b. 
+\item we can re-write $var(l(a))=var(b)\rho_{a,b}^2$  as $\rho_{a,b}^2=R^2\frac{var(l(A)}{var(b)}$ which we call the coefficient of determination. it is the variance of the best linear estimator divided by the variance of the thing we want to estimate 
+\item we know $0\leq R^2\leq 1$
+\item this is the proportion of variance explained by our linear estimator
+\item so the correlation coefficient immediately tells you how much variance will be captured by the linear estimator
+
+\end{itemize}
+\end{document}

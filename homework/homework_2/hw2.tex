@@ -1,0 +1,269 @@
+\documentclass[12pt,twoside]{article}
+\usepackage{minted}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz,graphicx,amsmath,amsfonts,amscd,amssymb,bm,cite,epsfig,epsf,url}
+\usepackage[hang,flushmargin]{footmisc}
+\usepackage[colorlinks=true,urlcolor=blue,citecolor=blue]{hyperref}
+\usepackage{amsthm,multirow,wasysym,appendix}
+\usepackage{array,subcaption} 
+% \usepackage[small,bf]{caption}
+\usepackage{bbm}
+\usepackage{pgfplots}
+\usetikzlibrary{spy}
+\usepgfplotslibrary{external}
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{arrows,automata}
+\usepackage{thmtools}
+\usepackage{blkarray} 
+\usepackage{textcomp}
+\usepackage[left=0.8in,right=1.0in,top=1.0in,bottom=1.0in]{geometry}
+
+\input{macros}
+
+\begin{document}
+
+\begin{center}
+{\large{\textbf{Homework 2}} } \vspace{0.2cm}\\
+Due  at 11 pm
+\\
+\end{center}
+\input{hwstatement.tex}\\
+
+\begin{enumerate}
+
+\item (Properties of covariance) 
+Prove the following properties of covariance (you can use properties already proved in the notes).\\ 
+
+For any random variables $\ra$ and $\rb$ with finite variance:
+\begin{enumerate} 
+\item For any $\alpha$, $\beta \in \R$
+\begin{align}
+\cov \ssqbr{\beta \ra + \alpha,\rb} & = \beta \cov \ssqbr{\ra,\rb}. 
+\end{align} 
+\begin{itemize}
+    \item $cov[\beta \Tilde{a}+\alpha, \Tilde{b}]=E[(\beta \Tilde{a}+\alpha-E[\beta \Tilde{a}+\alpha])(\Tilde{b}-E[\Tilde{b}])]=E[(\beta \Tilde{a}+\alpha-\beta E[ \Tilde{a}]+\alpha)(\Tilde{b}-E[\Tilde{b}])]=E[\beta (\Tilde{a}- E[\Tilde{a}])(\Tilde{b}- E[\Tilde{b}])]=\beta E[ (\Tilde{a}- E[\Tilde{a}])(\Tilde{b}- E[\Tilde{b}])]=\beta cov(\Tilde{a}, \Tilde{b})$
+\end{itemize}
+
+\item 
+\begin{align}
+-\sqrt{\var \ssqbr{\ra} \var \ssqbr{\rb} } \leq \cov \ssqbr{\ra,\rb} \leq \sqrt{\var \ssqbr{\ra} \var \ssqbr{\rb} }.
+\end{align}
+\begin{itemize}
+    \item $-1\leq \rho_{a,b}\leq 1\Rightarrow -1\leq \frac{cov(a,b)}{\sqrt{var(a)var(b)}}\leq 1\Rightarrow -\sqrt{var(a)var(b)}\leq cov(a,b)\leq \sqrt{var(a)var(b)}$
+\end{itemize}
+\item 
+\begin{align}
+\cov \ssqbr{\ra+\rb,\ra -\rb} = \var \ssqbr{\ra} - \var \ssqbr{\rb}.
+\end{align}
+\begin{itemize}
+    \item$cov(\Tilde{a}+\Tilde{b}, \Tilde{a}-\Tilde{b})=E[(\Tilde{a}+\Tilde{b})( \Tilde{a}-\Tilde{b})]-E[\Tilde{a}+\Tilde{b}]E[\Tilde{a}-\Tilde{b}]=E[\Tilde{a}^2-\Tilde{b}^2]-(E[\Tilde{a}]+E[\Tilde{b}])(E[\Tilde{a}]-E[\Tilde{b}])=E[\Tilde{a}^2-\Tilde{b}^2]-(E[\Tilde{a}]^2+E[\Tilde{b}]^2)=E[\Tilde{a}^2]-E[\Tilde{a}]^2-(E[\Tilde{b}^2]-E[\Tilde{b}]^2)=var(\Tilde{a})-var(\Tilde{b})$
+\end{itemize}
+
+\end{enumerate}
+
+\item (Standardized variables and the sample correlation coefficient) 
+We study the sample correlation coefficient $\rho_{X,Y} $ from Definition~8.10. 
+%\begin{align}
+%\rho_{X,Y}  &:= \frac{ c( X,Y)}{ \sqrt{v(X) v(Y)}}, \qquad c( X,Y)  := \frac{ 1}{n-1} \sum_{i=1}^{n} (x_i - m(X)) (y_i - m(Y)),
+%\end{align}
+%corresponding to a dataset $(x_1,y_1)$, $(x_2,y_2)$, \ldots, $(x_n,y_n)$, $1\leq i \leq n$, where $X := \keys{x_1, x_2, \ldots, x_n}$ and $Y := \keys{y_1, y_2, \ldots, y_n}$, $m(X)$ and $m( Y)$ are the sample means of $X$ and $Y$, and $v(X)$ and $v(Y)$ the sample variances. 
+We denote the OLS estimator of $y_i$, given $x_i$ by $\ell_{\op{OLS}} (x_i)$ and the corresponding residual by 
+\begin{align}
+r_i := y_i -  \ell_{\op{OLS}} (x_i), \qquad 1\leq i \leq n.
+\end{align}
+(\emph{Hint: For all the proofs, follow the same arguments as in the notes, replacing the expectation operator by the averaging operator.})
+\begin{enumerate} 
+\item For the standardized data
+\begin{align}
+s(x_i) & := \frac{x_i - m(X)}{\sqrt{v(X)}}, \\
+s(y_i) & := \frac{y_i - m(Y)}{\sqrt{v(Y)}}, \quad 1 \leq i \leq n,
+\end{align}
+where $m(X)$ and $m( Y)$ are the sample means of $X$ and $Y$, and $v(X)$ and $v(Y)$ the sample variances, we define the standardized datasets as $S_X:= \keys{s(x_1),s(x_2),\ldots,s(x_n)}$ and $S_Y:= \keys{s(y_1),s(y_2),\ldots,s(y_n)}$. Show that the sample mean of the standardized data is zero,
+\begin{align}
+m(S_X) = m(S_Y)=0,
+\end{align}
+the sample variance is one,
+\begin{align}
+v(S_X) & = \frac{1}{n-1}\sum_{i=1}^{n}s(x_i)^2 = 1,\\
+v(S_Y) & = \frac{1}{n-1}\sum_{i=1}^{n}s(y_i)^2 =1,
+\end{align}
+and the sample covariance is equal to the sample correlation coefficient of the original data,
+\begin{align}
+c(S_X,S_Y)=\frac{1}{n-1}\sum_{i=1}^{n}s(x_i)s(y_i) = \rho_{X,Y}.
+\end{align}
+\begin{itemize}
+    \item first lets look at sample mean 
+    \begin{itemize}
+        \item consider data $a$ which is standardized as $s({a})$
+        \item recall that sample mean is defined as $m(\Tilde{a})=\frac{1}{n}\Sigma_{i=1}^{n}a_i$
+        \item thus we see that the same mean for a standardized data is $m(s(a)=\frac{1}{n}\Sigma_{i=1}^{n}s(a_i)=\frac{1}{n}\Sigma_{i=1}^{n}\frac{a_i-m(\Tilde{a})}{\sqrt{v(s(\Tilde{a})}}=\frac{1}{n\sqrt{v(s(\Tilde{a})}}(\Sigma_{i=1}^{n}a_i-m(\Tilde{a}))=\frac{1}{n\sqrt{v(s(\Tilde{a})}}(m(\Tilde{a}))-m(\Tilde{a}))\frac{1}{\sqrt{v(s(\Tilde{a})}}=
+        \frac{m(a)-m(a)}{\sqrt{v(s(a))}}=0$ which is the result we were looking for 
+    \end{itemize} 
+    \item second lets look at sample variance
+    \begin{itemize}
+         \item consider data ${a}$ which is standardized as $s({a})$
+         \item as stated above sample variance is given by $v({a})=\frac{1}{n-1}\Sigma_{i=1}^{n}(a_i-m({a})^2$ 
+         \item thus we can express sample variance of the standardized data as $v(S({a}))=\frac{1}{n-1}\Sigma_{i=1}^{n}(s(a_i)-m(s({a}))^2=\\\frac{1}{n-1}\Sigma_{i=1}^{n}(s(a_i))^2=\\\frac{1}{n-1}\Sigma_{i=1}^{n}(\frac{a_i-m(\Tilde{a})}{\sqrt{v(s(\Tilde{a})}})^2\\=\frac{1}{n-1}\Sigma_{i=1}^{n}[(\frac{a_i-m(\Tilde{a})}{\sqrt{v(s(\Tilde{a})}})(\frac{a_i-m(\Tilde{a})}{\sqrt{v(s(\Tilde{a})}})]=\\\frac{1}{n-1}\Sigma_{i=1}^{n}[\frac{(a_i-m(\Tilde{a}))^2}{V(\Tilde{a})}]=\\\frac{1}{V(a)}(\frac{1}{n-1}\Sigma_{i=1}^{n}(a_i-m(\Tilde{a}))^2)=\\\\ \frac{v({a})}{v({a})}\\=1$ showing the desired relation
+    \end{itemize}
+    \item finally lets look at sample covariance
+    \begin{itemize}
+        \item recall that for general random variables $\Tilde{a}, \Tilde{b}$ covariance is equal to $cov(\Tilde{a},\Tilde{b})=E[(\Tilde{a}-\mu_{a})(\Tilde{b}-\mu_{b})]$
+        \item thus the sample equivalent is $c({a},{b})=\frac{1}{n}\Sigma_{i=1}^{n}[(a_i-m({a})(b_i-m({b})]$
+        \item so apply this to standardized data and see $c(s({a}),s({b}))=\frac{1}{n-1}\Sigma_{i=1}^{n}[(s(a_i)-m(s({a}))(s(b_i)-m(s({b}))]=\frac{1}{n-1}\Sigma_{i=1}^{n}[(s(a_i))(s(b_i))]$ which is part one of the relation we wanted to show 
+        \item on the other hand sample correlation coefficient is $\rho_{a,b}=\frac{1}{n-1}\Sigma_{i=1}^{n}a_i*b_i=\frac{1}{n-1}\Sigma_{i=1}^{n}\frac{a_i-m(a)}{v(a)}\frac{b_i-m(b)}{v(b)}$ since $m(a)=m(b)=0$ and $v(a),v(b)=1$ and finally see that  $\rho_{a,b}=\frac{1}{n-1}\Sigma_{i=1}^{n}a_i*b_i=\frac{1}{n-1}\Sigma_{i=1}^{n}\frac{a_i-m(a)}{v(a)}\frac{b_i-m(b)}{v(b)}=\frac{1}{n-1}\Sigma_{i=1}^{n}[(s(a_i))(s(b_i))]=c(s({a}),s({b}))$ which is what we wanted to show
+    \end{itemize}
+\end{itemize}
+
+
+\item Prove that 
+\begin{align}
+\frac{1}{n-1} \sum_{i=1}^{n} r_i^2 & = \brac{1 - \rho_{X,Y}^2} v(Y).
+\end{align}
+\begin{itemize}
+    \item note that we can write $y_i=(\ell_{ols}(x_i))+((y_i-\ell_{ols}(x_i))$
+    \item we know that $v(y_i)=v(\ell_{ols}(x_i))+v(r_i)+2c(\ell_{ols}(x_i),r_i)$
+    \item note that we can rewrite this expression as $l(a)=b-r=b-(l(a)-b)$ and thus $var(l(a))=var(b)+var(r)+2cov(b,r)$
+    \item thus showing $cov(b,r)=0\Rightarrow var(l(a))=var(b)-var(r)\Rightarrow var(b)=var(l(a))+var(r)\Rightarrow cov(l(a),r)=0 $
+    \item so first lets look at $c(a,r)$ 
+    \begin{itemize}
+        \item $c(\el  l_{ols}(x_i),r_i)=c(x_i,r_i)$ since we know that $\ell_{ols}(x_i)$  is a deterministic function of$x_i$
+        \item so we see we can write $cov(x_i,r_i)=\frac{1}{n-1}\Sigma_{i=1}^{n}(x_i*r_i]-m[x]m(r)$
+        \item so we need to briefly look at $m(r)$
+        \begin{itemize}
+            \item $m[r]=\frac{1}{n}\Sigma_{i=1}^{n}r_i=\frac{1}{n}(\Sigma_{i=1}^{n}y_i-\ell(x_i))=\\\frac{1}{n}(\Sigma_{i=1}^{n}y_i-v(y)s(x_i)-m(y))=\\\frac{1}{n}(\Sigma_{i=1}^{n}y_i-v(y)\rho_{x,y} \frac{x_i-m(x_i)}{v(x_i)}-m(y))=\\ \frac{1}{n}(\Sigma_{i=1}^{n}v(y)\rho_{x,y} \frac{x_i-m(x_i)}{v(x_i)}{v(x)}=\\ \frac{v(y)\rho_{x,y}v(x)}{nv(x)}\Sigma_{i=1}^{n}(x_i-m(x))=\\ \frac{v(y)\rho_{x,y}v(x)}{nv(x)}(m(x)-m(x))
+            
+            \\=0$
+        \end{itemize}
+        \item so thus we can see that  $c(x_i,r_i)=\frac{1}{n-1}\Sigma_{i=1}^{n}[(x_i-m(x))(r_i-m(r_i)]=\frac{1}{n-1}\Sigma_{i=1}^{n}[(x_i-m(x))(r_i)]=\\
+        \frac{1}{n-1}\Sigma_{i=1}^{n}(x_i-m(x))(y_i-\sqrt{v(y)}\rho_{x,y}s(x_i)-m(y))=\frac{1}{n-1}\Sigma_{i=1}^{n}\frac{(x_i-m(x))(\sqrt{v(x)}}{\sqrt{v(x)}}(\frac{(y_i-\my_{y})\sqrt{v(y)}} {\sqrt{v(y})}-\sqrt{v(y)}\rho_{x,y}s(x_i))=\\ \sqrt{v(x)}\sqrt{v(y)}\frac{1}{n-1}\Sigma_{i=1}^{n}\frac{(x_i-m(x))}{\sqrt{v(x)}}(\frac{(y_i-\my_{y})} {\sqrt{v(y})}-\rho_{x,y}s(x_i))=\\\sqrt{v(x)}\sqrt{v(y)}\frac{1}{n-1}\Sigma_{i=1}^{n}s(x_i)(s(y_i) -\rho_{x,y}s(x_i))=\\\sqrt{v(x)}\sqrt{v(y)}(\frac{1}{n-1}\Sigma_{i=1}^{n}s(x_i)(s(y_i)) -\rho_{x,y}\frac{1}{n-1}\Sigma_{i=1}^{n}s(x_i)^2)=\\\sqrt{v(x)}\sqrt{v(y)}(\rho_{x,y}-\rho_{x,y})=0$
+    \end{itemize}
+    \item so thus we can see that that $c(\ell(x),r)=0$ meaning that $v(y)=v(\ell(x))+v(r)$ 
+    \item first we can solve $v(\ell(x))=\frac{1}{n}\Sigma_{i=1}^{n}(\ell(x)-m(\ell(x))^2=\frac{1}{n}\Sigma_{i=1}^{n}(\sqrt{v(y)}\rho_{x,y}s(x)+m(y)-m({y}))^2=\frac{1}{n}\Sigma_{i=1}^{n}(\sqrt{v(y)}\rho_{x,y}s(x))^2=v(y)\rho_{x,y}^2\frac{1}{n}\Sigma_{i=1}^{n}(s(x))^2=v(y)\rho_{x,y}^2$
+    \item next we can get $v(r)=v(y)-v(\ell(x))=v(y)-v(y)\rho_{x,y}^2=v(y)(1-\rho_{x,y}^2)=\frac{1}{n-1}\Sigma_{i=1}^{n}r_i^2$ which was the desired result
+     
+\end{itemize}
+\item Prove that the sample correlation coefficient satisfies the same bounds as the correlation coefficient,
+\begin{align}
+-1 \leq \rho_{X,Y} \leq 1,
+\end{align}
+as long as $v(Y)$ is not zero.
+\begin{itemize}
+    
+    \item the empirical mean squared error of our estimator can be expressed as $\frac{1}{n-1}\Sigma_{i=1}^{n}(\ell(x_i)-y_i)^2=\frac{1}{n-1}\Sigma_{i=1}^{n}(\sqrt{v(y)}s(x_i)\rho_{x,y}-m(y)-y_i)^2=\frac{1}{n-1}\Sigma_{i=1}^{n}(\sqrt{v(y)}s(x_i)\rho_{x,y}-\frac{\sqrt{v(y)}(y_i-m(y))}{\sqrt{v(y)}})^2=\frac{v(y)}{n-1}\Sigma_{i=1}^{n}(s(x_i)\rho_{x,y}-s(y_i))^2=\frac{v(y)}{n-1}\Sigma_{i=1}^{n}(s(x_i)^2\rho_{x,y}^2-2\rho_{x,y}s(x_i)s(y_i)+s(y_i)^2)=\\
+    v(y)\rho_{x,y}^2-2\rho_{x,y}^2v(y)+v(y)=v(y)-\rho_{x,y}^2v(y)=v(y)(1-\rho_{x,y}^2)$
+
+    \item note that empirical mse is def fined as $\frac{1}{n-1}\Sigma_{i=1}^{n}((x_i)-y_i)^2$ it must be the case that $((x_i)-y_i)^2\geq 0$ so this is a sum of non-negative quantities and thus $\frac{1}{n-1}\Sigma_{i=1}^{n}((x_i)-y_i)^2\geq 0$
+    \item we showed above that $\frac{1}{n-1}\Sigma_{i=1}^{n}((x_i)-y_i)^2=v(y)(1-\rho_{x,y}^2)$
+    \item meaning that $v(y)(1-\rho_{x,y}^2)\geq 0$ 
+    \item $v(y)=\Sigma_{i=1}^{n}(y_i-m(y))^2$ again we can see that $(y_i-m(y))^2\geq 0$ and thus  $v(y)=\Sigma_{i=1}^{n}(y_i-m(y))^2\geq 0$
+    \item thus we can see that for $v(y)(1-\rho_{x,y}^2)\geq 0$ to hold it must be the case that $(1-\rho_{x,y}^2)\geq 0$ must hold meaning that $1\geq \rho_{x,y}^2$ and thus finally we see $-1\leq \rho_{x,y}\leq 1$ which is the result we wanted to show
+    
+    \end{itemize}
+
+\item Prove that if $\rho_{X,Y} = \pm 1$, then $y_i = \beta x_i + \alpha$, $1 \leq i \leq n$, for some constant $\alpha$, $\beta \in \R$.
+\begin{itemize}
+    \item suppose that $rho_{x,y}=1$ 
+    \item we know that our empirical mean squared error is $\frac{1}{n-1}\Sigma_{i=1}^{n}(\ell(x_i)-y_i)^2\\=\frac{1}{n-1}\Sigma_{i=1}^{n}(\sqrt{v(y)}s(x_i)\rho_{x,y}-m(y)-y_i)^2\\=\frac{1}{n-1}\Sigma_{i=1}^{n}(\sqrt{v(y)}s(x_i)\rho_{x,y}-\frac{\sqrt{v(y)}(y_i-m(y))}{\sqrt{v(y)}})^2\\=\frac{v(y)}{n-1}\Sigma_{i=1}^{n}(s(x_i)\rho_{x,y}-s(y_i))^2=\\\frac{v(y)}{n-1}\Sigma_{i=1}^{n}(s(x_i)^2\rho_{x,y}^2-2\rho_{x,y}s(x_i)s(y_i)+s(y_i)^2)=\\
+    v(y)\rho_{x,y}^2-2\rho_{x,y}^2v(y)+v(y)=v(y)-\rho_{x,y}^2v(y)=v(y)(1-\rho_{x,y}^2)=0$ 
+    \item note that in empirical mean squared error $\frac{1}{n-1}\Sigma_{i=1}^{n}(\ell(x_i)-y_i)^2$ can be expressed as $\frac{1}{n-1}\Sigma_{i=1}^{n}(\ell(x_i)-y_i)^2=m(r_i^2)$ 
+    \item further as we showed above $m(r)=0$ meaning $v(r_i)=\frac{1}{n}\Sigma_{i=1}^{n}(r_i^2-m(r))=m(r_i^2)$ 
+    \item thus we know that $v(r_i^2)=0$ which implies that $r_i=0$ with probability 1. meaning it must be the case that $\ell(x_i)=y_i$ for all values of $i$
+    \itme meaning that we can write $\ell(x_i)=y_i$ where  we know that $\ell(x)$ is a linear estimator and can thus be written as $\ell(x_i)=\sqrt{v(y)}\rho_{x,y}s(x)+m(y)=\frac{\sqrt{v(y)}\rho_{x,y}(x_i)}{\sqrt{v(x)}}-\frac{\sqrt{v(y)}\rho_{x,y}m(x_i)}{\sqrt{v(x)}}+m(y)=\alpha x_i+\beta $ where $\alpha\in \mathbb{R} =\frac{\sqrt{v(y)}\rho_{x,y}}{\sqrt{v(x)}}$ and $\beta\in \mathbb{R}=-\frac{\sqrt{v(y)}\rho_{x,y}m(x_i)}{\sqrt{v(x)}}+m(y)$  and thus $y_i=\alpha x_i+\beta$ which was the desired result.  
+\end{itemize}
+
+\end{enumerate}
+
+\item(Decomposition of sample variance and sample coefficient of determination) 
+For a dataset $(x_1,y_1)$, $(x_2,y_2)$, \ldots, $(x_n,y_n)$, we denote the OLS estimator of $y_i$, given $x_i$ by $\ell_{\op{OLS}} (x_i)$ and the corresponding residual by $r_i := y_i -  \ell_{\op{OLS}} (x_i)$, $1\leq i \leq n$. Our goal is to derive a decomposition of sample variance and to characterize the sample coefficient of determination. 
+(\emph{Hint: For all the proofs, follow the same arguments as in the notes, replacing the expectation operator by the averaging operator.})
+\begin{enumerate}
+\item Prove that the first entry is uncorrelated with the residual, i.e. the sample covariance between $X$ and  $R:=\keys{r_1,r_2,\ldots,r_n}$ is zero,
+\begin{align}
+c(X,R) = 0. 
+\end{align}
+\begin{itemize}
+
+
+\item we can write sample covariance of x and the risidual as   $c(X,r)=\frac{1}{n-1}\Sigma_{i=1}^{n}(x_i-m(x))(r-m(r))=\frac{1}{n-1}\Sigma_{i=1}^{n}(x_i-m(x))(y_i-\sqrt{v(y)}s(x_i)\rho_{x,y}-m(y)-m(r))=\\\frac{1}{n-1}\Sigma_{i=1}^{n}(x_i-m(x))(y_i-m(y)-\sqrt{v(y)}s(x_i)\rho_{x,y})=\\\frac{1}{n-1}\Sigma_{i=1}^{n}(s(x_i)\sqrt{v(x)}(\sqrt{v(y)}s(y_i)-\sqrt{v(y)}s(x_i)\rho_{x,y})=\\
+\sqrt{v(x)}\sqrt{v(y)}\frac{1}{n-1}\Sigma_{i=1}^{n}(s(x_i)s(y_i)-s(x_i)^2\rho_{x,y})$
+ \\
+$\sqrt{v(x)}\sqrt{v(y)}\frac{1}{n-1}\Sigma_{i=1}^{n}(s(x_i)s(y_i))-
+\sqrt{v(x)}\sqrt{v(y)}\frac{1}{n-1}\Sigma_{i=1}^{n}(s(x_i)^2\rho_{x,y})=\\\sqrt{v(x)}\sqrt{v(y)}(\rho_{x,y}-\rho_{x,y})=0$
+\item which was the desired result
+\end{itemize}
+\item Show that the sample variance of the sum $M:=\keys{a_1+b_1,a_2+b_2,\ldots,a_n+b_n}$ of the pairs $(a_1,b_1)$, $(a_2,b_2)$, \ldots, $(a_n,b_n)$ equals
+\begin{align}
+v(M) & = v(A) + v(B) + 2c(A,B),
+\end{align}
+where $v(A)$ and $v(B)$ are the sample variances of $A:=\keys{a_1,a_2,\ldots,a_n}$ and $B:=\keys{b_1,b_2,\ldots,b_n}$, and $c(A,B)$ is the sample covariance of $A$ and $B$. 
+\begin{itemize}
+    \item we can write the sample variance of m as \\
+    $v(m)=V(a+b)=\frac{1}{n}\Sigma_{i=1}^{n}(a+b-m(a+b))^2=\frac{1}{n}\Sigma_{i=1}^{n}(a+b-m(a)-m(b))^2=\frac{1}{n}\Sigma_{i=1}^{n}(a_i+b_i-m(a)-m(b))(a_i+b_i-m(a)-m(b))=\frac{1}{n}\Sigma_{i=1}^{n}(a^2+2a_ib_i-2a_im(a)-2a_im(b)+b_i^2-2b_im(a)-2b_im(b)+m(a)^2-2m(a)b(a)+m(b)^2)=\frac{1}{n}\Sigma_{i=1}^{n}a^2-2a_im(a)+m(a)^2+\frac{1}{n}\Sigma_{i=1}^{n}a_i^2-2b_im(a)+m(b)^2+2\frac{1}{n}\Sigma_{i=1}^{n}a_ib_i-a_im(b)-b_im(a)+m(a)m(b)=\frac{1}{n}\Sigma_{i=1}(a_i-m(a))^2-\frac{1}{n}\Sigma_{i=1}(b_i-m(b))^2-2\frac{1}{n}\Sigma_{i=1}(a_i-m(a))(b_i-m(b))=v(a)+v(b)+2c(a,b)$\item which was the desired result
+\end{itemize}
+
+\item Prove that for any constants $\beta,\alpha \in \R$, and any $A:=\keys{a_1,a_2,\ldots,a_n}$ and $B:=\keys{b_1,b_2,\ldots,b_n}$, the sample covariance between $A_{\beta}:=\keys{\beta a_1+\alpha, \beta a_2+\alpha,\ldots,\beta a_n+\alpha}$ equals
+\begin{align}
+c(A_{\beta,\alpha},B) =\beta c(A,B).
+\end{align} 
+Use the result to derive a decomposition of the sample variance $v(Y)$ of $Y$ as the sum of the sample variance of the OLS estimates $L:=\keys{\ell_{\op{OLS}} (x_1),\ell_{\op{OLS}} (x_2),\ldots,\ell_{\op{OLS}} (x_n)}$ and the residuals $R$,
+\begin{align}
+v(Y) = v(L) + v(R) .
+\end{align}
+\begin{itemize}
+    \item first we want to show $c(A_{\beta,\alpha},B) =\beta c(A,B)$
+    \begin{itemize}
+        
+    \item we can write $c(A_{\beta,\alpha},B)=\frac{1}{n-1}\Sigma_{i=1}^{n}\beta(( a_i+\alpha)-m( a_i+\alpha))(b_i-m(b))=\beta\frac{1}{n-1}\Sigma_{i=1}^{n}(( a_i+\alpha)-m( a_i+\alpha))(b_i-m(b))=\beta c(A,B)$
+    \end{itemize}
+    \item that shows that  sample covariance is invariant to scaling and shifting by constants 
+    \item as we know $\ell(x_i)=\alpha x_i+\beta $ for some $\beta, \alpha \in \mathbb{R}$ we can see that $c(X,R)=0\Rightarrow c(\ell(X), R)=0$
+    \item further using the result from question 3 part 2  since we can write $Y=\ell(X)+R$ we know $v(y)=v(\ell(x))+v(r)+2c(\ell(x),r)=v(\ell(x))+v(R)$ which was the desired result. 
+\end{itemize}
+
+\item Conclude that the sample coefficient of determination is equal to the squared sample correlation coefficient
+\begin{align}
+R^2:= \frac{v(L)}{v(Y)} = \rho_{X,Y}^2. 
+\end{align}
+\begin{itemize}
+    \item from last question we know we can write $v(y)=v(\ell(x))+v(r)$ 
+    \item first we can solve $v(\ell(x))=\frac{1}{n}\Sigma_{i=1}^{n}(\ell(x)-m(\ell(x))^2=\frac{1}{n}\Sigma_{i=1}^{n}(\sqrt{v(y)}\rho_{x,y}s(x)+m(y)-m({y}))^2=\frac{1}{n}\Sigma_{i=1}^{n}(\sqrt{v(y)}\rho_{x,y}s(x))^2=v(y)\rho_{x,y}^2\frac{1}{n}\Sigma_{i=1}^{n}(s(x))^2=v(y)\rho_{x,y}^2$
+    \item $R^2$ is defined as the proportion of variance in y explained by our linear estimator of y using x thus we can write $R^2=\frac{var(\ell(x)}{var(y))}=\frac{\rho_{x,y}^2v(y)}{v(y)}=\rho_{x,y}^2$ which was the desired result
+\end{itemize}
+\end{enumerate}
+
+\item (Height and Weight)
+The table in \texttt{ANSUR II MALE Public.csv} reports physical measurements of members of the US army. In this problem, we build a simple linear regression model to estimate weight (\textit{Weightlbs}) from height (\textit{Heightin}). %Please complete the following tasks to analyze the decomposition of sample variance and sample coefficient of determination.
+
+\begin{enumerate}
+\begin{itemize}
+    \item here are all the functions used in question 4
+        \inputminted[firstline=8, lastline=39, breaklines=True]{python}{hw_2_script.py}
+\end{itemize}
+	\item Compute the OLS estimator of weight given height.
+
+    \begin{itemize}
+        \item this yielded  coefficients $\alpha=4.60097328436273, \beta=-134.2277923501527$
+    \end{itemize}
+	\item Compute the sample covariance between the height and the residual of the OLS estimator. Are they correlated?
+
+    \begin{itemize}
+        \item the sample covariance between the height and the residual of the OLS estimator is $3.748260888343102e-13$, which is very close to 0 meaning that it is likely height and the residual of the OLS estimator are uncorrelated
+    \end{itemize}
+	\item Compute the sample variance of the weight, the OLS estimator of the weight, and the residual. What relationship do you find among these three values?
+    \begin{itemize}
+        \item The sample variance of the weight is 896.2959093603234
+\item The sample variance of the OLS estimator of the weight is 183.85552889726156
+\item the sample variance of the residual is 712.4403804630556
+\item the sum of The sample variance of the OLS estimator of the weight and the sample variance of the residual is 896.2959093603172 which is equal to the sample variance of the weight
+    \end{itemize}
+	\item Compute and compare the sample coefficient of determination (using its definition as the fraction of the variance explained by the linear estimator), and compare it to the squared sample correlation coefficient.
+ \begin{itemize}
+     \item The sample the sample coefficient of determination is 0.2051281579857675
+\item The squared sample correlation coefficient is 0.2051281579857621
+ \item thus we can see they are very nearly equal
+ \end{itemize}
+\end{enumerate}
+
+
+\end{enumerate}
+\end{document}

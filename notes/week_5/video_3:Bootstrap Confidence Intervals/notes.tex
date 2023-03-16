@@ -1,0 +1,91 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\title{Video: Bootstrap Confidence Intervals}
+\author{wbg231 }
+\date{December 2022}
+\newcommand{\R}{$\mathbb{R}$}
+\newcommand{\B}{$\beta$}
+\newcommand{\A}{$\alpha$}
+\newcommand{\D}{\Delta}
+
+\newcommand{\avector}[2]{(#1_2,\ldots,#1_{#2})}
+\newcommand{\makedef}[2]{$\textbf{#1}$:#2 }
+\usepackage{tikz,graphicx,hyperref,amsmath,amsfonts,amscd,amssymb,bm,cite,epsfig,epsf,url}
+
+\begin{document}
+
+\maketitle
+
+\section*{introduction}
+\begin{itemize}
+\item \href{https://www.youtube.com/watch?v=81ehHDB1Owo&list=PLBEf5mJtE6KuZ5NBQMuWIMsiOOrV9ibzm&index=76}{video link}
+\item our ultimate goal is to estimate a population parameter from a random sample
+\item we know that the the estimator of the sample sample is a random variable
+\item if we re sampled many times we could quantity  the content of the estimate very well but we can not do that we just have one sample
+\item a confidence interval is a random of values that contains the true population parameter with a high likelihood
+\item the boostrap allows us to estimate the standard error and thus width of our confidence interval
+\itme in the bootstrap we treat our sample as a population and take many sub samples from that populating as estimates, then compute the standard of our estimator Ron each of those samples
+\item if we do Thai many times we can get a good estimate of the standard deviation of our estimator assuming the distribution of the estimator is Gaussian 
+\item so this gives us boostrap guessing confidence intervals of the correlation coefficient is $1-\alpha$ confidence interval  as $$\Tilde{I}_{1-\alpha}^{bs}=[\rho_{sample}-c_{1-\alpha}se_{bs},\rho_{sample}+c_{1-\alpha}se_{bs}]$$
+\item this works well if the estimator is approximated in an approximately Gaussian way 
+\subsection{boostrap Gaussian confidence interval}
+\item 
+$$\Tilde{I}_{1-\alpha}^{bs}=[\rho_{sample}-c_{1-\alpha}se_{bs},\rho_{sample}+c_{1-\alpha}se_{bs}]$$
+\subsection{what if we only have a few samples}
+\item if we do bootstrap with only a few samples our confidence intervals miss the true population parameter more often
+\item this happens because the  of our correlation coefficient over a small number of samples is not Gaussian since we have not taken an average over enough random variables 
+\subsection{challenge}
+\item our goal is can we construct a confidence interval for non-Gaussian estimators
+
+\item yes we can do so using boot strap percentile confidence intervals
+\subsection{distribution of sample mean}
+\item random sample $\Tilde{x}_1...\Tilde{x}_n$
+\item is unbiased and standard error is $se(m)=\frac{\sigma_{pop}}{\sqrt{n}}$ thing is approximately guasina  
+\item so lets compare it the boostrap distribution of a sample mean 
+\subsection{bootsrap distobution of the sample mean}
+\item sample $x_1..x_n$ are the Pantaloon 
+\item $m_{bs}=\frac{1}{n}b_k$
+\item $E[m_{bs}]=\text{ "population" mean}= \frac{1}{n}\Sigma_{i=1}^{n}x_j$
+\item our standard error is $se^2_{bs}=\frac{\text{population variance}}{n}=\frac{\frac{1}{n}\Sigma_{i=1}^{n}(x_i-m(x))^2}{n}\frac{n-1}{n^2}var(c)$ for a large n this is well approximated by  $\frac{\sigma_{pop}^2}{n}$ which is the same variance of our sample
+\item so the distribution of our sample mean by the central limit theorem is Gaussian 
+\item so the boostrap distribution will be a shifted distribution with similar width to the population parameter
+\subsection{bootstrap percentile confidence interval}
+\item we have n sample $x_1...x_n$
+\item we have estimator $h(x_1..x_n)$
+\item we have bootstrapped samples $\Tilde{b}_1..\Tilde{b}_n$
+\item and boostrap percentiles $$P(h(\Tilde{b}_1...\Tilde{b}_n)\leq q_{\alpha/2})=\frac{\alpha}{2}$$
+\item and $$P(h(\Tilde{b}_1...\Tilde{b}_n)\geq q_{1-\alpha/2})=1-\frac{\alpha}{2}$$
+\item then we can write our percentile confidence interval as $I_{1-\alpha}^{BPS}=[q_{\frac{\alpha}{2}},q_{1-\alpha/2}]$
+\subsection{logic}
+\item the boostrap sample mean is approximately Gaussian with mean $m(X)$ and standard deviation $\frac{\sigma_{pop}}{n}$
+\item then $$[q_{\frac{\alpha}{2}},q_{1-\alpha/2}]=[m(x)-c\frac{\sigma_{pop}}{n},m(x)+c\frac{\sigma_{pop}}{n}]$$
+\item this is because both ways we are taking the standard devotion of the sample mean times a certain constant so that the interval contains $1-\alpha$\% of the estimator time
+\item so if we know the width of the interval then when we have the sample mean we can just center the interval at the sample mean and it will contain the population mean 95 percent of the time. 
+\item if we assume that the bootstrap mean is also centred at the sample mean and also has almost the same width, then that interval we get by shifting are the same as making sure we had \%95 percent of the boostrap intervals
+\subsection{monte carlo approximation}
+\item we compute this with a monte carlo estimation
+\item so this hold as long as the estimator has a Gaussian distribution and the bootstrap distribution is also Gaussian 
+\item but what if one is not Gaussian
+\subsection{fisher transom}
+\item in the case of the sample correlation coefficient if we apply the fisher transformation $$m(\rho)=\frac{1}{2}ln(\frac{1+\rho}{1-\rho}$$
+\item this is a monotonic transformation 
+\item this allow us to map the correlation coefficient to a Gaussian distribution 
+\item so we will show that as long as there is a monotonic transformation that makes the distribution of the estimator approximately Gaussian then we can use the confidence  interval boostrap
+\subsection{bootstrap percentile confidence interval}
+\item suppose we have a population parameter $\gamma$
+\item and an estimator $g$
+\item lets assume that $m(g)$ is a Gaussian with mean $M(\gamam)$ and variance $\simga^2$ for some monotonic transformation M 
+\item so condoned on $g=g$ that is takes a certain value. the bootstrap estimator $\Tilde{w}$
+\item $M(\Tilde{w})$ is Gaussian with mean $M(g)$ and variance $\sigma^2$
+\item so the idea is both for the original distribution of the estimator and the bootstrapped distribution then we have the same situation e had before where we have Gaussian st-hat are shifted version of one another 
+\subsection{percentile confidence intervals}
+\item let $\gamma^{'}=M(\gamma)$ and $g'=M(g)$
+\item then $P(\gamma^'\in[q_{\alpha/2}(g'),q_{1-\alpha/2}(1-g')]=1-\alpha$
+\item that is the probability that our ransomware parameter is within the range of our transformed parameter is 1-alpha 
+\item but because m is a monotonic transom $P(M(w)\leq P(M(q_{\alpha/2}(g))|\Tilde{g}=g))=P(w\leq P(q_{\alpha/2}(g)|\Tilde{g}=g))=\frac{\alpha}{2}$
+\item this holds because m is a monotonic change so the percentage that are larger than some value that are both being changed will not change, that is monotonic transformation preserve percentiles 
+\item thus $P(M(\gmma))\in [M(q_{\frac{\alpha}{2}}(g),M(q_{1-\frac{\alpha}{2}}(g))]=a-\alpha$
+\item and $P(\gmma)\in [q_{\frac{\alpha}{2}}(g),q_{1-\frac{\alpha}{2}}(g)]=a-\alpha$
+\item this allows for us to partially correct for cases where our estimator is not Gaussian
+\end{itemize}
+\end{document}

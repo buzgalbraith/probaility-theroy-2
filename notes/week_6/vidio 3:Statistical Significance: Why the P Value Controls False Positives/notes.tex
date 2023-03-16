@@ -1,0 +1,97 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\title{Video 3: Statistical Significance: Why the P Value Controls False Positives}
+\author{wbg231 }
+\date{December 2022}
+\newcommand{\R}{$\mathbb{R}$}
+\newcommand{\B}{$\beta$}
+\newcommand{\A}{$\alpha$}
+\newcommand{\D}{\Delta}
+
+\newcommand{\avector}[2]{(#1_2,\ldots,#1_{#2})}
+\newcommand{\makedef}[2]{$\textbf{#1}$:#2 }
+\usepackage{tikz,graphicx,hyperref,amsmath,amsfonts,amscd,amssymb,bm,cite,epsfig,epsf,url}
+
+\begin{document}
+
+\maketitle
+
+\section{introduction}
+\begin{itemize}
+\item \href{https://www.youtube.com/watch?v=IYqGgHDVHDM&list=PLBEf5mJtE6KuZ5NBQMuWIMsiOOrV9ibzm&index=81&ab_channel=CarlosFernandez-Granda}{video link }
+\item the prob of a false positive in the hypothesis testing frame work is upper bounded by $\alpha$
+\subsection{hypothesis testing}
+\item steps 
+\begin{enumerate}
+    \item chose a  conjecture 
+    \item chose a null 
+    \item chose a test stat 
+    \item chose a significance level $\alpha$
+    \itme gather data and compute test stat 
+    \itme compute p value 
+    \item reject null if p value $\leq \alpha$
+\end{enumerate}
+\subsection{free throws }
+\item alternative free throw percentage higher at home than away 
+\item null they are the same 
+\item test stat: is the difference in the percentage of shots made at home versus away 
+\item our alpha was $.05$
+\item the distribution of our test stat under the null was Gaussian under certain assumptions.
+\subsection{what can go wrong}
+\item during hypnosis testing two type of errors 
+\item type 1: false positive null true but we reject 
+\item type 2: false negative , null false but we do not reject. 
+\item the hypothesis testing framework is built to control false positives. 
+\subsection{parametric texting }
+\item assume that the distribution of the test stat depends on parameter $\theta$
+\item and simple null hypothesis $\theta=\theat_{null}$
+\item test stat under the null is $\Tilde{t}_{null}$
+\item the p value function $$pv(t)=P(\Tilde{t}_{_\theta{null}}\geq t)$$
+\item p value of our data is the p value function evaluated at our data that is $pv(t_{data})$
+\subsection{p-value function }
+\item the p-value function tells us the p value associated with every possible test stat 
+\item this is a deterministic function for a fixed test stat, mapping every value of the test stat to its p-value 
+\subsection{false positive}
+\item a false positive happens if the null is true and we reject the null 
+\item that is equivalent to saying the null is true and our p value is less than $\alpha$
+\item $P(\text{False positive})=P(p-value\leq \alpha \text{under the null hypothesis})$
+\item p value is what we obtain when we plug the test stat into the p-value function 
+\item p value under the null is what we obtain when we plug the test stat under the null hypothesis with a certain distribution into the p value function that is a random variable we will call $\Tilde{u}=pv(\Tilde{t}_{null})$ it represents the behavior of the p-value when the null hold
+\item meaning $P(\text{False positive})=P(p-value\leq \alpha \text{under the null hypothesis})=P(\Tilde{u}\leq \alpha)$
+\item the p value function is deterministic so we can plug a random variable into it. 
+\item if the test stat under the null has a certain distribution, then the p-value function evaluated at the test stat under the null will also have a certain distribution 
+\subsection{p value under the null}
+\item p value function $pv(t)=P(\Tilde{t}_{null}\geq t)=h(t)=1-F_{\Tilde{t}_{null}}(t)$ we are going to call it h(t)
+\item $\Tilde{u}=pv(\Tilde{t}_{null})=1-F_{\Tilde{t}_{null}}(\Tilde{t}_{null})$ that is 1 minus the test stat plugged into its own cdf
+\item just think of the cdf as a deterministic function going from zero to one, and the test stat under the null as an rv. so $\Tilde{u}$ is an rv
+\subsection{what happens when we plug a rv into it's own cdf}
+\item consider an rv $\Tilde{a}$ and another rv $\Tilde{b}=F_{\Tilde{a}}(a)$
+\item we assume that $F_{\Tilde{a}}$ is invertable (it does not have to be but it just makes this easier) 
+\item $0\leq \Tilde{b}\leq 1$ 
+\item $ F_{\Tilde{b}}(b)=P(\Tilde{b}\leq b)=P(\Tilde{b}\leq b)=P(F_{\Tilde{a}(a)}\leq b)=P(\Tilde{a}\leq F^{-1}_{\Tilde{a}}(b))=F_{\Tilde{a}}(F_{\Tilde{a}}^{-1}(b))=b$
+\item we know that a cdf goes from zero to one and is monotonic so the even that $\Tilde{a}\leq F^{-1}_{a}(b)$ is equivalent to saying $F((a)\leq b$ since these the cdf is monotonically increasing
+\item so in other words we know that $F_{b}(b)=b\Sim\mathcal{U}(0,1)$ that is it is normalized uniform between zero and 1. 
+\item then we can further def fine $\Tilde{c}=1-F_{\Tilde{a}}(\Tilde{a})=1-\Tilde{b}$
+\item we can see that the cdf of c is $F_{\Tilde{c}}(c)=P(\Tilde{c}\leq c)=P(1-\Tilde{b}\leq c)=P(\Tilde{b}\geq 1-c)=1-(1-c)=c$ and thus c is uniform in zero one 
+\subsection{p value under null hypothesis }
+\item so by the same logic we can see $\Tilde{u}=pv(\Tilde{t}_{null})=1-F_{\Tilde{t}_{null}}(\Tilde{t}_{null})\Rightarrow F_{\Tilde{u}}(u)\sim \mathcal{U}(0,1)$in other words the cdf of our p value under the null hypothesis is informally distributed between zero and 1. 
+\item this is a key property of the hypothesis frame work 
+\item so this means we can threshold our false positive rate with alpha 
+\subsection{false positive}
+\item $\Tilde{u}=pv(\Tilde{t}_{null})=1-F_{\Tilde{t}_{null}}(\Tilde{t}_{null})\Rightarrow F_{\Tilde{u}}(u)\sim \mathcal{U}(0,1)$
+\item $P(\textbf{false postive})=P(\Tilde{u}\leq \alpha)=F_{\Tilde{u}}(\alpha)=\alpha$
+\section{discrete test stats}
+\item the above proof is for continuous test stats, but we can also show that this holds for discrete test stats 
+\item let $\Tilde{u}=pv(\Tilde{u}_{null})$ and $F_{\Tilde{u}}(u)\leq u $we can see that $P(\textbf{false positive})=P(\Tilde{u}\leq \alpha)\leq \alpha$
+\item \includegraphics[width=10cm]{}
+
+\itme we can see that the cdf of a discrete test stat is a monotonically increasing step function 
+\item this happens to always be bellow the line $y=x$ and thus the cdf of our p value under the null at x  is still $\leq x$
+\subsection{composite null hypothesis }
+\itme suppose we have a composite null hypothesis where $\theat\in \Theta_{null}$
+\item recall in such a  case the p vale function is defined as $pv(t)=sup_{\theta\in \Theta_{null}}P(\Tilde{t}_{\null}\geq t)=sup_{\theta\in \Theta_{null}}pv_{\theta}(t)$
+\item a false positive for a composited null means that (the null holds ie $\exist \theta_{0}\in \Theta_{null} \text{ such that }\thea=\theta_{0} $) and (p-value$\leq \alpha$)
+\item thus we have $P(\textbf{false postive})=P(pv(\Tilde{t}_{\theta_{0}})\leq \alpha)=\\P(sup_{\theta\in \Theta_{null}} pv_{\theta}(\Tilde{t}_{\theta_{0}})\leq \alpha)\leq P( pv_{\theta}(\Tilde{t}_{\theta_{0}})\leq \alpha)\leq \alpha$
+\item so in other words this property also holds for composite null hypothesis as well. 
+\end{itemize}
+\end{document}
