@@ -36,12 +36,56 @@ Due Mar 19 at 11 pm
 A small town decides to renovate a 10-mile road in a small town. According to certain reports, there is a specific 2.5-mile section which is very dangerous. Completely renovating that section would use up all of the budget, so the engineer in charge of the renovation wants to make sure that this is a priority. She decides to perform a hypothesis test using the next 4 accidents reported on the road. Her null hypothesis is that the accidents are independent and uniformly distributed on the 10-mile road, which would imply that the \emph{dangerous} section is not that dangerous. The test statistic is the number of accidents that occur in the dangerous 2.5-mile section. The significance level is set to $\alpha := 0.05$.
 \begin{enumerate}
 \item Derive the p value function of the test for all possible values of the test statistic. 
+\begin{itemize}
+    \color{blue}
+    \item - the p value is the likelihood of observation a test stat that is larger than or equal to what we saw under the null hypothesis 
+\item call $\Tilde{p}_i$ a Bernoulli rv representing if the ith accident occurred within the 2.5 mile section 
+\item  under our null we think that $\Tilde{p}_i\sim \mathcal{U}(0,10)$ 
+\item our test stat $\Tilde{t}=\Tilde{p}_1+\Tilde{p}_2+\Tilde{p}_3+\Tilde{p}_4$
+\item under our null  we can think of the likelihood of each car crashing within the zone as independent, identically distributed Bernoulli's thus we can think of there sum ($\Tilde{t}$) as a distribute according to a binomial with parameters n=4 and $\theta$, where $\theta$ is the likelihood of crashing in the 2.5 mile danger zone
+\item we know that this implies that our p-value function $pv(t)=P(\Tilde{t}_{\theta_{null}}\geq t)=\Sigma_{i=t}^{n}\begin{pmatrix}n\\i\end{pmatrix}(\theta_{null})^{i}(1-\theta_{null})^{n-i}$
+\item we know that the stretch of rode we are interested in is 2.5 miles out of a total of 10 miles. thus under the null that a crash is equally likely to happen anywhere the likelihood of crashing in that zone is $\theta_{null}=\frac{2.5}{10}=\frac{1}{4}$
+\item so plugging in we finally get $$pv(t)=P(\Tilde{t}_{\theta_{null}}\geq t)=\Sigma_{i=t}^{n}\begin{pmatrix}n\\i\end{pmatrix}(\theta_{null})^{i}(1-\theta_{null})^{n-i}=\Sigma_{i=t}^{4}\begin{pmatrix}4\\i\end{pmatrix}(\frac{1}{4})^{i}(\frac{3}{4})^{4-i}$$
+\end{itemize}
+
+
 \item What is the probability of a false positive?
+\begin{itemize}
+    \color{blue}
+    \item the likelihood of a false positive as we showed in class is equal to $\alpha$so in this case it is $5\%$ 
+\end{itemize}
 \item Let $\theta$ denote the probability that an accident occurs in the \emph{dangerous} section. Plot the power function of the test as a function of $\theta$ under the assumption that accidents occur independently. 
+\begin{itemize}
+    \color{blue}
+    \item  the power function is a function that maps any given effect size $\theta$ to our likely hood of rejecting the null hypothesis. ie $$pow(\theta)=P(pv(t_{\theta})\leq \alpha) $$
+\item so first things first we need to find our $\tau_{threshold}$ which is the minimum test stat value at which we will reject the null hypothesis for a given $\alpha$ that is $$\tau_{threshold}=min_{1\leq \tau\leq n}\{\tau:P(\Tilde{t}\geq \tau)\leq \alpha\}=min_{1\leq \tau\leq n}\{\tau:\Sigma_{i=t}^{n}\begin{pmatrix}n\\i\end{pmatrix}(\theta)^{i}(1-\theta)^{n-i}\leq \alpha\}$$$$=min_{1\leq \tau\leq n}\{\tau:\Sigma_{i=t}^{4}\begin{pmatrix}4\\i\end{pmatrix}(\frac{1}{4})^{i}(\frac{3}{4})^{4-i}\leq \alpha\}$$
+\item for a fixed value of $n=4$ and $\alpha=.05$ we can compute $pv(3)=0.05078125\aprox 3$, but a bit above so i am going with 4. 
+\item so we can write our power function as for any $\theta$ as  $$pow(\theta)=P(pv(t_{\theta})\leq \alpha)=P(t_{\theta}\leq \tau_{threshold})= \Sigma_{i=\tau_{threshold}}
+^{4}\begin{pmatrix}4\\i\end{pmatrix}(\theta)^{i}(1-\theta)^{4-i}$$ $$=\begin{pmatrix}4\\4\end{pmatrix}(\theta)^{4}(1-\theta)^{0}=(\theta)^4$$
+
+\includegraphics[widht=10cm]{homework/homework_6/immages/output.png}
+\item above is a graph of the power function 
+
+\end{itemize}
 \item What is the minimum value of $\theta$ for which the probability of a true positive is at least 50\%?
+\begin{itemize}
+    \color{blue}
+    \item recall that as we showed above $pow(\theta)=\theta^4$ thus we can find $\theta_{.5}$ such that $pow(\theta_{.5})=.5=(\theta_{.5})^{4}$ meaning that $\theta_{.05}=\sqrt[4]{0.5}$
+\end{itemize}
 \end{enumerate}
+\newpage
+
+
 
 \item (Computer component) A computer manufacturer wants to make sure that a certain component will last on average more than a year. They decide to apply a hypothesis test, where the null hypothesis is that the average duration is less than a year. The data correspond to $n$ instances of the component, which can be assumed to be independent. The test statistic is the minimum duration of the $n$ instances. If the time until the component fails is modeled using an exponential distribution, what is the power function of the test as a function of the exponential parameter $\lambda$ and the significance level $\alpha$? What is the power at $\lambda = 1$ and what is its limit as $\lambda \rightarrow 0$?
+\begin{itemize}
+    \color{blue}
+    \item 
+\end{itemize}
+\newpage
+
+
+
 
 \item (Tom Brady and hurricanes) 
 The table shows in what years between 2001 and 2020 Tom Brady won the Super Bowl (top row) and there was at least one Category 5 hurricane in the North Atlantic Ocean (bottom row).
@@ -71,14 +115,39 @@ Hurricane & \xmark & \xmark & \xmark & \xmark  & \tick & \tick & \tick & \tick &
 \end{center}
 \begin{enumerate}
 \item Compute the p value of a one-tailed two-sample z test, where the null hypothesis is that hurricanes have the same distribution when Brady wins and when he doesn't. 
+\begin{itemize}
+    \color{blue}
+    \item 
+\end{itemize}
+
 \item If the p value had been extremely small, would this be convincing evidence that hurricanes occur more often when Brady wins? Justify your answer.
+\begin{itemize}
+    \color{blue}
+    \item 
+\end{itemize}
 \end{enumerate}
+\newpage
+
+
+
+
 
 \item (Disease prevalence)
 Doctors would like to research the prevalence of a disease of a certain population. They collected some patients records that can be interpreted as samples from that population. The table in \texttt{ehr.csv} records the diagnosis (\textit{Dx}). Specifically, they choose the two null hypotheses below. For each null hypothesis, choose a hypothesis test and a test statistic and compute the corresponding p-value. 
 \begin{enumerate}
 \item The prevalence of this disease is greater than 0.3.
+\begin{itemize}
+    \color{blue}
+    \item 
+\end{itemize}
+
+
 \item Men and women have the same prevalence.
+\begin{itemize}
+    \color{blue}
+    \item 
+\end{itemize}
+
 \end{enumerate}
 
 \end{enumerate}
