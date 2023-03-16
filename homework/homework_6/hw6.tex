@@ -1,0 +1,85 @@
+\documentclass[12pt,twoside]{article}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz,graphicx,amsmath,amsfonts,amscd,amssymb,bm,cite,epsfig,epsf,url}
+\usepackage[hang,flushmargin]{footmisc}
+\usepackage[colorlinks=true,urlcolor=blue,citecolor=blue]{hyperref}
+\usepackage{amsthm,multirow,wasysym,appendix}
+\usepackage{array,subcaption} 
+% \usepackage[small,bf]{caption}
+\usepackage{bbm}
+\usepackage{pgfplots}
+\usetikzlibrary{spy}
+\usepgfplotslibrary{external}
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{arrows,automata}
+\usepackage{thmtools}
+\usepackage{blkarray} 
+\usepackage{textcomp}
+\usepackage[left=0.8in,right=1.0in,top=1.0in,bottom=1.0in]{geometry}
+\usepackage{pifont}
+\usepackage{tikz-qtree}
+
+\input{macros}
+
+\begin{document}
+
+\begin{center}
+{\large{\textbf{Homework 6}} } \vspace{0.2cm}\\
+Due Mar 19 at 11 pm
+\\
+\end{center}
+\input{hwstatement.tex}\\
+
+\begin{enumerate}
+
+\item (Road renovation) 
+A small town decides to renovate a 10-mile road in a small town. According to certain reports, there is a specific 2.5-mile section which is very dangerous. Completely renovating that section would use up all of the budget, so the engineer in charge of the renovation wants to make sure that this is a priority. She decides to perform a hypothesis test using the next 4 accidents reported on the road. Her null hypothesis is that the accidents are independent and uniformly distributed on the 10-mile road, which would imply that the \emph{dangerous} section is not that dangerous. The test statistic is the number of accidents that occur in the dangerous 2.5-mile section. The significance level is set to $\alpha := 0.05$.
+\begin{enumerate}
+\item Derive the p value function of the test for all possible values of the test statistic. 
+\item What is the probability of a false positive?
+\item Let $\theta$ denote the probability that an accident occurs in the \emph{dangerous} section. Plot the power function of the test as a function of $\theta$ under the assumption that accidents occur independently. 
+\item What is the minimum value of $\theta$ for which the probability of a true positive is at least 50\%?
+\end{enumerate}
+
+\item (Computer component) A computer manufacturer wants to make sure that a certain component will last on average more than a year. They decide to apply a hypothesis test, where the null hypothesis is that the average duration is less than a year. The data correspond to $n$ instances of the component, which can be assumed to be independent. The test statistic is the minimum duration of the $n$ instances. If the time until the component fails is modeled using an exponential distribution, what is the power function of the test as a function of the exponential parameter $\lambda$ and the significance level $\alpha$? What is the power at $\lambda = 1$ and what is its limit as $\lambda \rightarrow 0$?
+
+\item (Tom Brady and hurricanes) 
+The table shows in what years between 2001 and 2020 Tom Brady won the Super Bowl (top row) and there was at least one Category 5 hurricane in the North Atlantic Ocean (bottom row).
+\begin{center}
+\begingroup
+\renewcommand{\arraystretch}{1.5}
+{
+%\scriptsize
+\begin{tabular}{  |>{\arraybackslash}m{0.11\linewidth} | >{\centering\arraybackslash}m{0.015\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} |  >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | }
+% \hline
+\hline
+Year & 02 & 03 & 04 & 05 & 06 & 07 & 08 & 09 & 10 & 11 \\
+Brady wins & \tick & \xmark & \tick & \tick & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark \\ 
+Hurricane & \xmark & \tick & \tick & \tick & \xmark & \tick & \xmark & \xmark & \xmark & \xmark  \\ 
+\hline
+\end{tabular} \vspace{0.2cm}\\
+\begin{tabular}{  |>{\arraybackslash}m{0.11\linewidth} | >{\centering\arraybackslash}m{0.015\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} |  >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} |  }
+\hline
+Year  & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 & 21\\
+Brady wins & \xmark & \xmark & \xmark & \tick  & \xmark & \tick & \xmark & \tick & \xmark & \tick \\ 
+Hurricane & \xmark & \xmark & \xmark & \xmark  & \tick & \tick & \tick & \tick & \xmark & \xmark \\ 
+\hline
+%\hline
+\end{tabular}
+}
+\endgroup
+\end{center}
+\begin{enumerate}
+\item Compute the p value of a one-tailed two-sample z test, where the null hypothesis is that hurricanes have the same distribution when Brady wins and when he doesn't. 
+\item If the p value had been extremely small, would this be convincing evidence that hurricanes occur more often when Brady wins? Justify your answer.
+\end{enumerate}
+
+\item (Disease prevalence)
+Doctors would like to research the prevalence of a disease of a certain population. They collected some patients records that can be interpreted as samples from that population. The table in \texttt{ehr.csv} records the diagnosis (\textit{Dx}). Specifically, they choose the two null hypotheses below. For each null hypothesis, choose a hypothesis test and a test statistic and compute the corresponding p-value. 
+\begin{enumerate}
+\item The prevalence of this disease is greater than 0.3.
+\item Men and women have the same prevalence.
+\end{enumerate}
+
+\end{enumerate}
+\end{document}
