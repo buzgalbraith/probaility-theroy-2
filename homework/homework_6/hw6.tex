@@ -157,7 +157,15 @@ Doctors would like to research the prevalence of a disease of a certain populati
 \item The prevalence of this disease is greater than 0.3.
 \begin{itemize}
     \color{blue}
-    \item 
+    \item they are interested in the prevalence of the disease.
+    \item call $\theta$ the prevalence of the disease 
+    \item the null is in this case is $\theta\in \Theta_{null}=(.3,1]$
+    \item so let $\Tilde{x}_i$ be a Bernoulli rv with parameter $\theta$ which takes value one if a person has the disease, which we assume to be iid. 
+    \item so lets have our test stat under so $\theta$ be $\Tilde{t}_{\theta}=\frac{1}{n}\Sigma_{i=1}^{n}\Tilde{x}_i$
+    \item this is a sum of iid random variables and we know we have 7212 samples in our data thus it is reasonable to assume our data is approximately Gaussian that is $\Tilde{t}_{\theta}\sim \mathcal{N}(\theta_{null}, \frac{\theta_{null}(1-\theta_{null}}{n}))$ for the sake of notation i am going to write that as $\mu_{null}, \sigma{null}$
+    \item so thus our p value function is $pv(t)=sup_{\theta\in \Theta_{null}}P(\Tilde{t}_{\theta}\geq t)=sup_{\theta\in \Theta_{null}}P(\Tilde{t}_{\theta}\geq t)=P(\Tilde{t}_{.3}\geq t)=\int_{i=t}^{\infty}f_{\Tilde{t}_{.3}}(t)dt$ 
+    \item we can find the mean prevalence in the population as $t_{data}=0.3068071537501733$
+    \item and find that $pv(t_{data})=0.10355045769142213$
 \end{itemize}
 
 
