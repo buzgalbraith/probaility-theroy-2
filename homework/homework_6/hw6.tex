@@ -172,7 +172,14 @@ Doctors would like to research the prevalence of a disease of a certain populati
 \item Men and women have the same prevalence.
 \begin{itemize}
     \color{blue}
-    \item 
+\item call $\theta$ the  prevalence of the disease $
+    \item so let $\Tilde{x}_i$ be a Bernoulli rv with parameter $\theta$ which takes value one if a person has the disease, which we assume to be iid. 
+    \item so let us break our data in two groups. group A consisting of the men in the sample, and group b consisting of the women in the sample
+    \item so lets do a two sided test and have our test stat under $\theta$ be $\Tilde{t}_{\theta}=|\frac{1}{_An}\Sigma_{i\in A}\Tilde{x}_i-\frac{1}{_An}\Sigma_{i\in A}\Tilde{x}_i|$
+    \item this is a sum of scaled  iid random variables and we know we have 7212 samples in our data thus it is reasonable to assume our data is approximately Gaussian that is $\Tilde{t}_{\theta}\sim \mathcal{N}(0, {\theta_{null}(1-\theta_{null}})({\frac{1}{n_A}+\frac{1}{n_B}}))$ 
+    \item from the data we can find $\theta_{null}=\frac{\text{number of people with the disease}}{n}=0.3068071537501733$
+    \item in our data the two sided test stat was $t_{data}=0.23929310619328134$
+    \item and so our p-value is $pv(t_{data})=P(\Tilde{t}_{null}\leq t_{data})=\int_{t=t_{data}}^{\infty}f_{\Tilde{t}_{\theta_{null}}}(t)dt\approx 0$
 \end{itemize}
 
 \end{enumerate}
