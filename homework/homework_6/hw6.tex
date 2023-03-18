@@ -80,7 +80,20 @@ A small town decides to renovate a 10-mile road in a small town. According to ce
 \item (Computer component) A computer manufacturer wants to make sure that a certain component will last on average more than a year. They decide to apply a hypothesis test, where the null hypothesis is that the average duration is less than a year. The data correspond to $n$ instances of the component, which can be assumed to be independent. The test statistic is the minimum duration of the $n$ instances. If the time until the component fails is modeled using an exponential distribution, what is the power function of the test as a function of the exponential parameter $\lambda$ and the significance level $\alpha$? What is the power at $\lambda = 1$ and what is its limit as $\lambda \rightarrow 0$?
 \begin{itemize}
     \color{blue}
-    \item 
+    \item call $\Tilde{c}_i$ the time until the ith component fails. we know $\Tilde{c}_i\sim exp(\lambda)$
+    \item further we know that the test stat is the minimum fail time of the n computers. thus $\Tilde{t}_{\lambda}=min(\Tilde{c}_1...\Tilde{c}_n)$
+    \item so we can see that $P(\Tilde{t}_{\lambda}\geq t)=P(\Tilde{c}_1,...\Tilde{c}_n\geq n)$ further given that the components are indecent this can be expressed as $P(\Tilde{t}_{\lambda}\geq t)=P(\Tilde{c}_1,...\Tilde{c}_n\geq t)=P(\Tilde{c}_1\geq t)*..*P(\Tilde{c}_{n}\leq t)=e^{-\lambda t n}$
+\item thus we can see that $\Tilde{t}_{\lambda}\sim exp(\lambda n)$
+\item so if we think of t in terms of continuous quantities of days we have $\lambda$ represents the mean number of times a component breaks down within an interval. so if we think of the interval in years our null hypothesis is that $\lambda \in \lambda_{null}=(0,1)$
+
+\item so we first must look at our p-value function $sup_{\lambda\in (0,1)}pv(t)=sup_{\lambda\in (0,1)}P(\Tilde{t}_{\lambda}\geq t)=sup_{\lambda\in (0,1)}1-
+F_{\Tilde{t}_{\lambda}}(t)=sup_{\lambda\in (0,1)}1-1+e^{-\lambda n t}=sup_{\lambda\in (0,1)}e^{-\lambda n t}$
+\item that function is decreasing in $\lambda$ so we would pick $\lambda$ as small as possible
+\item now we need to find our $\tau_{thresohold}$ 
+\item and further with out making any specific assumptions about $\lambda$ we can solve for our $\tau_{threshold}$ as     $\tau_{threshold}=min_{0\leq \tau}\{\tau:P(\Tilde{t}_{\theta}\geq \tau)\leq \alpha\}=min_{0\leq \tau}\{\tau:1-F_{\Tilde{t}_{\theta}}(t)\leq \alpha\}=min_{0\leq \tau}\{\tau:e^{-\lambda t}\leq \alpha\}=min_{0\leq \tau}\{\tau:-\lambda t\leq log(\alpha)\}=min_{0\leq \tau}\{\tau:{t}\geq\frac{ -log(\alpha)}{\lambda}\}$ 
+    \item thus we can express our power function as a function of $\lambda, \alpha $ as $pow(\lambda, \alpha)=P(pv(t_{\lambda})\leq \alpha)=P(t_{\lambda}\geq \tau_{threshold}(\alpha, \lambda))=1-F_{\Tilde{t}_{\lambda}(\tau_{threshold}}(\lambda ,\alpha))= e^{-\lambda \tau_{threshold}(\alpha, \lambda)}=e^{-\lambda * min_{0\leq \tau}\{\tau:{t}\geq\frac{-log(\alpha)}{\lambda}\}}$
+    \item at $\lambda=1$ this becomes $pow(\lambda, \alpha)=P(pv(t_{\lambda})\leq \alpha)=P(t_{\lambda}\geq \tau_{threshold}(\alpha, \lambda))=1-F_{\Tilde{t}_{\lambda}(\tau_{threshold}}(\lambda ,\alpha))= e^{-\lambda \tau_{threshold}(\alpha, \lambda)}=e^{ * min_{0\leq \tau}\{\tau:{t}\geqlog(\alpha)\}}=e^{log(\alpha)}$
+    \item which looks like this. but that does not work as a proability it is lower bounded by 1. 
 \end{itemize}
 \newpage
 
@@ -117,13 +130,19 @@ Hurricane & \xmark & \xmark & \xmark & \xmark  & \tick & \tick & \tick & \tick &
 \item Compute the p value of a one-tailed two-sample z test, where the null hypothesis is that hurricanes have the same distribution when Brady wins and when he doesn't. 
 \begin{itemize}
     \color{blue}
-    \item 
+    \item we were not explicitly given a test stat but lets call $\Tilde{y}_{i}$ a Bernoulli variable representing if there was hurricane that year and have our T stat be the difrence in average number of huricanes over the years tome brady wins and did not win the super bowl that is $\Tilde{t}=\frac{1}{n_A}\Sigma_{i\in A}\Tilde{y}_i-\frac{1}{n_B}\Sigma_{i\in B}\Tilde{y}_i$
+    
+    \item we estimate $\theta_{null}$ as $\theta_{null}=\frac{\text{number of times there is a hurricane}}{\text{number of years}}=\frac{8}{20}=\frac{2}{5}$
+    \item then we can estimate the $\sigma_{null}=\sqrt{\theta_{null}(1-\theta_{null})(\frac{1}{n_A}+\frac{1}{n_B})}$ where $n_A$ is the number of times Brady won a super bowl (7) and $n_B$ is the number of times Brady did not win a super brawl $(13)$thus $\sigma_{null}=\sqrt{\theta_{null}(1-\theta_{null})(\frac{1}{n_A}+\frac{1}{n_B})}=\sqrt{\frac{2}{5}\frac{3}{5}(\frac{1}{20}}=0.1095$
+    \item so our $\Tilde{t}_{tail-1}\aprox.109\Tilde{z}$
+    \item thus we can find $Pv(t)=P(\Tilde{t}_{1-tail}\geq t)=P(\Tilde{z}\geq \frac{t}{0.109})$ \item so we can find the test stat of our data  ${t}_{data}=\frac{4}{7}-\frac{4}{13}\approx .263$
+    \item so thus we can see that $pv({t}_{data})=P(\Tilde{t}\geq {t}_{data})=P(\Tilde{z}\geq \frac{.263}{.109})=.008$
 \end{itemize}
 
 \item If the p value had been extremely small, would this be convincing evidence that hurricanes occur more often when Brady wins? Justify your answer.
 \begin{itemize}
     \color{blue}
-    \item 
+    \item no this would not convince me of that conclusion as there is just not that much data avalible, and tehse two events are clearly unrelated
 \end{itemize}
 \end{enumerate}
 \newpage
