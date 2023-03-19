@@ -103,31 +103,8 @@ F_{\Tilde{t}_{\lambda}}(t)=sup_{\lambda\in (0,1)}1-1+e^{-\lambda n t}=sup_{\lamb
 
 
 \item (Tom Brady and hurricanes) 
-The table shows in what years between 2001 and 2020 Tom Brady won the Super Bowl (top row) and there was at least one Category 5 hurricane in the North Atlantic Ocean (bottom row).
-\begin{center}
-\begingroup
-\renewcommand{\arraystretch}{1.5}
-{
-%\scriptsize
-\begin{tabular}{  |>{\arraybackslash}m{0.11\linewidth} | >{\centering\arraybackslash}m{0.015\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} |  >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | }
-% \hline
-\hline
-Year & 02 & 03 & 04 & 05 & 06 & 07 & 08 & 09 & 10 & 11 \\
-Brady wins & \tick & \xmark & \tick & \tick & \xmark & \xmark & \xmark & \xmark & \xmark & \xmark \\ 
-Hurricane & \xmark & \tick & \tick & \tick & \xmark & \tick & \xmark & \xmark & \xmark & \xmark  \\ 
-\hline
-\end{tabular} \vspace{0.2cm}\\
-\begin{tabular}{  |>{\arraybackslash}m{0.11\linewidth} | >{\centering\arraybackslash}m{0.015\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} |  >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} | >{\centering\arraybackslash}m{0.02\linewidth} |  }
-\hline
-Year  & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 & 21\\
-Brady wins & \xmark & \xmark & \xmark & \tick  & \xmark & \tick & \xmark & \tick & \xmark & \tick \\ 
-Hurricane & \xmark & \xmark & \xmark & \xmark  & \tick & \tick & \tick & \tick & \xmark & \xmark \\ 
-\hline
-%\hline
-\end{tabular}
-}
-\endgroup
-\end{center}
+The table shows in what years between 2001 and 2020 Tom Brady won the Super Bowl (top row) and there was at least one Category 5 hurricane in the North Atlantic Ocean (bottom row).\\
+\includegraphics[width=10cm]{homework/homework_6/immages/Screenshot 2023-03-19 at 16-23-37 hw6.pdf.png}
 \begin{enumerate}
 \item Compute the p value of a one-tailed two-sample z test, where the null hypothesis is that hurricanes have the same distribution when Brady wins and when he doesn't. 
 \begin{itemize}
@@ -139,7 +116,7 @@ Hurricane & \xmark & \xmark & \xmark & \xmark  & \tick & \tick & \tick & \tick &
     \item so our $\Tilde{t}_{tail-1}\approx.229\Tilde{z}$ where $\Tilde{z}\sim \mathcal{N}(0,1)$
     \item thus we can find $Pv(t)=P(\Tilde{t}_{1-tail}\geq t)=P(\Tilde{z}\geq \frac{t}{0.229})$ \item so we can find the test stat of our data  ${t}_{data}=\frac{4}{7}-\frac{4}{13}\approx .263$
     \item so thus we can see that $pv({t}_{data})=P(\Tilde{t}\geq {t}_{data})=P(\Tilde{z}\geq \frac{.263}{.229})\approx0.12541442496047006$
-    \item so we can reject the null in this case 
+    \item so we fail to reject the null in this case. 
 \end{itemize}
 
 \item If the p value had been extremely small, would this be convincing evidence that hurricanes occur more often when Brady wins? Justify your answer.
