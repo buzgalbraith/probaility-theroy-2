@@ -93,8 +93,9 @@ F_{\Tilde{t}_{\lambda}}(t)=sup_{\lambda\in (0,1)}1-1+e^{-\lambda n t}=sup_{\lamb
 \item and further with out making any specific assumptions about $\lambda$ we can solve for our $\tau_{threshold}$ as     $\tau_{threshold}=min_{0\leq \tau}\{\tau:P(\Tilde{t}_{\theta}\geq \tau)\leq \alpha\}=min_{0\leq \tau}\{\tau:1-F_{\Tilde{t}_{\theta}}(t)\leq \alpha\}=min_{0\leq \tau}\{\tau:e^{-\lambda t}\leq \alpha\}=min_{0\leq \tau}\{\tau:-\lambda t\leq log(\alpha)\}=min_{0\leq \tau}\{\tau:{t}\geq\frac{ log(\alpha)}{\lambda}\}$ 
     \item thus we can express our power function as a function of $\lambda, \alpha $ as $pow(\lambda, \alpha)=P(pv(t_{\lambda})\leq \alpha)=P(t_{\lambda}\geq \tau_{threshold}(\alpha, \lambda))=1-F_{\Tilde{t}_{\lambda}(\tau_{threshold}}(\lambda ,\alpha))= e^{-\lambda \tau_{threshold}(\alpha, \lambda)}=e^{-\lambda * min_{0\leq \tau}\{\tau:{t}\geq\frac{-log(\alpha)}{\lambda}\}}$
     \item at $\lambda=1$ this becomes $pow(\lambda, \alpha)=P(pv(t_{\lambda})\leq \alpha)=P(t_{\lambda}\geq \tau_{threshold}(\alpha, \lambda))=1-F_{\Tilde{t}_{\lambda}(\tau_{threshold}}(\lambda ,\alpha))= e^{-\lambda \tau_{threshold}(\alpha, \lambda)t}=e^{ -\lambda * min_{0\leq \tau}\{\tau:{t}\geqlog(\alpha)\}t}=e^{-\lambda log(\alpha) t}$ but i mean this must be wrong? the exponential function is lower bounded by 1 so it cant really be understood as a probability? 
-    \item \includegraphics[width=10cm]{homework/homework_6/immages/question_2_1.png}
-    \item 
+    \\\includegraphics[width=10cm]{homework/homework_6/immages/question_2_1.png}
+    \\\includegraphics[width=10cm]{homework/homework_6/immages/question_2_2.png}
+    \\\includegraphics[width=10cm]{homework/homework_6/immages/question_2_3.png}
 \end{itemize}
 \newpage
 
@@ -131,19 +132,21 @@ Hurricane & \xmark & \xmark & \xmark & \xmark  & \tick & \tick & \tick & \tick &
 \item Compute the p value of a one-tailed two-sample z test, where the null hypothesis is that hurricanes have the same distribution when Brady wins and when he doesn't. 
 \begin{itemize}
     \color{blue}
-    \item we were not explicitly given a test stat but lets call $\Tilde{y}_{i}$ a Bernoulli variable representing if there was hurricane that year and have our T stat be the difrence in average number of huricanes over the years tome brady wins and did not win the super bowl that is $\Tilde{t}=\frac{1}{n_A}\Sigma_{i\in A}\Tilde{y}_i-\frac{1}{n_B}\Sigma_{i\in B}\Tilde{y}_i$
+    \item we were not explicitly given a test stat but lets call $\Tilde{y}_{i}$ a Bernoulli variable representing if there was hurricane that year and have our test stat be the difference in average number of hurricanes over the years tome Brady wins and did not win the super bowl that is $\Tilde{t}=\frac{1}{n_A}\Sigma_{i\in A}\Tilde{y}_i-\frac{1}{n_B}\Sigma_{i\in B}\Tilde{y}_i$
     
     \item we estimate $\theta_{null}$ as $\theta_{null}=\frac{\text{number of times there is a hurricane}}{\text{number of years}}=\frac{8}{20}=\frac{2}{5}$
-    \item then we can estimate the $\sigma_{null}=\sqrt{\theta_{null}(1-\theta_{null})(\frac{1}{n_A}+\frac{1}{n_B})}$ where $n_A$ is the number of times Brady won a super bowl (7) and $n_B$ is the number of times Brady did not win a super brawl $(13)$thus $\sigma_{null}=\sqrt{\theta_{null}(1-\theta_{null})(\frac{1}{n_A}+\frac{1}{n_B})}=\sqrt{\frac{2}{5}\frac{3}{5}(\frac{1}{20}}=0.1095$
-    \item so our $\Tilde{t}_{tail-1}\aprox.109\Tilde{z}$
+    \item then we can estimate the $\sigma_{null}=\sqrt{\theta_{null}(1-\theta_{null})(\frac{1}{n_A}+\frac{1}{n_B})}$ where $n_A$ is the number of times Brady won a super bowl (7) and $n_B$ is the number of times Brady did not win a super brawl $(13)$thus $\sigma_{null}=\sqrt{\theta_{null}(1-\theta_{null})(\frac{1}{n_A}+\frac{1}{n_B})}=\sqrt{\frac{2}{5}\frac{3}{5}(\frac{1}{20})}=0.1095$
+    \item so our $\Tilde{t}_{tail-1}\approx.109\Tilde{z}$ where $\Tilde{z}\sim \mathcal{N}(0,1)$
     \item thus we can find $Pv(t)=P(\Tilde{t}_{1-tail}\geq t)=P(\Tilde{z}\geq \frac{t}{0.109})$ \item so we can find the test stat of our data  ${t}_{data}=\frac{4}{7}-\frac{4}{13}\approx .263$
-    \item so thus we can see that $pv({t}_{data})=P(\Tilde{t}\geq {t}_{data})=P(\Tilde{z}\geq \frac{.263}{.109})=.008$
+    \item so thus we can see that $pv({t}_{data})=P(\Tilde{t}\geq {t}_{data})=P(\Tilde{z}\geq \frac{.263}{.109})\approx0.008$
+    \item so we can reject the null in this case 
 \end{itemize}
 
 \item If the p value had been extremely small, would this be convincing evidence that hurricanes occur more often when Brady wins? Justify your answer.
 \begin{itemize}
     \color{blue}
-    \item no this would not convince me of that conclusion as there is just not that much data avalible, and tehse two events are clearly unrelated
+    \item no this would not convince me of that conclusion as the assumptions of our test we clearly not met. We do not have large enough sample to reasonably believe that they will be approximately Gaussian 
+    \item also from a logical perspective Tom Brady winning the super bowl and there being a hurricane are clearly unrelated. 
 \end{itemize}
 \end{enumerate}
 \newpage
@@ -163,17 +166,17 @@ Doctors would like to research the prevalence of a disease of a certain populati
     \item the null is in this case is $\theta\in \Theta_{null}=(.3,1]$
     \item so let $\Tilde{x}_i$ be a Bernoulli rv with parameter $\theta$ which takes value one if a person has the disease, which we assume to be iid. 
     \item so lets have our test stat under so $\theta$ be $\Tilde{t}_{\theta}=\frac{1}{n}\Sigma_{i=1}^{n}\Tilde{x}_i$
-    \item this is a sum of iid random variables and we know we have 7212 samples in our data thus it is reasonable to assume our data is approximately Gaussian that is $\Tilde{t}_{\theta}\sim \mathcal{N}(\theta_{null}, \frac{\theta_{null}(1-\theta_{null}}{n}))$ for the sake of notation i am going to write that as $\mu_{null}, \sigma{null}$
+    \item this is a sum of iid random variables and we know we have 7212 samples in our data thus it is reasonable to assume our data is approximately Gaussian that is $\Tilde{t}_{\theta}\sim \mathcal{N}(\theta_{null}, \frac{\theta_{null}(1-\theta_{null}}{n}))$
     \item so thus our p value function is $pv(t)=sup_{\theta\in \Theta_{null}}P(\Tilde{t}_{\theta}\geq t)=sup_{\theta\in \Theta_{null}}P(\Tilde{t}_{\theta}\geq t)=P(\Tilde{t}_{.3}\geq t)=\int_{i=t}^{\infty}f_{\Tilde{t}_{.3}}(t)dt$ 
-    \item we can find the mean prevalence in the population as $t_{data}=0.3068071537501733$
-    \item and find that $pv(t_{data})=0.10355045769142213$
+    \item we can find the mean prevalence in the population as our observed test stat in the data as $t_{data}=0.3068071537501733$
+    \item and find that the p-value of our data is $pv(t_{data})=0.10355045769142213$
 \end{itemize}
 
 
 \item Men and women have the same prevalence.
 \begin{itemize}
     \color{blue}
-\item call $\theta$ the  prevalence of the disease $
+\item call $\theta$ the  prevalence of the disease 
     \item so let $\Tilde{x}_i$ be a Bernoulli rv with parameter $\theta$ which takes value one if a person has the disease, which we assume to be iid. 
     \item so let us break our data in two groups. group A consisting of the men in the sample, and group b consisting of the women in the sample
     \item so lets do a two sided test and have our test stat under $\theta$ be $\Tilde{t}_{\theta}=|\frac{1}{_An}\Sigma_{i\in A}\Tilde{x}_i-\frac{1}{_An}\Sigma_{i\in A}\Tilde{x}_i|$
