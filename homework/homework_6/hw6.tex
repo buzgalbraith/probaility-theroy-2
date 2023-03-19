@@ -90,10 +90,10 @@ A small town decides to renovate a 10-mile road in a small town. According to ce
 F_{\Tilde{t}_{\lambda}}(t)=sup_{\lambda\in (0,1)}1-1+e^{-\lambda n t}=sup_{\lambda\in (0,1)}e^{-\lambda n t}$
 \item that function is decreasing in $\lambda$ so we would pick $\lambda$ as small as possible
 \item now we need to find our $\tau_{thresohold}$ 
-\item and further with out making any specific assumptions about $\lambda$ we can solve for our $\tau_{threshold}$ as     $\tau_{threshold}=min_{0\leq \tau}\{\tau:P(\Tilde{t}_{\theta}\geq \tau)\leq \alpha\}=min_{0\leq \tau}\{\tau:1-F_{\Tilde{t}_{\theta}}(t)\leq \alpha\}=min_{0\leq \tau}\{\tau:e^{-\lambda t}\leq \alpha\}=min_{0\leq \tau}\{\tau:-\lambda t\leq log(\alpha)\}=min_{0\leq \tau}\{\tau:{t}\geq\frac{ -log(\alpha)}{\lambda}\}$ 
+\item and further with out making any specific assumptions about $\lambda$ we can solve for our $\tau_{threshold}$ as     $\tau_{threshold}=min_{0\leq \tau}\{\tau:P(\Tilde{t}_{\theta}\geq \tau)\leq \alpha\}=min_{0\leq \tau}\{\tau:1-F_{\Tilde{t}_{\theta}}(t)\leq \alpha\}=min_{0\leq \tau}\{\tau:e^{-\lambda t}\leq \alpha\}=min_{0\leq \tau}\{\tau:-\lambda t\leq log(\alpha)\}=min_{0\leq \tau}\{\tau:{t}\geq\frac{ log(\alpha)}{\lambda}\}$ 
     \item thus we can express our power function as a function of $\lambda, \alpha $ as $pow(\lambda, \alpha)=P(pv(t_{\lambda})\leq \alpha)=P(t_{\lambda}\geq \tau_{threshold}(\alpha, \lambda))=1-F_{\Tilde{t}_{\lambda}(\tau_{threshold}}(\lambda ,\alpha))= e^{-\lambda \tau_{threshold}(\alpha, \lambda)}=e^{-\lambda * min_{0\leq \tau}\{\tau:{t}\geq\frac{-log(\alpha)}{\lambda}\}}$
-    \item at $\lambda=1$ this becomes $pow(\lambda, \alpha)=P(pv(t_{\lambda})\leq \alpha)=P(t_{\lambda}\geq \tau_{threshold}(\alpha, \lambda))=1-F_{\Tilde{t}_{\lambda}(\tau_{threshold}}(\lambda ,\alpha))= e^{-\lambda \tau_{threshold}(\alpha, \lambda)}=e^{ * min_{0\leq \tau}\{\tau:{t}\geqlog(\alpha)\}}=e^{log(\alpha)}$
-    \item which looks like this. but that does not work as a proability it is lower bounded by 1. 
+    \item at $\lambda=1$ this becomes $pow(\lambda, \alpha)=P(pv(t_{\lambda})\leq \alpha)=P(t_{\lambda}\geq \tau_{threshold}(\alpha, \lambda))=1-F_{\Tilde{t}_{\lambda}(\tau_{threshold}}(\lambda ,\alpha))= e^{-\lambda \tau_{threshold}(\alpha, \lambda)t}=e^{ -\lambda * min_{0\leq \tau}\{\tau:{t}\geqlog(\alpha)\}t}=e^{-\lambda log(\alpha) t}$
+    \item 
 \end{itemize}
 \newpage
 
