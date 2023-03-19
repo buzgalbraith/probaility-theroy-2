@@ -135,10 +135,10 @@ Hurricane & \xmark & \xmark & \xmark & \xmark  & \tick & \tick & \tick & \tick &
     \item we were not explicitly given a test stat but lets call $\Tilde{y}_{i}$ a Bernoulli variable representing if there was hurricane that year and have our test stat be the difference in average number of hurricanes over the years tome Brady wins and did not win the super bowl that is $\Tilde{t}=\frac{1}{n_A}\Sigma_{i\in A}\Tilde{y}_i-\frac{1}{n_B}\Sigma_{i\in B}\Tilde{y}_i$
     
     \item we estimate $\theta_{null}$ as $\theta_{null}=\frac{\text{number of times there is a hurricane}}{\text{number of years}}=\frac{8}{20}=\frac{2}{5}$
-    \item then we can estimate the $\sigma_{null}=\sqrt{\theta_{null}(1-\theta_{null})(\frac{1}{n_A}+\frac{1}{n_B})}$ where $n_A$ is the number of times Brady won a super bowl (7) and $n_B$ is the number of times Brady did not win a super brawl $(13)$thus $\sigma_{null}=\sqrt{\theta_{null}(1-\theta_{null})(\frac{1}{n_A}+\frac{1}{n_B})}=\sqrt{\frac{2}{5}\frac{3}{5}(\frac{1}{20})}=0.1095$
-    \item so our $\Tilde{t}_{tail-1}\approx.109\Tilde{z}$ where $\Tilde{z}\sim \mathcal{N}(0,1)$
-    \item thus we can find $Pv(t)=P(\Tilde{t}_{1-tail}\geq t)=P(\Tilde{z}\geq \frac{t}{0.109})$ \item so we can find the test stat of our data  ${t}_{data}=\frac{4}{7}-\frac{4}{13}\approx .263$
-    \item so thus we can see that $pv({t}_{data})=P(\Tilde{t}\geq {t}_{data})=P(\Tilde{z}\geq \frac{.263}{.109})\approx0.008$
+    \item then we can estimate the $\sigma_{null}=\sqrt{\theta_{null}(1-\theta_{null})(\frac{1}{n_A}+\frac{1}{n_B})}$ where $n_A$ is the number of times Brady won a super bowl (7) and $n_B$ is the number of times Brady did not win a super brawl $(13)$thus $\sigma_{null}=\sqrt{\theta_{null}(1-\theta_{null})(\frac{1}{n_A}+\frac{1}{n_B})}=\sqrt{\frac{2}{5}\frac{3}{5}(\frac{1}{7}+\frac{1}{13})}=0.22966770070528583$
+    \item so our $\Tilde{t}_{tail-1}\approx.229\Tilde{z}$ where $\Tilde{z}\sim \mathcal{N}(0,1)$
+    \item thus we can find $Pv(t)=P(\Tilde{t}_{1-tail}\geq t)=P(\Tilde{z}\geq \frac{t}{0.229})$ \item so we can find the test stat of our data  ${t}_{data}=\frac{4}{7}-\frac{4}{13}\approx .263$
+    \item so thus we can see that $pv({t}_{data})=P(\Tilde{t}\geq {t}_{data})=P(\Tilde{z}\geq \frac{.263}{.229})\approx0.12541442496047006$
     \item so we can reject the null in this case 
 \end{itemize}
 
