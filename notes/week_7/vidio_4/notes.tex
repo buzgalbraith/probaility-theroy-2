@@ -1,0 +1,85 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\title{Video 4: p-hacking}
+\author{wbg231 }
+\date{December 2022}
+\newcommand{\R}{$\mathbb{R}$}
+\newcommand{\B}{$\beta$}
+\newcommand{\A}{$\alpha$}
+\newcommand{\D}{\Delta}
+
+\newcommand{\avector}[2]{(#1_2,\ldots,#1_{#2})}
+\newcommand{\makedef}[2]{$\textbf{#1}$:#2 }
+\usepackage{tikz,graphicx,hyperref,amsmath,amsfonts,amscd,amssymb,bm,cite,epsfig,epsf,url}
+
+\begin{document}
+
+\maketitle
+
+\section*{introduction}
+\begin{itemize}
+\item \href{https://www.youtube.com/watch?v=acTMImWTKpQ&list=PLBEf5mJtE6KuZ5NBQMuWIMsiOOrV9ibzm&index=85}{vedio link}
+\item p values are everywhere in science 
+\item they are often a request for publication because they show that what we see is not due to random flucuations
+\item but they are not the only metric that should be taken into account
+\item a small p value neither implies practical signefgence nor casual effects
+\subsection*{practical signefgence}
+\item we want to evaluate the cure rete of two really expensive drugs with a lot of side effects. 
+\item in group 1A, where people do not recive the drug 30 out of 100 people recover
+\item in group 2A, where people recive drug A 52 out of 100 recover
+\item in group 1B, where people do not recive the drug 30,000 out of 100,000 people recover
+\item in group 2B, where people recive drug A 30650 out of 100.000 recover
+\item this seems to suggest that drug two is a lot less effecive than drug 1. 
+\item lets apply a two sample z test 
+\item null there is no difrent between the control and treatment group we assume all data are iid bern with cure rate parameter $\theta$
+\item test stat difrence in cure reate between treatment and control groups
+\item under null the test stat $\Tilde{t}\sim\mathcal{N}(0,\theta(1-\theta)(\frac{1}{n_{\text{treatment}}}+\frac{1}{n_{\text{control}}}))$
+\item notice that our variance depends a lot on the number of people in the study
+\item for drug one test stat is $t_data=.2$ and this yields a very small p-value
+\item for drug two our test stat is $0.007$ but with a much smaller test sttat, so we have the same p value in the first trial 
+\item this is intresting as they have the same signefgence level despite the fact that drug one makes much more of a difference in actual cure rate 
+\subsection*{what does this mean}
+\item both ressults equally unlikely under the null 
+\item both increase the cure rate 
+\item but they increase the cure rete by difrent amount 
+\item so how do we quantify this difference?
+\item we can do a confidince interval for the difference in cure rate 
+\subsection*{confidince interval}
+\item let the true control cure rate be $\theta_{c}$
+\item number of cured control subjects $\Tilde{k}_{c}$
+\item this is the number of cured paitenets in the control group is distrbuted as a binomal with parameters $n_{C}, \theta_c$
+\item we can apply a gaussian aproximation to the binomial with mean $n_{C}\theta_{c}$ and varinace $n_c(\theta_c)(1-\theta_c)$ 
+\item thus our observed control cure rate $\frac{\Tilde{k}_{C}}{n_{c}}\sim \mathcal{N}(\theta_c, \frac{\theta_c(1-\theta_c)}{n_c})$
+\item we can do the same thing for the treatment rate 
+\item so we can think of the difference between the cure rate in the treatment and cure rate as distrobution as $\sim \mathcal{N}((\theta_t-\theta_c), \frac{\theta_c(1-theat_c)}{n_c}+\frac{\theta_t(1-\theta_t)}{n_T})$
+\item so we can build a gaussian confidince inverval around a guassian rv $\Tilde{a}$ using mean $\mu, \sigma^2$
+\item as $\Tilde{\mathcal{I}}_{1-\alpha}:=[\Tilde{a}-c_{\alpha}\sigma,\Tilde{a}+c_{\alpha}\sigma ]$ where $c_{\alpha}$ is some constnat 
+\item we see that the ci for drug 1 is between 8 adn 35 percent 
+\item drug 2 on the other hand as a difference between .25 and 1.05\%
+\item so these two have the same p-value, but only drug 1 has a real effect
+\subsection*{statstical vs practical signefgence}
+\item so more or less, if there is a test with a tone of power it can pick an effect that is so small that it likely does not matter in reality
+\subsection*{covid example}
+\item an over powerd study can make almost any effect size signefgence so it is important to think if the difference is practically significant
+\subsection*{publication bias}
+\item we would expect the null to hold. ie that pizza does not curve covic -19 
+\item so we will expect to see p -value unfiormally dstributed between 0 and 1 
+\item so we would expect 5\% of studies to find a false postive 
+\item but if we do a lot of tests say 100 studies, then we would still excpet 5\% 
+\item we wouldd excpect to see 5 false postives, and 95 true negatives 
+\item this is not a big deal if all of these ressults were published 
+\item but it is much easier to publish a false posrive than a true negative 
+\item so when this is done inentially this is called p-hacking 
+\item part of the issue with this is that it may not be repoducable later
+\item so this is a reprodability issue. 
+\item there are a lot of ways to fudge your stats in order to get statstical significant (this is unethical) 
+\item it is an incentive problem 
+\subsection*{does p hacking happen in practice}
+\item the short awnser is yes 
+\item if we look at the distrobution of p values on pub med,
+\item there is evedince that there are more studies published with lower p values
+
+
+
+\end{itemize}
+\end{document}

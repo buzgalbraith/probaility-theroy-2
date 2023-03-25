@@ -1,0 +1,77 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\title{Vidio 4: HYPOTHESIS TESTING AND CAUSAL INFERENCE}
+
+\author{wbg231 }
+\date{December 2022}
+\newcommand{\R}{$\mathbb{R}$}
+\newcommand{\B}{$\beta$}
+\newcommand{\A}{$\alpha$}
+\newcommand{\D}{\Delta}
+
+\newcommand{\avector}[2]{(#1_2,\ldots,#1_{#2})}
+\newcommand{\makedef}[2]{$\textbf{#1}$:#2 }
+\usepackage{tikz,graphicx,hyperref,amsmath,amsfonts,amscd,amssymb,bm,cite,epsfig,epsf,url}
+
+\begin{document}
+
+\maketitle
+
+\section*{introduction}
+\begin{itemize}
+\item \href{https://www.youtube.com/watch?v=2tPcuzu8oXM&list=PLBEf5mJtE6KuZ5NBQMuWIMsiOOrV9ibzm&index=85}{vidio link}
+\item today we are going to discuss the relationship between hypotshsi testing and casual INFERENCE
+\subsection*{free throw example}
+\item player trying to shoot free throws, when he plays away people taunt him 
+\item altnerative: at home free throw percentage highter than at away
+\item null: they are the samell
+\item test stat: free throw percentage at home $-$ free throw percentage away
+\item found p-value$\leq \alpha$
+\item what does this mean?
+\item it means if we define two random variables: free throw outcome $\Tilde{y}$ and fans taunting $\Tilde{t}$ 
+\item we can say according to the data $P_{\Tilde{y}|\Tilde{t}}(\text{made | taunted}))>P_{\Tilde{y}|\Tilde{t}}(\text{made | taunted}))$
+\item note \textbf{this does not mean that taunting causes his free throw \% to decrease }
+\item that is a causal INFERENCE question, which may have confounding factors that we have not controlled for. 
+\item confounding factors are systematic differences that prevent us from getting an arcuate view of the casual relationship
+\subsection*{evaluating nba players example}
+\item our goal was to evaluate the impact of a player on a team preformance
+\item our test stat was the mean difference in points when that player played versus did not play 
+\item we conducted a permutation test with the bonferroni correction to account for testing many players
+\item we say that there were 8 players with statistically signefgence p values
+\item what does this mean? we ar epretty sure that the condtional mean of the point difference with this player was higher than the condtional mean with out this player
+\item \textbf{this is again not a casual statement}
+\item one player  who was statistically significant  only played 24 out out 300 games over 4 years 
+\item does this mean he was helping his team play? \textbf{no he was a worse player so he was only put in to games where they were already winning. that does not mean that he caused the win, instead he was playing because they were winning  
+}
+\subsection*{casual inference
+}
+\item to identify a casual effect, out come and treatment must be independent
+\item how can we achieve this? \textbf{via randomization}
+\item with out randomization it is super hard to assign a casual effect 
+
+\subsection*{vaccine example}
+\item treatment group 20,000 patients 0.03\% precedence of covid 
+\item control group 20,000 patients 0.74\% precedence of covid 
+\item we can apply a two sample z test t
+\item null hypothesis all data are iid bernoulili wth perameter $\theta$
+\item test stat infection rate with vaccine - fection rate without vaccine 
+\item causal inference and hypothesis testig have complementary roles 
+\item the hypothesis test tells us we are not seeing random flucuations in the data, there is a difference, it does not say if there is a casual effect unless we have randomized assignment to each group
+\subsection*{ab testing}
+\item goal compare two groups A/B when designing a product 
+\item users are randomly assigned to each option, because they are randomly assigned so any real differences between the two groups are casual 
+\item then hypothesis testing is applied to determine wether differences between the two groups are statistically signefgence
+\subsection*{obama}
+\item goal determine if an immage or vedio is more effective at getting people to sign up 
+\item metric sign up rate 
+\item immages 9\% sign up 
+\item vedio : 6.66\%
+\item crucially this was done with random assignment
+\item we can run a two sample t test on this and see that this is a very small p-value 
+\item the difference reveals a causal effect due to randomization
+\item does this imply practical signefgence? ie is the effect we are picking up on actually important? not necessarily 
+
+
+
+\end{itemize}
+\end{document}

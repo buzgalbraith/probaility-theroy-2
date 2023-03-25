@@ -1,0 +1,99 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\title{video 2: multiple testing  }
+\author{wbg231 }
+\date{December 2022}
+\newcommand{\R}{$\mathbb{R}$}
+\newcommand{\B}{$\beta$}
+\newcommand{\A}{$\alpha$}
+\newcommand{\D}{\Delta}
+
+\newcommand{\avector}[2]{(#1_2,\ldots,#1_{#2})}
+\newcommand{\makedef}[2]{$\textbf{#1}$:#2 }
+\usepackage{tikz,graphicx,hyperref,amsmath,amsfonts,amscd,amssymb,bm,cite,epsfig,epsf,url}
+
+\begin{document}
+
+\maketitle
+
+\section* {introduction}
+\begin{itemize}
+\item \href{https://www.youtube.com/watch?v=99JYHjZkSw8&list=PLBEf5mJtE6KuZ5NBQMuWIMsiOOrV9ibzm&index=83}{vedio link}
+\item the whole idea is to avoid false postives
+\subsection*{cluth}
+\item a player is clutch if they play better when it matters 
+\item data 3 points shooting in nba 
+\item clutch time: 4th quarter of close games 
+\item conjecture: player shoots better in the clutch
+\item null: players shoots the same 
+\item test stat: 3's made in clutch
+\item so lets set up a hypothesis test
+\item under the null the percentage of making a clutch 3 is the season 3 point percentage 
+\item the test stat under the ull is a binomal with parameter n adn $\theta_{season}$
+\item item so our p value is $pv(t_{data})=P(\Tilde{t}\geq t_{data})=\Sigma_{i=t_{data}}^{n}\begin{pmatrix}
+    n\\i
+\end{pmatrix}\theta^{i}(1-\theta)^{n-i}$
+\item we can check this for each player and see how well this holds 
+\item there are a few players that have low p-values on the first half of the season
+\item does this convince you?
+\item no we may want to test our conlusions on held out data.
+\item so we test those same players on the second half of the season and those p values no longer hold 
+\item so what is going on?
+\subsection*{what is going on}
+\item the liklyhood of a single player overpreforming by chance is quite low 
+\item but we are looking at all players in the nba so that is 146 total players
+\item so the liklyhood that a few of them overpreformed by chance is much higher than $\alpha$
+\subsection*{p -value distrobtion }
+\item the p -vale distrotuon under the null is uniform in zero and 1 (this aprxemently holds for discrete as well)
+\item so the distrobution of p values for a single player is distrbuted unfiormally between zero and one 
+\item and thus the liklyhood of a false postive in that case is $\alpha$
+\item but in our example we are doing many hypothsis tests. there are over 146 players in our data set 
+\item so how many false postives are we likely to see?
+\item aprxemently a fraction equal to $\alpha$
+\item item so in other words we would expect 5\% of the total players to be false postives
+\subsection*{multiple testig }
+\item spose we preform k indpednt hyptohsis test with signgence level $\alpha$
+\item the probability of a false postive for any test is $\alpha$
+\item $P(\geq 1 \text{false postive})=1-P(\text{no false postives})=1-(1-\alpha)^{k}$ (given the tests are independt)
+\item if k=100 and $\alpha=.05$ then the liklyhood of at least 1 false postive is  99\%
+\item so what can we do? we could lower $\alpha$
+\subsection*{chalange}
+\item we want to find a value $\alpha$ such that we keep the liklyhood of any valuse postives bellow $\alpha$ while doing k indepdnint hypothsis tests at the same time 
+\item$ P( \text{false postive} )= P( \cup_{i=1}^{k}(\text{false postive in test i})$
+\subsection*{union bound}
+\item for events $A_1..A_k$
+\item $P(\cup_{i=1}^{k}A_i)\leq \Sigma_{i=1}^{k}P(A_i)$
+\item 
+\subsection*{bonferroni's correction}
+\item how to set the p value threshold $\tau$ so that $P(\text{false postive}) \leq \alpha$
+\item $P(\text{false postives})=P(\cup_{i=1}^{k}\text{false postive in test i })\leq \Sigma_{i=1}^{k}P(\text{false postve in test i })\leq k\tau=\alpha$
+\item so in other words we reject the null if p value $\leq \tau :=\frac{\alpha}{k}$
+\item this garuntees that $P(\text{false postve})\leq \alpha$
+\subsection*{back to clutch example}
+\item we are testing 146 players 
+\item so if set our $\alpha$ to $\alpha_{mt}=\frac{\alpha}{146}$
+\subsection*{example 2 }
+\item goal evalute impact of a single player on team preformance 
+\item stat $t_data:=m_{with}-m_{without}$ that is the mean number of points with our with out the player
+\item our data is nba games between 2012 and 2018
+\item we see that some players that do not play that much have a very high test stat 
+\item the issue is that players who did not play that much may have a lot of noise 
+\subsection*{hypothsis test}
+\item so we can approach this as a permuation test 
+\item we do a montecarlo subset of the permutations and estiamte the p value using a permuation test 
+\item doing this we see small p-values. 
+\item are we convinced? no there are so many players so it is really easy to get false postives
+\item so we can apply bonferronis correction and see how that affects things 
+\item this gives us lebron james is the only real sigfnget test 
+\item so if we sort by p-value the list starts makign a lot of sense 
+\item so by ordering the p-values we can see players that overall have strong impact on there games
+\item this is also weighted by how much evedine we have in favor of the evedince of the players
+\subsection*{p value distrobtion}
+\item bonferronis correction bascailly zooms into the uniform p values to such a point that it is unlikely that there will be players that are sigfnget due to noise alone. 
+\item but this does natrually reduce power
+\item so we see kevin durant, is not listed as statistically signefgence with bonferronis correction
+\item so we want to think about how this impacts our power. 
+\item so testing many hypothesis at the same time and being very strict about our number of false postives forces us to incur some false negatives 
+\item there is a trade off and sometimes it is better to allow for some more false postives so that you can still avoid a lot of false negatives. 
+\end{itemize}
+\end{document}
