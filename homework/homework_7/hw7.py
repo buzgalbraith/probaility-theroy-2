@@ -137,9 +137,9 @@ def monte_carlo_permutation(labelless_group,n=1000):
         b=labelless_group[len(group_a):]
         test_stats.append(test_stat(a,b))
     return test_stats
-n=1000
+n=10000
 mc_test_stats=monte_carlo_permutation(labelless_group,n)
 test_stat_observed=test_stat(group_a,group_b)
-np.sum(mc_test_stats<=test_stat_observed)/1000
-
+p_val=np.sum(mc_test_stats>=test_stat_observed)/n
+p_val
 
