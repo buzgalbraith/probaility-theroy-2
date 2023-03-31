@@ -1,0 +1,239 @@
+\documentclass[12pt,twoside]{article}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz,graphicx,amsmath,amsfonts,amscd,amssymb,bm,cite,epsfig,epsf,url}
+\usepackage[hang,flushmargin]{footmisc}
+\usepackage[colorlinks=true,urlcolor=blue,citecolor=blue]{hyperref}
+\usepackage{amsthm,multirow,wasysym,appendix}
+\usepackage{array,subcaption} 
+% \usepackage[small,bf]{caption}
+\usepackage{bbm}
+\usepackage{pgfplots}
+\usetikzlibrary{spy}
+\usepgfplotslibrary{external}
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{arrows,automata}
+\usepackage{thmtools}
+\usepackage{blkarray} 
+\usepackage{textcomp}
+\usepackage[left=0.8in,right=1.0in,top=1.0in,bottom=1.0in]{geometry}
+\usepackage{pifont}
+\usepackage{tikz-qtree}
+
+\input{macros}
+
+\begin{document}
+
+\begin{center}
+{\large{\textbf{Homework 8}} } \vspace{0.2cm}\\
+Due Apr 2 at 11 pm
+\\
+\end{center}
+\input{hwstatement.tex}\\
+
+\begin{enumerate}
+
+\item (Random vector) 
+A random vector $\rx$ with zero mean has a covariance matrix $\Sigma_{\rx}$ with the following eigendecomposition
+\begin{align}
+\Sigma_{\rx} = \MAT{1 & 0 & 0 \\ 0 & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ 0 & \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}}} \MAT{1 & 0 & 0 \\ 0 & 0.5 & 0 \\ 0 & 0 & 0} \MAT{1 & 0 & 0 \\ 0 & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ 0 & \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}}}.
+\end{align}
+\begin{enumerate}
+\item What is the variance of each of the entries of the random vector $\rx[1]$, $\rx[2]$ and $\rx[3]$?
+\begin{itemize}
+  \color{blue}
+  \item we know that the variance of the enteries of a random vector x are the diagnoal enteries of it's covariance matrix 
+  \item so in this case as we are given an eigendecomposition of the form $Q\lambda Q^{-1}=\Sigma_{\Tilde{x}}$
+  \item we can compute $\Sigma_{\Tilde{x}}=\begin{pmatrix}
+    1 & 0 &0\\
+    0 & \frac{1}{4} & \frac{1}{4}\\
+    0 & \frac{1}{4} & \frac{1}{4}\\
+  \end{pmatrix}$
+  \item so thus we can see $var(\Tilde{x}[1])=1$ and $var(\Tilde{x}[2])=var(\Tilde{x}[3])=\frac{1}{4}$
+\end{itemize}
+
+\item Is it possible to find a unit-norm vector $u$ such that the inner product between $\rx$ and $u$ (i.e. the amplitude of the projection of $\rx$ onto that direction) has variance greater than 1?
+\begin{itemize}
+  \color{blue}
+  \item we can write the variance of any linear combination of $\Tilde{x}$ and a vector $a\in \mathbb{R}^{d}$ as $var(a^t\Tilde{x})=a^t\Sigma_{\Tilde{x}}a$
+  \item doing this out for an arbitrary vector $a=\begin{pmatrix}
+    a_1\\1_2\\1_3
+  \end{pmatrix}$ we can see that $j(a)=a^t\Sigma_{\Tilde{x}}a$
+  \item we know we are looking for the max such that a has unit norm so we can write this as a lagrangian 
+  \item $max_{a\in \mathbb{R}^{3}}j(a) \text{ such that} ||a||=1\iff max(\mathcal{L}(a,\lambda ))=max_{a,\lambda}j(a)-\lambda(||a||-1)$
+  \item so now to maximize we can find $\frac{\partial \mathcal{L}}{\partial a}=2a^t\Sigma_{\Tilde{x}}-2\lambda a\Rightarrow a^t\Sigma_{\Tilde{x}}=\lambda a$ so in other words our function max must be achieved when $a$ is an eigen vector of $\Sigma_{\Tilde{x}}$  
+  \item then we can find  $\frac{\partial \mathcal{L}}{\partial \lambda}=||a||-1=0\rightarrow ||a||=1$ie at the max a must have unit norm
+  \item this gives us three canaanite points (the three eigenvectors ie columns of $Q$)
+  \item  doing this out we can see $j(\begin{pmatrix}
+    1\\0\\0
+  \end{pmatrix})=1,j(\begin{pmatrix}
+    0\\\frac{1}{\sqrt{2}}\\\frac{1}{\sqrt{2}}
+  \end{pmatrix})=.5,j(\begin{pmatrix}
+    0\\\frac{1}{\sqrt{2}}\\-\frac{1}{\sqrt{2}}
+  \end{pmatrix})=0$
+  \item thus no we can never have a linear combination $\Tilde{x}$ and some vector a with variance greater than 1. 
+
+
+\end{itemize}
+\item Find three constants $a_1$, $a_2$ and $a_3$, such that at least one of them is nonzero and $\P(a_1 \rx[1]+ a_2 \rx[2] + a_3 \rx[3] = 0) = 1$. Justify your answer mathematically, and interpret it geometrically.  
+\begin{itemize}
+  \color{blue}
+  \item we know a random variable with 0 variance will always equal it's mean 
+  \item we know that for any vector $a\in \mathbb{R}^{3}$ by the properties of gaussian random vectors $E[a^t\Tilde{x}]=a^tE[\tilde{x}]=0$
+  \item so in other words for our linear combination $a^t\Tilde{x}$ to always equal zero we just need to find any vector a such that $var(a^t\Tilde{x})=0$
+  \item we know that $var(a^{t}\Tilde{x})=a^{t}\Sigma_{\Tilde{x}}a$ we showed in the last problem that 
+  \item $a^{t}\Sigma_{\Tilde{x}}a=0$ when $a=\begin{pmatrix}
+    0\\\frac{1}{\sqrt{2}}\\-\frac{1}{\sqrt{2}}
+  \end{pmatrix}$ 
+  \item geometrically this makes sense as  $a=\begin{pmatrix}
+    0\\\frac{1}{\sqrt{2}}\\-\frac{1}{\sqrt{2}}
+  \end{pmatrix}$  is an eigenvecotr of $\Sigma_{\Tilde{x}}$ associated to eigen value 0 so in other words, it is an eigenvalue in the null space of our covariance matrix 
+\end{itemize}
+
+\end{enumerate}
+\newpage
+\item (Basketball team) The coach of a basketball needs to choose two out of three players to play as guards during the last quarter of a game. The covariance matrix of the points scored by the players in a quarter is the following
+ \begin{center}
+\begin{tabular}{ | c | c | c | c |  } % c | c | c l c | c | c | c | c | c | }
+  \hline			
+&  Player A & Player B & Player C \\
+  \hline			
+Player A & 100 & -80 & 10   \\
+  \hline  
+Player B  & -80  & 81 & 50 \\ 
+  \hline  
+Player C &  10 & 50 & 100\\
+ \hline  
+ \end{tabular} .
+\end{center}
+Compute the variance of the total number of points if the coach plays the three possible combinations of two players. Assuming all three players score the same number of points on average, which combination would you recommend to the coach if the team is winning by a lot? Which would you recommend if they are losing by a lot? 
+\begin{itemize}
+  \color{blue}
+  \item assume that the random vector for number of points scored by the players is given by $\Tilde{x}=\begin{pmatrix}
+    \text{number of points made by player 1 }\\
+    \text{number of points made by player 2 }\\
+    \text{number of points made by player 3 }
+  \end{pmatrix}$
+  given this we can define our different combinations of players as $a_1=\begin{pmatrix} 1\\1\\0\end{pmatrix}$,$a_2=\begin{pmatrix} 1\\0\\1\end{pmatrix}$,$a_3=\begin{pmatrix} 0\\1\\1\end{pmatrix}$
+\item so we can compute the variance with combination i as $a_{i}^t\Sigma_{\Tilde{x}}a_{i}$
+\item doing this out we find 
+\begin{enumerate}
+  \item $a_{1}^t\Sigma_{\Tilde{x}}a_{1}=21$
+  \item $a_{2}^t\Sigma_{\Tilde{x}}a_{2}=220$
+  \item $a_{3}^t\Sigma_{\Tilde{x}}a_{3}=280$
+\end{enumerate}
+\item so given you were winning by a lot it would stand to reason you want to take a safe bet, and thus choosing $a_1$ that is players 1 and 2 is optimal
+\item if on the other hand you were badly loosing, you may want to pick a combination of players that has the potential to score a lot of points (regardless of if they could potentially mess up badly as well) and thus would chose combination $a_3$ that is players 2 and 3  
+\end{itemize}
+\newpage
+
+
+\item (Estimating a direction) We consider a dataset of $d$-dimensional vectors that is modeled as samples from a random vector
+\begin{align}
+\rv{y} := \rnd{x}v + \rv{z},
+\end{align}
+where $v \in \R^d$, $\rnd{x} \in R$ is a random variable with mean 0 and variance $\sigma_{\op{signal}}^2$, $v$ is a fixed deterministic unit-norm vector, and $\rv{z} \in R^d$ is a Gaussian random vector with independent entries, each of which has mean zero and variance $\sigma_{\op{noise}}^2$. Assume that $\rnd{x}$ and $\rv{z}$ are independent.
+\begin{enumerate}
+\item Sketch some samples of $\rv{y}$ for $d=2$ when $\sigma_{\op{signal}}$ is much larger than $\sigma_{\op{noise}}$. You can assume any $v$ for the diagram.  
+\item For the $v$ you picked in part $(a)$, sketch some samples of $\rv{y}$ for $d=2$ when $\sigma_{\op{signal}}$ is much smaller than $\sigma_{\op{noise}}$.  
+\item Is averaging the dataset a good algorithm for estimating $v$?  
+\begin{itemize}
+  \color{blue}
+  \item no averaging the dataset will not get us a good estimate of v
+  \item we can examine the expected value of our variables
+  \item $E[v\Tilde{x}+\Tilde{z}]=E[v\Tilde{x}]+E[\Tilde{z}]=vE[\Tilde{x}]+E[\Tilde{z}]=v*0+\begin{pmatrix}
+    0\\0
+  \end{pmatrix}=\begin{pmatrix}
+    0\\0
+  \end{pmatrix}$
+  \item which may not be v
+\end{itemize}
+\item Compute the covariance matrix of $\rv{y}$. 
+\begin{itemize}
+  \color{blue}
+  \item we can write the variance as $var(\Tilde{y})=E[(\Tilde{y}-E[\Tilde{y}])^2]=E[(\Tilde{x}v+\Tilde{z}-E[\Tilde{x}v+\Tilde{z}])^2]=\\E[(\Tilde{x}v+\Tilde{z}-E[\Tilde{x}]v+E[\Tilde{z}])^2]=
+  E[(\Tilde{x}v+\Tilde{z})^2]=E[(\Tilde{x}v)^{t}(\Tilde{x}v)+(\Tilde{x}v)^{t}\Tilde{z}+\Tilde{z}^{t}(\Tilde{x}v)+\Tilde{z}^t\Tilde{z}]=\\
+  v^{t}E[\Tilde{x}^{t}\Tilde{x}]v+v^{t}E[\Tilde{x}^{t}\Tilde{z}]+E[\Tilde{z}^{t}\Tilde{x}]v+E[\Tilde{z}^{t}\Tilde{z}]=v^t\sigma_{signal}^{2}v+2v^{t}cov(\Tilde{x},\Tilde{z})+\sigma^{2}_{noise}I\\=v^t\sigma_{signal}^{2}v+\sigma^{2}_{noise}I  $
+\end{itemize}
+\item Express the eigendecomposition of the covariance matrix in terms of
+  $\sigma_{\op{signal}}$, $\sigma_{\op{noise}}$, $v$,
+  $u_2$, \ldots, $u_d$.
+  Here $u_2$, \ldots, $u_d$ are unit $\ell_2$-norm vectors
+  that are orthogonal to $v$ and each other.  
+\begin{itemize}
+  \color{blue}
+  \item given the covariance matrix $v^t\sigma_{signal}^{2}v+\sigma^{2}_{noise}I=\Sigma_{\Tilde{x}}$ 
+ \item to find the part that is diagonalizable given our eigenvecotrs wich we can write in matrix form as $P=\begin{pmatrix}
+  u_1\\...\\u_n
+ \end{pmatrix}$ we first need to think about the eigenvectors of $cov(y)=v^tv\sigma_{singal}^{2}+\sigma^{2}_{noise}I$
+ \item we know that the eigenmatrix of $\Lambda =cov(y)$ should eb able to be written as $P\Lambda P^t=cov(y)\Rightarrow \Lambda = P^t cov(y) P$
+ \item so doing this out we have $P^{t}(v^t\sigma_{signal}^{2}v+\sigma^{2}_{noise}I)P=\sigma^{2}_{noise}P^tv^tvP+\sigma^{2}_{noise}P^tIP=\sigma^2_{noise}I+\sigma^2_{signal}$
+ \item so we can thus write $cov(y)=P(\sigma_{signal}^{2}+\sigma_{noise}^{2}I)$ 
+\end{itemize}
+\item Suggest an algorithm to estimate the direction of $v$ from the data.  
+\begin{itemize}
+  \color{blue}
+  \item we showed above that $\Sigma_{\Tilde{x}}=v^t\sigma_{signal}^{2}v+\sigma^{2}_{noise}I=cov(y)=P(\sigma_{signal}^{2}+\sigma_{noise}^{2}I)$
+  \item so this tells us that we can think of the eigenvalues of our covariance matrix as representing the noise in our data
+  \item so thus eigen value i can be expressed as $\lambda_{i}=\sigma^{2}_{signal}+\sigma^{2}_{noise}[i]\Rightarrow \sigma^{2}_{signal}=\lambda[i]-\sigma^{2}_{noise}[i]$
+  \item so taking the largest eigenvalue of $cov(y)$ will give us our best estimate of v
+\end{itemize}
+
+\end{enumerate}
+\newpage
+\item (Financial data) In this exercise you will use the code in the findata folder.
+  For the data loading code to work properly, make sure you
+  have the pandas Python package installed on your system.
+
+  Throughout, we will be using the data obtained by calling
+ \verb|load_data()| in \verb|findata_tools.py|.  This will
+  give you the names, and closing prices for a set of 18 stocks over a
+  period of 433 days ordered chronologically.
+  For a fixed stock (such as msft), let
+  $P_1,\ldots,P_{433}$ denote its sequence of closing prices ordered in
+  time.  For that stock, define the daily returns series $R_i:=P_{i+1}-P_i$ for
+  $i=1,\ldots,432$.  Throughout we think of the daily stock returns as features,
+  and each day (but the last) as a separate datapoint in $\R^{18}$.
+  That is, we have $432$ datapoints each having $18$ features.
+  \begin{enumerate}
+  \item Looking at the first two principal directions of the
+    centered data, give the two stocks with the largest
+    coefficients (in absolute value) in each direction.  
+    Give a hypothesis why these two stocks have the largest
+    coefficients, and confirm your hypothesis using the data.  The file 
+ \verb|findata_tools.py| has \verb|pretty_print()|
+    functions that can help you output your results.
+    You are not required to include the principal directions in
+    your submission.
+  \item Standardize the centered data so that each stock (feature) has
+    variance 1 and compute the first 2 principal directions.  This is
+    equivalent to computing the principal directions of the
+    correlation matrix (the previous part used the covariance
+    matrix).  Using the information in the comments of
+   \emph{generate\_findata.py} as a guide to the stocks, 
+    give an English interpretation of the first 2 principal directions
+    computed here. 
+    You are not required to include the principal directions in
+    your submission.
+  \item Assume the stock returns each day are drawn independently from a
+    multivariate distribution $\rx$ where
+    $\rx[i]$ corresponds to the $i$th stock.  Assume further that
+    you hold a portfolio with $200$ shares of each of appl, amzn, msft, and
+    goog, and $100$ shares of each of the remaining 14 stocks in the
+    dataset.  Using the sample covariance matrix as an estimator for
+    the true covariance of $\rx$, approximate the standard deviation of
+    your 1 day portfolio returns $\ry$ (this is a measure of the risk of your
+    portfolio).  Here $\ry$ is given by
+    $$\ry := \sum_{i=1}^{18} \alpha[i] \rx[i],$$
+    where $\alpha[i]$ is the number of shares you hold of stock $i$.  
+  \item Assume further that $\rx$ from the previous part has a
+    multivariate Gaussian distribution.  Compute the probability
+    of losing $1000$ or more dollars in a single day.  That is,
+    compute
+    $$\Pr(\ry \leq -1000).$$
+  \end{enumerate}
+  Note: The assumptions made in the previous parts are often
+  invalid and can lead to inaccurate risk calculations in real
+  financial situations. 
+
+\end{enumerate}
+\end{document}
