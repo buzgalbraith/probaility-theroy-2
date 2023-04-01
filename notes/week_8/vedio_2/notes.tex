@@ -33,9 +33,9 @@
 \item this allows us to consider the function $f:A\Rightarrow\mathbb{R}: A:=\{a\in \mathbb{R}^{d} : ||a||=1\}$ where
  $f(a)=var(a^t\Tilde{x})=a^{t}\Sigma_{\Tilde{x}}a$
 \item plotted over the contour diagram of a certain gaussian random vector that function looks
- like this \\ \includegraphics[width=5cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/vedio_2/immages/v2_1.png}
+ like this \\ \includegraphics[width=5cm]{notes/week_8/vedio_2/immages/v2_1.png}
 \item then plotting this in 2d as a function of radians looks like this 
- \\ \includegraphics[width=5cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/vedio_2/immages/v2_2.png}
+ \\ \includegraphics[width=5cm]{notes/week_8/vedio_2/immages/v2_2.png}
  \item so the direction of max variance in this case would be any point at the top that wave
  \item this expands to higher dimensional objects
  \item so now we want to know how we can find the optima in a more general sense. 
@@ -70,9 +70,9 @@ $$u_{k}=argmax_{||a||=1, a\perp u_1 \dots a\perp u_k}a^tMa, \quad \forall k \in 
 \item  then we can find the kth maximal direction of variance and it's associated variance orthogonal to our previous directions as $$\lambda_{k}=max_{||a||=1, a\perp u_1 \dots a\perp u_k}a^tMa=max_{||a||=1, a\perp u_1 \dots a\perp u_k}var(a^tM), \quad \forall k \in [2,d-1]$$
 $$u_{k}=argmax_{||a||=1, a\perp u_1 \dots a\perp u_k}a^tMa=argmax_{||a||=1, a\perp u_1 \dots a\perp u_k}var(a^tM), \quad \forall k \in [2,d-1]$$
 \item we can call $u_{i}$ the ith Principal direction of $\Tilde{x}$
-\item so back to this graph \\ \includegraphics[width=5cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/vedio_2/immages/v2_2.png}
+\item so back to this graph \\ \includegraphics[width=5cm]{notes/week_8/vedio_2/immages/v2_2.png}
 \item we know that our function will be maximized at the first Principal direction (the first eigenvector of the covariance matrix of $\Tilde{x}$)
-\item looking at the joint pdf of our random vector we can indeed see that the first Principal direction does capture the most variance graphically \\ \includegraphics[width=5cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/vedio_2/immages/v2_3.png}
+\item looking at the joint pdf of our random vector we can indeed see that the first Principal direction does capture the most variance graphically \\ \includegraphics[width=5cm]{notes/week_8/vedio_2/immages/v2_3.png}
 \item we can naturally find the minimum variance direction by just looking for the eigenvector associated with the minimum eigenvalue
 \subsection*{Principal Components}
 \item let $ct(\Tilde{x})=\Tilde{x}-E[\Tilde{x}]$ be our centered random vector
@@ -84,13 +84,13 @@ $$\Tilde{w}_{i}=u_{i}^{t}ct(\Tilde{x})= P_{u_{i}}ct(\Tilde{x})\quad \forall i\in
 \item so this goes to show that our definition of Principal Components result in Components that have maximal variance
 \subsection*{example}
 \item so for a certain gaussian random vector $\Tilde{x}\in \mathbb{R}^{2}$
-\item we say can plot it's first Principal direction as \\ \includegraphics*[width=4cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/vedio_2/immages/v2_4.png}
-\item then computing the corresponding first Principal Component as $\Tilde{w}_i=u_i^{t}ct(\Tilde{x})$ and plotting its pdf    \\  \includegraphics*[width=4cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/vedio_2/immages/v2_5.png}
+\item we say can plot it's first Principal direction as \\ \includegraphics*[width=4cm]{notes/week_8/vedio_2/immages/v2_4.png}
+\item then computing the corresponding first Principal Component as $\Tilde{w}_i=u_i^{t}ct(\Tilde{x})$ and plotting its pdf    \\  \includegraphics*[width=4cm]{notes/week_8/vedio_2/immages/v2_5.png}
 \item this tells us that the first principal component of our gaussian random vector is a gaussian random varibale is a gaussian with fairly high variance
-\item as this is only a 2 dimensional random vector we know it's other principal direction will be the direction of minimal variance graphing this we see \\  \includegraphics*[width=4cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/vedio_2/immages/v2_6.png}
-\item and plotting the pdf of the second principal Component we get \\ \includegraphics*[width=4cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/vedio_2/immages/v2_7.png} 
+\item as this is only a 2 dimensional random vector we know it's other principal direction will be the direction of minimal variance graphing this we see \\  \includegraphics*[width=4cm]{notes/week_8/vedio_2/immages/v2_6.png}
+\item and plotting the pdf of the second principal Component we get \\ \includegraphics*[width=4cm]{notes/week_8/vedio_2/immages/v2_7.png} 
 \item which is good as we can see the second Principal Component of our random vector is a gaussian random variable with lower variance
-\item now we can look at the joint pdf of our two Principal Components $\Tilde{w}_1, \Tilde{w}_2$ \\  \includegraphics*[width=4cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/vedio_2/immages/v2_8.png}
+\item now we can look at the joint pdf of our two Principal Components $\Tilde{w}_1, \Tilde{w}_2$ \\  \includegraphics*[width=4cm]{notes/week_8/vedio_2/immages/v2_8.png}
 \item this graph makes sense as we are centering our data (then rotating it in the direction of our Principal Components) so that we have the ellipse that are most spread out in the first dimension and least spread out in the second 
 \item this also leaves us with uncorrelated Component
 \subsection*{corelation}
@@ -120,8 +120,8 @@ $E[\Tilde{w}_{i}\Tilde{w}_{j}^t]=E[(u_i^{t}ct(\Tilde{x}))(u_j^{t}ct(\Tilde{x}))^
 \subsection*{other example}
 \item here we are looking at a dataset of face immages where each image $x_i\in \mathbb{R}^{64\times 64}$ then we are going to flatten those to vector such that $x_i\in \mathbb{R}^{4096}$
 \item now we can build a covariance matrix $\Sigma_{x}\in \mathbb{R}^{4096\times 4096}$ and taking the eigenvectors of that we get the principal direction which we can then project the data onto to get the Principal Component $u_1...u_{4096}$
-\item here are the first few Principal components \\ \includegraphics*[width=5cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/vedio_2/immages/v2_9.png}
-\item here are some lower Principal Components few Principal components \\ \includegraphics*[width=5cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/vedio_2/immages/v2_10.png}
+\item here are the first few Principal components \\ \includegraphics*[width=5cm]{notes/week_8/vedio_2/immages/v2_9.png}
+\item here are some lower Principal Components few Principal components \\ \includegraphics*[width=5cm]{notes/week_8/vedio_2/immages/v2_10.png}
 \item we can see that the higher principal Components capture some of the course features of our data like nose or glasses 
 \item the lower Principal Components are more fine and often give us less interpretable features 
 \end{itemize}

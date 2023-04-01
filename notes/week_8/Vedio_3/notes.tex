@@ -39,8 +39,8 @@
 \item and thus the variance of our dataset in that direction is given by $var(X_a)=a^t\Sigma_{X}a$ 
 which we can call $q(a)$
 \item we can look at this function over the set $A=\{a\in \mathbb{R}^{d}:||a||=1\}$ that is $q(A)$
-\item which when graphed looks like this along the contour lines of some dataset  \\ \includegraphics*[width=4cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/Vedio_3/immages/v3_1.png}
-\item then we can look at the values $Q(A)$ it's self in  \\ \includegraphics*[width=4cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/Vedio_3/immages/v3_2.png}
+\item which when graphed looks like this along the contour lines of some dataset  \\ \includegraphics*[width=4cm]{notes/week_8/Vedio_3/immages/v3_1.png}
+\item then we can look at the values $Q(A)$ it's self in  \\ \includegraphics*[width=4cm]{notes/week_8/Vedio_3/immages/v3_2.png}
 \item so how can we maximize this function representing variance in every direction?
 \subsection*{will there be a max}
 \item first we want to show there must be a maximal value for this function
@@ -50,7 +50,7 @@ which we can call $q(a)$
 \subsection*{what will this max look like?}
 \item to look at the max of $q(a)=a^t\Sigma_{X}a$ we want to reason about it's gradient 
 \item we know that $\Sigma_{X}$ is symmetric thus $\nabla_{a}q(a)=2\Sigma_{X}a$
-\item that looks like this\\ \includegraphics[width=4cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/Vedio_3/immages/v3_3.png}
+\item that looks like this\\ \includegraphics[width=4cm]{notes/week_8/Vedio_3/immages/v3_3.png}
 \item the gradient encodes the directional derivative of $q(a)$
 \item the directional derivative of $q(a)$ in the direction of some unit vector b is given by 
 $q'(b)=lim_{\epsilon\rightarrow 0}\frac{q(b+\epsilon h)-q(b)}{\epsilon}=(\nabla q(b))^th$ so it is the gradient of the quadratic form and h 
@@ -64,7 +64,7 @@ $q'(b)=lim_{\epsilon\rightarrow 0}\frac{q(b+\epsilon h)-q(b)}{\epsilon}=(\nabla 
 \item this is important because we are in this case because as we are moving we are almost staying at the same value of $s(a)$ in this case on the unit circle
 \item so we can then write if y-b is small ie y and b are close $$s(y)\approx s(b)+\nabla(y-b)^{t}$$
 \item that is we are almost staying on the circle
-\item so graphically we have \\ \includegraphics*[width=4cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/Vedio_3/immages/v3_4.png}
+\item so graphically we have \\ \includegraphics*[width=4cm]{notes/week_8/Vedio_3/immages/v3_4.png}
 \subsection*{maximizing q }
 \item so given what we showed above when can a point maximize q(a)
 \item \begin{itemize}
@@ -74,7 +74,7 @@ $q'(b)=lim_{\epsilon\rightarrow 0}\frac{q(b+\epsilon h)-q(b)}{\epsilon}=(\nabla 
 \end{itemize}
 \item so when will  a point be a max of $q(a)$ there should be no $h$ such that $b+\epsilon h$ is in our level set an $\nabla(b)^th=q'(b)> 0$
 \item so in other words we need the gradient of our level set to be orthogonal to our hyperplane and thus colinear with the gradient of $s(b)$
-\item so in our case the gradient of $q(s)$ $\nabla q(s)$ must be orthogonal to the circle to achieve a max \\ \includegraphics*[width=4cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/Vedio_3/immages/v3_5.png}
+\item so in our case the gradient of $q(s)$ $\nabla q(s)$ must be orthogonal to the circle to achieve a max \\ \includegraphics*[width=4cm]{notes/week_8/Vedio_3/immages/v3_5.png}
 \item this is equivlent to having a point $u_1$ such that $\nabla q(u_1)\parallel \nabla s(u_1)$ ie $q'(u_1)=0$
 \item so this tells us at the max/min of $q(a)$ there must be some scaler $\lambda$ such that $\nabla q(u)=\lambda s(u)\iff  q(u)\parallel \nabla s(u)$
 \item we know that $g(a)=a^t\Sigma_{X}a$ and thus $\nabla q(u)=2\Sigma_{X} u$

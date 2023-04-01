@@ -36,14 +36,14 @@ that is each element of the random vector $\tilde{x}$ is it's self a random vect
 |}}e^{-\frac{1}{2}(x-\mu)^t\Sigma^{-1}(x-\mu)}$$
 \item where $\mu\in \mathbb{R}^d$ is the mean parameter and $\Sigma\in \mathbb{R}^{d\times d }$ is the covariance matrix 
 \item note that what we saw in 1-dimension holds and $E[\Tilde{x}]=\mu$ as we would expect
-\item \includegraphics[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/vedio_1/images/v1_1.png}
+\item \includegraphics[width=10cm]{notes/week_8/vedio_1/images/v1_1.png}
 \item here are visualizations of the pdf of a gaussian random vector 
 \subsection*{sample mean}
 \item suppose where have a dataset $\mathcal{D}=\{x_1...x_n\}:x_i\in \mathbb{R}^{d}$
 \item the sample is given as $m(x):=\frac{1}{n}\Sigma_{i=1}^{n}x_i$ that is we just take the sample mean of each dimension
 \subsection*{faces example}
 \item suppose we have a dataset where each observation $x_i\in \mathbb{R}^{4096}$ that is a 64 by 64 image represented as a vector
-\item \includegraphics[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/vedio_1/images/v1_2.png}
+\item \includegraphics[width=10cm]{notes/week_8/vedio_1/images/v1_2.png}
 \item here the mean is actually meaningfully this is primally because the images are aligned
 \subsection*{mean of a random matrix}
 \item if we have a random matrix $\Tilde{M}=\begin{pmatrix}
@@ -113,7 +113,7 @@ that is each element of the random vector $\tilde{x}$ is it's self a random vect
 \item where $\mu\in \mathbb{R}^d$ is the mean parameter and $\Sigma\in \mathbb{R}^{d\times d }$ is the covariance matrix 
 \item note that what we saw in 1-dimension holds and $E[\Tilde{x}]=\mu$ as we would expect
 \item we also have $\Sigma_{\Tilde{x}}=\Sigma$
-\item \includegraphics[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/vedio_1/images/v1_1.png}
+\item \includegraphics[width=10cm]{notes/week_8/vedio_1/images/v1_1.png}
 \item here are visualizations of the pdf of a gaussian random vector 
 \item basically the shape of the ellipsoids for the contour lines are determined by the covariance matrix
 \section{variance in a certain direction}
@@ -123,17 +123,17 @@ that is each element of the random vector $\tilde{x}$ is it's self a random vect
 \item we are using unit norm directions to make our math easier, and because you can just rescale any vector to be unit norm 
 \item further note that $\Tilde{x}=((b^t\Tilde{x}))b+(\Tilde{x}-((b^t\Tilde{x}))b))$ to see this basically notice that $b^t\Tilde{x}$ is the projection of x on to b, and thus $(b^t\Tilde{x})b$ will be collinear (parallel) with b and thus if we subtract that value from our original vector x we are taking away the orthogonal portion of x
 \item  here we also assume that we have centered x by subtracting it's mean. 
-\item \includegraphics[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/vedio_1/images/v1_3.png}
+\item \includegraphics[width=10cm]{notes/week_8/vedio_1/images/v1_3.png}
 \item  here we can see a gaussian rv x, centered at 0 
 \item and a direction b
 \item then we want to understand how x varies along that line by looking at how much the projection of x $(b^t\tilde{x})$ varies
-\item \includegraphics[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/vedio_1/images/v1_4.png}
+\item \includegraphics[width=10cm]{notes/week_8/vedio_1/images/v1_4.png}
 \item here is the pdf of $b^t\Tilde{x}$
 \item so what is the gaussian from this? we can use our equation $var[b^t\Tilde{X}]=b^t\Sigma_{\Tilde{x}}b=.5$
 \item naturally we can do this for any direction
-\item \includegraphics[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/vedio_1/images/v1_5.png}
+\item \includegraphics[width=10cm]{notes/week_8/vedio_1/images/v1_5.png}
 \item here is our variance in every direction along the unit circle (ie all vectors with length 1 in $\mathbb{R}^{2}$)
-\item \includegraphics[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_8/vedio_1/images/v1_6.png}
+\item \includegraphics[width=10cm]{notes/week_8/vedio_1/images/v1_6.png}
 \item we can look at this in 1 dimension, and see our variance in a certain direction as a function of the angle (note it is sinusoidal )
 \item this is called a quadratic form 
 \section*{covariance matrix on a data set}
