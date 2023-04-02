@@ -108,7 +108,7 @@ $E[\Tilde{w}_{i}\Tilde{w}_{j}^t]=E[(u_i^{t}ct(\Tilde{x}))(u_j^{t}ct(\Tilde{x}))^
 \begin{enumerate}
     \item compute teh sample covariance matrix $\Sigma_{d}$
     \item take the eigen decomposition of $\Sigma_{X}$ which yields principal direction $u_1...u_d$
-    \item center the data and compte the Principal components as $$w_j[i]=uj^{t}ct(x), \quad \forall i\in [1,d], j\in [1,d]$$ where $ct(x_i)=x_i-M(x)$ so we are projecting the data onto the Principal Components
+    \item center the data and compte the Principal components as $$w_j[i]=uj^{t}ct(x), \quad \forall i\in [1,n], j\in [1,d]$$ where $ct(x_i)=x_i-M(x)$ so we are projecting the data onto the Principal Components
 \end{enumerate}
 \item this is optimal with respect to sample variance
 \subsection*{example}
@@ -118,7 +118,7 @@ $E[\Tilde{w}_{i}\Tilde{w}_{j}^t]=E[(u_i^{t}ct(\Tilde{x}))(u_j^{t}ct(\Tilde{x}))^
 \item we know that the sample variance of $X_a$ is given by $v(X_a)=a^t\Sigma_X a$ we showed in last Video this gives us exactly the sample variance
 \item we can again show that the Principal Components are the exact directions of maximal sample variance for our dataset by the exact same logic as what we did in the random vector case. 
 \subsection*{other example}
-\item here we are looking at a dataset of face immages where each image $x_i\in \mathbb{R}^{64\times 64}$ then we are going to flatten those to vector such that $x_i\in \mathbb{R}^{4096}$
+\item here we are looking at a dataset of face images where each image $x_i\in \mathbb{R}^{64\times 64}$ then we are going to flatten those to vector such that $x_i\in \mathbb{R}^{4096}$
 \item now we can build a covariance matrix $\Sigma_{x}\in \mathbb{R}^{4096\times 4096}$ and taking the eigenvectors of that we get the principal direction which we can then project the data onto to get the Principal Component $u_1...u_{4096}$
 \item here are the first few Principal components \\ \includegraphics*[width=5cm]{notes/week_8/vedio_2/immages/v2_9.png}
 \item here are some lower Principal Components few Principal components \\ \includegraphics*[width=5cm]{notes/week_8/vedio_2/immages/v2_10.png}
