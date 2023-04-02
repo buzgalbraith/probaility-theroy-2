@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1680393725 "/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/homework/homework_8/hw8.tex" "hw8.pdf" "hw8" 1680393726
+["pdflatex"] 1680395434 "/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/homework/homework_8/hw8.tex" "hw8.pdf" "hw8" 1680395434
   "/etc/texmf/web2c/texmf.cnf" 1679177133 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/homework/homework_8/hw8.tex" 1680393724 16017 68c83ed712615cabb107fa5cfdc978d4 ""
+  "/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/homework/homework_8/hw8.tex" 1680395433 19357 469d80a99ffa712ee38ac70872d4b914 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/symbol/psyr.tfm" 1136768653 1408 5937f58aa508ea2cea4901c07d10f5fe ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
@@ -268,10 +268,11 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1644012257 39432 7155514e09a3d69036fac785183a21c2 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1679177154 4379155 98693266ff65f58d9f98aff394de12d2 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1679177175 2800018 337a2069f86217164a7ce4581fbba3e2 ""
-  "hw8.aux" 1680393725 686 73cab9aebf92278d421000e14113f5d7 "pdflatex"
-  "hw8.out" 1680393725 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "hw8.tex" 1680393724 16017 68c83ed712615cabb107fa5cfdc978d4 ""
+  "hw8.aux" 1680395434 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "hw8.out" 0 -1 0 "pdflatex"
+  "hw8.tex" 1680395433 19357 469d80a99ffa712ee38ac70872d4b914 ""
   "hwstatement.tex" 1680206544 997 f125778469db7edb8f30cada23302425 ""
+  "images/h8_1.png" 1680394967 44679 3a888be894ac377f1208417486d0f5b3 ""
   "macros.tex" 1680206544 5650 3f1f2cd7951cede04a3d1840d803881d ""
   (generated)
   "hw8.aux"
