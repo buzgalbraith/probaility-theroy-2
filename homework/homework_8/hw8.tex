@@ -135,10 +135,22 @@ Compute the variance of the total number of points if the coach plays the three 
 where $v \in \R^d$, $\rnd{x} \in R$ is a random variable with mean 0 and variance $\sigma_{\op{signal}}^2$, $v$ is a fixed deterministic unit-norm vector, and $\rv{z} \in R^d$ is a Gaussian random vector with independent entries, each of which has mean zero and variance $\sigma_{\op{noise}}^2$. Assume that $\rnd{x}$ and $\rv{z}$ are independent.
 \begin{enumerate}
 \item Sketch some samples of $\rv{y}$ for $d=2$ when $\sigma_{\op{signal}}$ is much larger than $\sigma_{\op{noise}}$. You can assume any $v$ for the diagram.  
-
+\begin{itemize}
+    \color{blue}
+    \item \inputminted[firstline=67, lastline=78, breaklines=True]{python}{hw8.py}
+    \includegraphics[width=10cm]{homework/homework_8/images/h8_2.png}
+    \item so we can see here that plotting a scatter plot of $\Tilde{y}$ broadly looks like a line which makes sense as $\Tilde{y}$ is an affine combination of a signal random variable and noise random variable
+\end{itemize}
 
 
 \item For the $v$ you picked in part $(a)$, sketch some samples of $\rv{y}$ for $d=2$ when $\sigma_{\op{signal}}$ is much smaller than $\sigma_{\op{noise}}$.  
+\begin{itemize}
+    \color{blue}
+    \item \inputminted[firstline=95, lastline=98, breaklines=True]{python}{hw8.py}
+    \includegraphics[width=10cm]{homework/homework_8/images/h8_3.png}
+    \item here the noise is overpowering the signal so our samples from $\Tilde{y}$ are broadly nomally distributed 
+\end{itemize}
+
 \item Is averaging the dataset a good algorithm for estimating $v$?  
 \begin{itemize}
   \color{blue}
@@ -242,6 +254,8 @@ where $v \in \R^d$, $\rnd{x} \in R$ is a random variable with mean 0 and varianc
     \item in the above graph i plotted the stock price changes of all stocks in the centered dataset over the time period
     \item Amzn is plotted in blue and GOOG is plotted in red, all other stocks are plotted in green 
     \item this confirms out hypothesis as these two stocks very clearly account for the majority of the variance in the dataset. 
+    \item here is the code used for this problem.
+    \item \inputminted[firstline=118, lastline=175, breaklines=True]{python}{hw8.py}
 \end{itemize}
     
   \item Standardize the centered data so that each stock (feature) has
@@ -256,7 +270,7 @@ where $v \in \R^d$, $\rnd{x} \in R$ is a random variable with mean 0 and varianc
     your submission.
     \begin{itemize}
      \color{blue}
-      \item we can Standardize our data 
+      \item we can Standardize our data X as
       \item so our first principal direction is \begin{center}
         \begin{tabular}{c|c|c|c|c|c}
         AAPL & AMZN & MSFT & GOOG & XOM & APC\\
@@ -283,7 +297,9 @@ where $v \in \R^d$, $\rnd{x} \in R$ is a random variable with mean 0 and varianc
         \end{tabular}
         \end{center}
         \item this seems to Suggest State Street's SPDR S&P 500 ETF has the largest coefficient of negative variance on our Standardized data set 
-        \item and SDS ProShares inverse levered ETF has the largest positive coefficient of variance 
+        \item and SDS ProShares inverse levered ETF has the largest positive coefficient of variance
+    \item a lot of the code from the last question stays the same, but i will include the standardize function 
+    \item \inputminted[firstline=178, lastline=182, breaklines=True]{python}{hw8.py}
     \end{itemize}
   \item Assume the stock returns each day are drawn independently from a
     multivariate distribution $\rx$ where
@@ -349,6 +365,8 @@ where $v \in \R^d$, $\rnd{x} \in R$ is a random variable with mean 0 and varianc
   \item so thus we are dealing with gaussian random variable as opposed to a gaussian random vector
   \item we can see thus that $P(\Tilde{y}\leq -1000)=1-F_{\Tilde{y}}(-1000)=.5$
   \item so we have a 50\%  chance of losing more than 1000 dollars with this strategy 
+  \item here is the code for this question 
+  \item \inputminted[firstline=223, lastline=227, breaklines=True]{python}{hw8.py}
 \end{itemize}
 
 
