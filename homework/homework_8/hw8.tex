@@ -224,13 +224,63 @@ where $v \in \R^d$, $\rnd{x} \in R$ is a random variable with mean 0 and varianc
     your 1 day portfolio returns $\ry$ (this is a measure of the risk of your
     portfolio).  Here $\ry$ is given by
     $$\ry := \sum_{i=1}^{18} \alpha[i] \rx[i],$$
-    where $\alpha[i]$ is the number of shares you hold of stock $i$.  
+    where $\alpha[i]$ is the number of shares you hold of stock $i$.
+    
+  \begin{itemize}
+    \color{blue}
+    \item assume the random vector for stock return (in terms of dollars is) $\Tilde{x}=\begin{pmatrix}
+      'aapl',\\
+      'amzn',\\
+      'msft',\\
+      'goog',\\
+      'xom', \\
+      'apc',  \\
+      'cvx', \\
+      'c',    \\
+      'gs',  \\
+      'jpm', \\
+      'aet', \\
+      'jnj',  \\
+      'dgx',\\
+      'spy',  \\
+      'xlf',\\
+      'sso',  \\
+      'sds',  \\
+      'uso', \\
+    \end{pmatrix}$ 
+    \item so our alpha vector is given by $\alpha=\begin{pmatrix}
+      200,\\
+      200,\\
+      200,\\
+      200,\\
+      100\\100\\100\\100\\100\\100\\100\\100\\100\\100\\100\\100\\100\\100
+    \end{pmatrix}$
+    \item we are told that $\Tilde{y}=\Sigma_{i=1}^{n}\alpha[i]\Tilde{x}[i]$
+    \item this is a linear combination of $\Tilde{x}$ so we know that $var(\Tilde{y})=var(\Sigma_{i=1}^{18}\alpha^{t}\Tilde{x}_i)=\Sigma_{i=1}^{18}\alpha^{t}\Sigma_{X}[i]\alpha=\alpha^{t}\Sigma_{X}\alpha$
+  \end{itemize}
   \item Assume further that $\rx$ from the previous part has a
     multivariate Gaussian distribution.  Compute the probability
     of losing $1000$ or more dollars in a single day.  That is,
     compute
     $$\Pr(\ry \leq -1000).$$
   \end{enumerate}
+\begin{itemize}
+ \color{blue}
+  \item we are told that $\Tilde{x}$ is normally distributed, that is $\Tilde{x}\sim \mathcal{N}(\mu, \Sigma_{\Tilde{x}})$ 
+  \item so we want to reason about $\Tilde{y}=\alpha^{t}\Tilde{x}$
+  \item we know that $E[\tilde{y}]=E[\alpha^{t}\Tilde{x}]=\alpha^{t} E[\Tilde{x}]=\alpha^{t} \mu$
+  \item and can see that $var(\Tilde{y})=E[(\Tilde{y}-E[\Tilde{y}])^2]=E[(\alpha^{t} \Tilde{x}-\alpha^{t}\mu)^2]=E[(\alpha^{t}( \Tilde{x}-\mu))((\alpha^{t}( \Tilde{x}-\mu)))^t]=E[\alpha^{t}(\Tilde{x}-\mu)((\Tilde{x}-\mu)^{t}\alpha)]=\alpha^{t}E[(\Tilde{x}-\mu)((\Tilde{x}-\mu)^{t})]\alpha=\alpha^{t}\Sigma_{x}\alpha$
+ 
+  \item we can define $ct(\Tilde{y}):=\Tilde{y}-E[\tilde{y}]$
+  \item we can see that $E[ct(\Tilde{y})]=E[\Tilde{y}-E[\Tilde{y}]]=E[\Tilde{y}]-E[\Tilde{y}]=0$
+  \item and $var(ct(\Tilde{y}))=E[ct(\Tilde{y})-E[(ct(\Tilde{y})])^2]=E[ct(\Tilde{y})^2]=E[(\Tilde{y}-E[\Tilde{y}])^2]=\alpha^{t}\Sigma_{\Tilde{x}}\alpha$
+  \item so in other words we know $ct(\Tilde{y})\sim\mathcal{N}(0,\alpha^{t}\Sigma_{\Tilde{x}}\alpha)$
+  \item so thus we are dealing with gaussian random variable as opposed to a gaussian random vector
+  \item we can see thus that $P(\Tilde{y}\leq -1000)=1-F_{\Tilde{y}}(-1000)=.5$
+  \item so we have a 50\%  chance of losing more than 1000 dollars with this strategy 
+\end{itemize}
+
+
   Note: The assumptions made in the previous parts are often
   invalid and can lead to inaccurate risk calculations in real
   financial situations. 
