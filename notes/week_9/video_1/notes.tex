@@ -1,0 +1,128 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\title{Video 1: Dimensionality Reduction via Principal Component Analysis}
+\author{wbg231 }
+\date{December 2022}
+\newcommand{\R}{$\mathbb{R}$}
+\newcommand{\B}{$\beta$}
+\newcommand{\A}{$\alpha$}
+\newcommand{\D}{\Delta}
+
+\newcommand{\avector}[2]{(#1_2,\ldots,#1_{#2})}
+\newcommand{\makedef}[2]{$\textbf{#1}$:#2 }
+\usepackage{tikz,graphicx,hyperref,amsmath,amsfonts,amscd,amssymb,bm,cite,epsfig,epsf,url}
+
+\begin{document}
+
+\maketitle
+
+\section*{introduction}
+\begin{itemize}
+\item \href{https://www.youtube.com/watch?v=ODMRtd3dj7s&ab_channel=CarlosFernandez-Granda}{video link}
+\item data with a large number of features is difficult to work with 
+\item we want to reduce the Dimensionality of our data while maintaining the maximal amount of information
+\subsection*{linear Dimensionality Reduction}
+\item we mosel data as samples form a d- dimension random vector $\Tilde{x}$
+\item assume we have centered the data (ie it has mean zero)
+\item for any orthonormal basis $\{b_1...b_d\}$ we can see that $$\Tilde{x}=\Sigma_{i=1}^{n}\Tilde{a}[i]b_i: \quad \Tilde{a}_i=b_{i}^{T}\Tilde{x}$$
+\item so thus we have $\{\Tilde{a}_1...\Tilde{a}_d\}$ is an equivalent representation of $\tilde{x}$
+\item  can we use some subset of those coefficient to reprint our vector in lower dimension
+\item so for any subset $\{\Tilde{a}_1..\Tilde{a}_k\}$ of our coefficients $\{\Tilde{a}_1..\Tilde{a}_d\}$ we aproximate $\Tilde{x}$ as $$approx_{b_1...b_k}(\Tilde{x}):=\Sigma_{i=1}^{k}\Tilde{a}[i]b_i:\quad \Tilde{a}[i]=b_i^t\Tilde{x}$$
+\subsection*{how to chose the best subset of orthonormal basis vectors}
+\item we can write $\Tilde{x}=\text{aproximate + erorr}=\Sigma_{i=1}^{d}\Tilde{a}[i]b_i=\Sigma_{i=1}^{k}\Tilde{a}[i]b_i+\Sigma_{i=k+1}^{d}\Tilde{a}[i]b_i$
+\item we can express the magnitude of these quantities in terms of there l2 norm 
+\item as the basis vectors are orthonormal we can write $||\Tilde{x}||_{2}^{2}=||\Sigma_{i=1}^{k}\Tilde{a}[i]b_i||_{2}^{2}+||\text{error}||_{2}^{2}=\Sigma_{i=1}^{k}\Tilde{a}[i]^{2}+||\text{error}||_{2}^{2}$
+\item meaning that $||\text{error}||_{2}^{2}|=||\Tilde{x}||_{2}^{2}-\Sigma_{i=1}^{k}\Tilde{a}[i]^{2}=||\Tilde{x}||_{2}^{2}-\Sigma_{i=1}^{k}(b_i^t\Tilde{x})^2$
+\item so we have an expression for the norm of the error and we want to to minimize this naturally 
+\item this is a random quantity so we want to minimize it's expected value
+\subsection*{minimize expected value of norm of square loss}
+\item $E[||\text{error}||_{2}^{2}|]=E[||\Tilde{x}||_{2}^{2}-\Sigma_{i=1}^{k}(b_i^t\Tilde{x})^2]=E[||\Tilde{x}||_{2}^{2}]-\Sigma_{i=1}^{k}E[(b_i^t\Tilde{x})^2]=
+E[||\Tilde{x}||_{2}^{2}]-\Sigma_{i=1}^{k}E[(b_i\Tilde{x}-0)^2]=E[||\Tilde{x}||_{2}^{2}]-\Sigma_{i=1}^{k}E[(b_i\Tilde{x}-E[\Tilde{x}])^2]=E[||\Tilde{x}||_{2}^{2}]-\Sigma_{i=1}^{k}E[(b_i\Tilde{x}-E[\Tilde{x}])^2]
+=E[||\Tilde{x}||_{2}^{2}]-\Sigma_{i=1}^{k}var[b_i^t\Tilde{x}]=E[||\Tilde{x}||_{2}^{2}]-\Sigma_{i=1}^{k}b_i^t\Sigma_{\Tilde{x}}b_i$
+\item what choice of $b_1..b_k$ minimize the error?
+\subsection*{Principal directions}
+\item we talked about this last time 
+\item let $u_1...u_d$ be the eigenvectors of $\Sigma_{\Tilde{x}}$
+\item $u_1=argmax_{||a||_2=1}var(a^t\Tilde{x})$ is the first Principal direction
+\item and all other Principal directions are given by $u_{k}=argmax_{||a||=1, a\perp u_1..a\perp u_{k-1}}var(a^t\Tilde{k})$
+\subsection*{Principal Component Analysis}
+\item so we can pick our basis vectors are the k first Principal Components and this will minimize the mean l2 norm error 
+\item let $u1_..u_d$ be the eigenvectors of covariance matrix $\Sigma_{\Tilde{x}}$
+\item $\{u_1...u_k\}=argmin_{\{b_1..b_k  \} \\ ||b_i||_2=1 \forall i\in [1,k] \\ b_i\perp b_j \forall i\neq j  }E[||\Tilde{x}-approx_{b_1..b_k}(\Tilde{x}) ||_{2}^{2}]$
+\item thus we can write the optimal linear k dimensional approximation as $$approx_{u_1...u_k}(\Tilde{x})=\Sigma_{i=1}^{k}\Tilde{w}_iu_i: \quad \Tilde{w}_i:=u_i^{t}\Tilde{x}$$
+\item which are the first k Principal Component of the covariance matrix of $\Tilde{x}$
+\subsection*{example}
+\item example we have a dataset with 3 varieties of wheat 
+\item each data point corresponding to a wheat seed has 7 features what is the best 2d representation of this data set (ie what captures the most l2 norm of our data, this is the same as capturing as much variance of our data as possible ) 
+\item the steps to do this as 
+\begin{enumerate}
+    \item compute the covariance matrix of our dataset 
+    \item find the eigenvectors of that covariance
+    \item take the top k 
+    \item get the the k Principal Component by taking the inner product of those Principal directions and our data 
+\end{enumerate}
+\item this does well because it preserves that the varieties of wheat are for the most part separate
+\item this preserves important structures in our data 
+\item if we used the last two Principal Components then  we would get basically no variance and it would be very uninformative
+\subsection*{faces example}
+\item we are again using a dataset of faces 
+\item \includegraphics*[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_9/video_1/images/v1_1.png}
+\item here suppose that each of our input vectors $X_i\in \mathbb{R}^{4096}$ and is basically a flattened out version of our 64 by 64 pixel value matrix 
+\item we are going to center the data by subtracting the center mean 
+\item so we can compute the covariance matrix for our dataset and then the first k Principal directions
+\item we can plot the Principal directions and see that they generally capture very coarse features of our dataset and get more fine as we get higher Principal directions (this makes sense as there is less variance in these finer scale features)
+\item so keep in mind that as we use these Principal directions we are just taking the directions that capture the most variance, that does mean we will likely capture some of the overarching structure of the dataset, but it does not mean that we will capture all the variation relevant to every down stream task. 
+\item so suppose we take the 5 first Principal directions of our faces we can deffine our approximation in 5 dimensions as $approx_{u_1..u_5}:=m(X)+\Sigma_{i=1}^{5}w_{j}[i]u_{j}: \quad w_j[i]:=u_j^tct(x_i)$
+\item \includegraphics*[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_9/video_1/images/v1_2.png}
+\item graphically this is what that looks like , ie the face of a single example in the 5 Principal Components
+\item with low Dimensionality we lose a lot of the information but we gain much more information as we keep adding Components
+\item \includegraphics*[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_9/video_1/images/v1_3.png}
+\item each of these representations are the Principal Components projected back onto the original space 
+\subsection*{face recognition example}
+\item suppose given images of the same type as the last example
+\item we want to given a new picture identify who the person is in our training set 
+\item item here we are going to use nearest neighbors which is not good  in practice we would use a cnn 
+\subsection*{nearest neighbor classification }
+\item a nearest neighbor classifier predicts as $$i^{*}:=argmin_{i\in [1,n]}||x_{test}-x_{i}||_2$$ that is just predicts the closest neighbor over our whole training set 
+\item since we are doing an argmax over our whole training set we need to look at n vectors in $\mathbb{R}^{d}$ so the total time to classify a new point is $O(nd)$
+\item we can speed this up with practice
+\item we often use PCA as a pre processing steps
+\subsection*{classification in a reduced space}
+\item compute sample mean and k first Principal directions $u_1..u_k$ from training data 
+\item for each new data point $x_test$
+\begin{enumerate}
+    \item center the new point using the training sample mean to get $ct(x_{test})=x_{test}-M(X)$
+    \item compute the first k Principal Components $$w_{test}[i]:=u_i^{t}ct(x_test)$$
+    \item apply our neighbors neighbors  model to make a prediction 
+     $$i^{*}_{k}:=argmin_{i\in [1,n]}||w_{test}-x_{1:k}[i]||_2$$
+\end{enumerate}
+\item so now the cost of predicting a new point is only $O(nk)$ 
+\item of course we are ignoring that we also need to do the pca before hand 
+\item the good news is once you have done that, the marginal cost for each test point is lower 
+\item \includegraphics*[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_9/video_1/images/v1_4.png}
+\item we can see the the error exponentially drops off in the number of Principal Components (at least generally)
+\item the info we are losing in Dimensionality reduction can either screen out noise  (which is good) or hurt us if we are loosing info that is important for the classification
+\subsection*{optimality}
+\item we have argued that the using the first k Principal Components is optimal but we have not yet proved it 
+\item want to show that  $$\{u_1...u_k\}=argmin_{\{b_1..b_k  \} \\ ||b_i||_2=1 \forall i\in [1,k] \\ b_i\perp b_j \forall i\neq j  }E[||\Tilde{x}-approx_{b_1..b_k}(\Tilde{x}) ||_{2}^{2}]=E[||x||_{2}^{2}]-\Sigma var(b_i^{t}\Tilde{x})$$
+\item we are going to show this with induction 
+\subsection*{k=1}
+\item here is our basis step this holds directly by the spectral theorem $u_1=argmax_{||b||=1}var(b^t\Tilde{x})$ 
+
+\subsection*{induction step}
+\item suppose this holds for all $i\leq k$ 
+\item so lets fix an arbitrary set of orthonormal vectors $b_1..b_k$
+\item lets write $\Sigma_{i=1}^{k}var[b_i^{t}\Tilde{x}]=\Sigma_{i=1}^{k}E[b_i^{t}\Tilde{x}^2]=E[\Sigma_{i=1}^{k}b_i^{t}\Tilde{x}^2]=E[||\Sigma_{i=1}^{k}b_i^{t}\Tilde{x}b_i||_{2}^{2}]=E[||p_{s}(\Tilde{x})||_{2}^{2}]$
+\item where $s=span(b_1..b_k)$ so that is the projection of $\Tilde{x}$ on to the span of the first k Principal directions
+\item note that we can use any orthonormal basis of our subspace S $a_1..a_k$
+\item that is $P_{S}\Tilde{x}=\Sigma_{i=1}^{k}b_i^t\Tilde{x}b_i=\Sigma_{i=1}^{k}a_i^t\Tilde{x}a_i$
+\item so we need to consider how to chose the right $a_1..a_k$
+\item S has dimension k, thus there is at least one vector $a_{\perp}\in S$ such that $a_{\perp}\perp\{u_1...u_{k-1}\}$ that is is orthonormal to our first k-1 Principal directions this is true because K has Dimensionality k 
+\item  this vector will have $var(u_{k}^t\Tilde{x})\geq var(a_{\perp}^{t}\Tilde{x})$ by the pca as $u_{k}=argmax_{||a||_2=1, a\perp u_1... a\perp u_{k-1}}var(a^t\Tilde{x})$
+\item so if we set $a_k=a_{\perp}$ and chose $a_1...a_{k-1}$ such that $span(a_1..a_k)=S$ 
+\item we have by the spectral theorem $var(u_k^{T}\tilde{x})\geq var(a_{perp}^{T}\tilde{x})= var(a_{k}^{T}\tilde{x})$
+\item and by our induction hypothesis we have $\Sigma_{i=1}^{k-1}var(u_i^{t}\tilde{x})\geq \Sigma_{i=1}^{k-1}var(a_i^{t}\tilde{x})$ 
+\item meaning that $\Sigma_{i=1}^{k}var(u_i^{t}\tilde{x})\geq \Sigma_{i=1}^{k}var(a_i^{t}\tilde{x})=E[||P_{S}\tilde{x}||_{2}^{2}]=\Sigma_{i=1}^{k}var(b_i^{t}\tilde{x})$ which was our arbitrary set of k vectors fixed at the start 
+\item and thus our induction step holds and the proof is completed the Principal Components minimize the mean of our squared approximation error 
+\end{itemize}
+\end{document}
