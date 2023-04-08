@@ -1,0 +1,169 @@
+\documentclass[12pt,twoside]{article}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz,graphicx,amsmath,amsfonts,amscd,amssymb,bm,cite,epsfig,epsf,url}
+\usepackage[hang,flushmargin]{footmisc}
+\usepackage[colorlinks=true,urlcolor=blue,citecolor=blue]{hyperref}
+\usepackage{amsthm,multirow,wasysym,appendix}
+\usepackage{array,subcaption} 
+% \usepackage[small,bf]{caption}
+\usepackage{bbm}
+\usepackage{pgfplots}
+\usetikzlibrary{spy}
+\usepgfplotslibrary{external}
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{arrows,automata}
+\usepackage{thmtools}
+\usepackage{blkarray} 
+\usepackage{textcomp}
+\usepackage[left=0.8in,right=1.0in,top=1.0in,bottom=1.0in]{geometry}
+\usepackage{pifont}
+\usepackage{tikz-qtree}
+
+\input{macros}
+
+\begin{document}
+
+\begin{center}
+{\large{\textbf{Homework 9}} } \vspace{0.2cm}\\
+Due Apr 9 at 11 pm
+\\
+\end{center}
+\input{hwstatement.tex}\\
+
+\begin{enumerate}
+
+\item (Normalization) In this problem we study the effect of normalizing by the standard deviation before performing principal component analysis. Let $\rx$ be a zero-mean $3$-dimensional random vector with covariance matrix 
+\begin{align}
+\Sigma_{\rx} := \MAT{ 100 & 25 & 0 \\ 25 & 400 & 0 \\ 0 & 0 & 0.16 }.
+\end{align}
+We define the normalized vector $\ry$ as
+\begin{align}
+\ry[i] := \frac{ \rx[i]}{ \sqrt{\var (\rx[i])}} \quad 1 \leq i \leq 3.
+\end{align}
+\begin{enumerate}
+\item Compute the covariance matrix of $\ry$.  
+\begin{itemize}
+  \color{blue}
+  \item observe that the random vector $\Tilde{y}\in \mathbb{R}^{3}$ can be written as $\Tilde{y}=v*\Tilde{x}$ that is as the element-wise 
+  product of the original random vector $\Tilde{x}\in \mathbb{R}^{3}$ and the vector $v=\begin{pmatrix}
+    \frac{1}{\sqrt{\Tilde{x}[1]}}\\\frac{1}{\sqrt{\Tilde{x}[2]}}\\\frac{1}{\sqrt{\Tilde{x}[3]}}
+  \end{pmatrix}$
+  \item then we can consider each of the elements of the new covariance matrix $\Sigma_{\Tilde{y}}$
+  \item note that $\Sigma_{\Tilde{y}}[i,j]=cov(\Tilde{y}[i],\Tilde{y}[j])=cov(\frac{1}{\sqrt{\Tilde{x}[i]}}\Tilde{x}[i],\frac{1}{\sqrt{\Tilde{x}[j]}}\Tilde{x}[j])=
+  E[\frac{1}{\sqrt{\Tilde{x}[i]}}\Tilde{x}[i]*\frac{1}{\sqrt{\Tilde{x}[j]}}\Tilde{x}[j]]-E[\frac{1}{\sqrt{\Tilde{x}[i]}}]\Tilde{x}[i]E[\frac{1}{\sqrt{\Tilde{x}[j]}}\Tilde{x}[j]]=\frac{1}{\sqrt{\Tilde{x}[i]}}\frac{1}{\sqrt{\Tilde{x}[j]}}(E[\Tilde{x}[i]\Tilde{x}[j]]-E[\Tilde{x}[i]]E[\Tilde{x}[j]])$
+$ \\=\frac{1}{\sqrt{\Tilde{x}[i]}}\frac{1}{\sqrt{\Tilde{x}[j]}}cov(\Tilde{x}[i], \Tilde{x}[j])$
+\item computing this out we get $\Sigma_{\Tilde{y}}=\begin{pmatrix}
+  1 & \frac{1}{4} & 0\\\frac{1}{4} & 1 & 0 \\ 0 & 0 & 1
+\end{pmatrix}$
+\end{itemize}
+
+\item Is the directional variance of $\ry$ equal to one in every direction?  
+\begin{itemize}
+  \color{blue}
+  % \item consider the vector 
+  % \item consider an arbitrary deterministic vector $a'\in \mathbb{R}^{3}$
+  % \item we can define a new vector based on $a=\frac{a}{||a'||_{2}}$ as a normalized version of a'
+  % \item 
+  % \item the directional variance of $\Tilde{y}$ in the direction of a is the variance of 
+  % the projection of $\Tilde{y}$ onto that dimension that is $P_{a}(\Tilde{y})=\frac{a^{t}\Tilde{y}}{||a||_{2}}=a^{t}\Tilde{y}$
+  % \item we can see $var(a^{t}\Tilde{y})=a^{t}\Sigma_{\Tilde{y}}a=$
+  \item this is false 
+  \item consider the vector $a=\begin{pmatrix}
+    \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}}  \\ \frac{1}{\sqrt{3}}
+  \end{pmatrix}$ 
+  \item we know the variance of $\Tilde{y}$ in the direction of a is given by the variance of the projection of $\Tilde{y}$
+  onto a 
+  \item the projection $P_{a}(\Tilde{y})=\frac{a^t\Tilde{y}}{||a||}=a^{t}\Tilde{y}$
+  \item then we know $var(P_{a}(\Tilde{y}))=var(a^t\Tilde{y})=a^{t}\Sigma_{\Tilde{y}}a$
+  \item then computing this out we can see $var(P_{a}(\Tilde{y}))= 1.08333333\neq 1$
+\end{itemize}
+
+
+\item We decide to reduce the dimensionality of $\rx$ and $\ry$ to two dimensions using PCA. Report what directions are selected for each of the random vectors. (Feel free to use a computer for your calculations, but explain what you are doing.)  
+\begin{itemize}
+  \color{blue}
+  \item given we would like to reduce the dimensionality of our random vector $\Tilde{x}\in \mathbb{R}^{d}$ to $k\leq d$
+  \item our steps are first to find the covariance $\Sigma_{\Tilde{x}}$
+  \item then we compute an eigendecomposition of $\Sigma_{\Tilde{x}}$ and take it's top k eigenvectors $u_1\dots u_k$, as by the spectral theorem these are the directions of maximal variance for the random vector $\Tilde{y}$
+  \item then we project $\Tilde{y}$ back onto those directions to get the k principal components of $\Tilde{y}$ $p_1...p_k=P_{u_1}(\Tilde{x})\dots P_{u_k}(\Tilde{x})=\frac{u_1^{t}\Tilde{x}}{||u_1||_2}\dots \frac{u_k^{t}\Tilde{x}}{||u_k||_2}=u_1^{t}\Tilde{x}\dots u_k^{t}\Tilde{x}$
+  \item we can apply this methodology to our problem by looking at the random vector $\Tilde{y}$ with k=2
+  \item we can compute the eigenvalues of our covariance matrix as $\begin{pmatrix}
+    1.125\\ 0.875\\ 1.  
+  \end{pmatrix} $
+  \item  and see that $1.125, 1$ are our largest two eigenvalues
+  \item then we can find the principal directions of our data as there associated eigenvectors
+  which are $\lambda_1=1.125, u_1=\begin{pmatrix}
+    0.70710678 \\0.70710678 \\0
+  \end{pmatrix}$ and $\lambda_2=1, u_2=\begin{pmatrix}
+    0 \\0 \\1
+  \end{pmatrix}$
+\end{itemize}
+\item Explain which of the two options for dimensionality reduction to 2D would make more sense in each of the following situations and why that is the case: (1) The entries of $\rx$ represent the weight (in kilograms), heart rate (in beats per minute), and height (in meters) of a set of hospital patients. (2) The entries of $\rx$ represent the length, width and height (all in centimeters) of a set of cars.  
+
+\begin{itemize}
+  \color{blue}
+  \item i think dimensionality reduction makes more sense in case a. 
+  \item in case a we are dealing with health data. each of our quantities is potentially related
+  that is for example someones weight and height could have notable information about there 
+  heart rate. Further, in case a we are trying to understand health outcomes so reducing this 
+  data to principal directions that may be a mixture of features could tell us something 
+  integrable about health care outcomes 
+  \item option b on the other hand is dealing with the dimensions of objects (in this case cars)
+  and there may not be a strong corelation between the features. For instance 
+  knowing that a car is long may not tell you anything about its height or width
+  for instance both a traditional limo and jeep limo are abnormally long, but they have 
+  very different heights and widths. This further implies that in the case of objects taking
+  principal directions that may be a combination of multiple features may not be useable.
+  Further, the data in this set already exists in a
+  form that can be understood in 3 dimensions so dimensionality reduction is kind of pointless. 
+
+\end{itemize}
+
+
+\end{enumerate} 
+
+\item (Faces) The following questions refer to the code in the folder {\tt faces }
+  The Olivetti faces dataset used in  {\tt faces }  contains images of faces of people associated with a unique numeric id to identify the person.
+ 
+\begin{enumerate}
+\item  Complete the \verb|compute_nearest_neighbors()| function in \verb|nearest_neighbors.py| that finds the image in the training data that is closest to a given test image.  Include the generated images in your submitted homework.
+
+\vspace{0.5cm}Create a new file in which
+you must write code to complete the following tasks:
+
+\item Generate a plot of $k$ vs.~$\sigma^2_k$, where $\sigma^2_k$ is
+the variance of the $k$th principal component of the data (e.g., $\sigma^2_1$
+is the largest variance). 
+Include the plot in your submitted homework document. You can limit the x axis to a reasonable number.
+\item  Plot (using  \verb|plot_image_grid()| in
+\verb|plot_tools.py| ) the vectors
+corresponding to the top 10 principal directions of the data.
+Your principal direction vectors should be in $\mathbb{R}^{4096}$ (they represent images).
+Include the plot in your submitted homework document.
+\item Use the variance of principal directions plot to determine a 
+relatively small number $k$ of principal components
+that explains the training data reasonably well.
+Project the training data 
+and the test data onto the
+first $k$ principal components, and run nearest neighbors for
+each test image in this lower dimensional space.  Include your
+choice for $k$, and the plots
+of your nearest neighbor results in your submitted homework
+document.  You should use the code from
+ \verb|nearest_neighbors.py| to generate your image plots.
+\item Give a reason why applying 
+nearest-neighbor approach after performing dimensionality reduction could potentially produce better results.
+% \item Use \verb|sklearn.cluster.KMeans| to perform KMeans on the entire dataset (both train and test set) with $k=40$. Use \verb|plot_image_grid()| to create a picture of all the $k$ cluster centers. 
+\end{enumerate}
+
+  Some notes to keep in mind:
+  \begin{enumerate}
+  \item The function {\tt np.linalg.eig} might return complex eigenvectors.
+  \item The data points in the training and test data are given as
+    rows.
+    \item Include all new code (or functions) you have filled in your final PDF.
+ \end{enumerate}
+
+ \end{enumerate}
+ 
+\end{document}
