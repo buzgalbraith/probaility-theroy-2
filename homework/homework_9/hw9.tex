@@ -1,4 +1,5 @@
 \documentclass[12pt,twoside]{article}
+\usepackage{minted}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{tikz,graphicx,amsmath,amsfonts,amscd,amssymb,bm,cite,epsfig,epsf,url}
 \usepackage[hang,flushmargin]{footmisc}
@@ -127,6 +128,12 @@ $ \\=\frac{1}{\sqrt{\Tilde{x}[i]}}\frac{1}{\sqrt{\Tilde{x}[j]}}cov(\Tilde{x}[i],
  
 \begin{enumerate}
 \item  Complete the \verb|compute_nearest_neighbors()| function in \verb|nearest_neighbors.py| that finds the image in the training data that is closest to a given test image.  Include the generated images in your submitted homework.
+\begin{itemize}
+\item \inputminted[firstline=39, lastline=42, breaklines=True]{python}{hw9.py}
+
+
+\end{itemize}
+
 
 \vspace{0.5cm}Create a new file in which
 you must write code to complete the following tasks:
@@ -135,9 +142,22 @@ you must write code to complete the following tasks:
 the variance of the $k$th principal component of the data (e.g., $\sigma^2_1$
 is the largest variance). 
 Include the plot in your submitted homework document. You can limit the x axis to a reasonable number.
+\begin{itemize}
+\item \inputminted[firstline=52, lastline=64, breaklines=True]{python}{hw9.py}
+\item \includegraphics[width=10cm]{homework/homework_9/images/hw9_1.png}
+\end{itemize}
+
+
 \item  Plot (using  \verb|plot_image_grid()| in
 \verb|plot_tools.py| ) the vectors
 corresponding to the top 10 principal directions of the data.
+
+reasonable number.
+\begin{itemize}
+\item \inputminted[firstline=67, lastline=83, breaklines=True]{python}{hw9.py}
+\item \includegraphics[width=10cm]{homework/homework_9/images/hw9_2.png}
+\end{itemize}
+
 Your principal direction vectors should be in $\mathbb{R}^{4096}$ (they represent images).
 Include the plot in your submitted homework document.
 \item Use the variance of principal directions plot to determine a 
@@ -151,8 +171,19 @@ choice for $k$, and the plots
 of your nearest neighbor results in your submitted homework
 document.  You should use the code from
  \verb|nearest_neighbors.py| to generate your image plots.
+reasonable number.
+\begin{itemize}
+\item \inputminted[firstline=92, lastline=124, breaklines=True]{python}{hw9.py}
+\item \includegraphics[width=10cm]{homework/homework_9/images/hw9_3.png}
+\end{itemize}
+ 
 \item Give a reason why applying 
 nearest-neighbor approach after performing dimensionality reduction could potentially produce better results.
+\begin{itemize}
+    \item we are filtering out dimensions that may be noise (that is may relate to things like the position the picture was taken in) and only focusing on features that are relevant to the face shape (ideally). then we are able to compare distance, a way that is more directly relvent to the faces.
+\end{itemize}
+
+
 % \item Use \verb|sklearn.cluster.KMeans| to perform KMeans on the entire dataset (both train and test set) with $k=40$. Use \verb|plot_image_grid()| to create a picture of all the $k$ cluster centers. 
 \end{enumerate}
 
