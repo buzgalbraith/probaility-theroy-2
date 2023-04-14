@@ -75,7 +75,12 @@ $u_1,u_2\cdots u_r\in \mathbb{R}^{n_1}$ are orthonormal and the right singular v
     \item and further by the spectral theorem we know that any symmetric matrix can be eiegen decomposed and thus has $n_1$ orthonormal vectors $u_1,\cdots , u_{n_1}$
     \item further note that the corresponding eigenvalues $\lambda_{n_1}$ are non-negative since $0> ||A^{t}u_{j}||_{2}^{2}=u_{j}^{t}AA^{t}u_{j}=u_{j}^{t}Mu_{j}=\lambda_{j}u_{j}^{t}u_{j}=\lambda_{j}$ that is positive definite
     \item and further the number of non-zero eigenvalues is equal to teh rank of A, and further because A and $AA^{T}$ have he same rank  
-    \item finish the proof top of page 466
+    \item the  number of non-zero eigen values of $m$ is equal to the rank of a, and since A and $A^{t}$ have the same number of eigenvalues call if $t$ we have $s_{t}:=\sqrt{\lambda_{t}}$ and $$v_{t}:=\frac{1}{s_{t}}A^tu_{1}$$
+    \item further these vectors have unit norm $$||v||_{2}^{2}=\frac{1}{s_{1}^2}u_{1}^{t}AA^{T}u_{1}=\frac{\lambda _t}{\lambda_t}u_{1}^{T}u_{1}=1$$
+    \item further all the singular vectors are orthogonal
+    \item so we can define the fallowing matrices $$U:[u_1\cdots u_{n_1}]$$ $$V:[v_1\cdots v_{n_1}]$$ such that $$U^TA=SV^T$$
+    notice here that U is orthogonal  matrix as it is square an has orthomonal columns thus $UU^{T}$ meaning that $$A=USV^T$$
 \end{enumerate}
+\item 
 \end{itemize}
 \end{document}
