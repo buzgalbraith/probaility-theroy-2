@@ -1,0 +1,278 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\title{Lecture 11: Linear Regression}
+\author{wbg231 }
+\date{December 2022}
+\newcommand{\R}{$\mathbb{R}$}
+\newcommand{\B}{$\beta$}
+\newcommand{\A}{$\alpha$}
+\newcommand{\D}{\Delta}
+
+\newcommand{\avector}[2]{(#1_2,\ldots,#1_{#2})}
+\newcommand{\makedef}[2]{$\textbf{#1}$:#2 }
+\usepackage{tikz,graphicx,hyperref,amsmath,amsfonts,amscd,amssymb,bm,cite,epsfig,epsf,url}
+
+\begin{document}
+
+\maketitle
+
+\section{introduction}
+\begin{itemize}
+\item again the prof stopped posting videos so i am just 
+to type notes from the lecture 
+\section{regression}
+\subsection*{regression}
+\item the goal is given an input feature $\Tilde{X}\in\mathbb{R}^d$ estimate a response
+$\Tilde{y}$
+\item so we need an estimator $h(x)$ which approximates $\Tilde{y}$ when $\Tilde{x}=x$
+\item how do we evaluate an approximation?
+\item the evauluation depends in general on the application but we can use mean square error 
+in general 
+$$MSE(y,h(x))=E[(\Tilde{y}-h(\Tilde{x}))^2]$$ that is the squared average loss of our estimation
+\subsection*{example}
+\item suppose we have the following data \\\includegraphics*[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_11/immages/w11_1.png}
+\item so we want to get the rating for mission imposable what is the raining for mission imposable
+\item there is one dimension in this task 
+\item so what is the minium mean squared error estimator 
+\item the minium mean squared error  estimator is \textcolor{blue}{the conditional mean} of $\Tilde{y}$ given $\Tilde{x}$
+\subsection*{are we done here}
+\item given we know that the conditional mean will optimize mean squared error, are we done?
+\item no we are not done, the curse of dimensionality that would require us to estimate parameters for every possible
+combinations of features. so this requires a lot data very quickly. 
+\item so there will be combinations of data we have not seen unless the dimensionality of the data is very small 
+\section{MMSE linear regression}
+\subsection*{linear regression}
+\item overall the mmse is the conditional mean, however this is a non-linear estimator
+\item we can simplify this problem by narrowing our hypothesis space to just be linear functions (or an affine function of )
+the input features $$\Tilde{y}\approx \ell (\Tilde{x}):=\Sigma_{i=1}^{d} \beta[i]\Tilde{x}[i]+\alpha=\beta^t\Tilde{x}+\alpha$$
+\item so we are overcoming the curse of dimensionality by reducing our hypothesis space and only need to learn d parameters
+\item so our goal is to find the \textcolor{blue}{linear mean squared error estimator (LMMSE)} that is 
+$$(\beta' , \alpha')=argmin_{\beta , \alpha}E[(\Tilde{y}-\beta^t \Tilde{x}-\alpha)^2]$$ and $$\ell'(\Tilde{x})=\beta'^t\Tilde{x}+\alpha'$$ 
+\subsection*{counties in the united states }
+\item this is going to be our running example \\\includegraphics*[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_11/immages/w11_2.png}
+\item we can see there is interfeature corelation 
+\item we can see that in income is negatively associated with mortality 
+\item we can see that smoking is associated positively with mortality
+\item keep in mind graphically that a linear model in $\Tilde{x}\in \mathbb{R}^{d}$ and $\Tilde{y}\in \mathbb{R}$ 
+can be understood as fitting a hyperplane in $\mathbb{R}^d$ to the total space $\mathbb{R}^{d+1}$ \\ \\\includegraphics*[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_11/immages/w11_3.png}
+\item what is this LMMSE estimator
+\subsection*{zero mean feautre and response}
+\item assume that the mean of all features and response is zero then we can just think of our LMMSE as 
+$$\beta_{mmse}=argmin_{\beta}E[(\Tilde{y}-\beta^t\Tilde{x})^2]$$
+\item we can put back in the mean by adding the offset or bias term $\alpha$
+\section*{geometry}
+\subsection*{review of geometric intuition}
+\item zero mean random variables can be thought of as a vector space
+\item we did this when we defined corelation the inner product is the covariance that is for two vectors x,y in this space 
+$$<x,y>=cov(x,y)$$
+\item the squared norm is the variance that is for a vector x in this space $$\sqrt{<x,x>}^2=\sqrt{cov(x,x)}^2=\sqrt{var(x)}^2=var(x)$$
+\item let our true response be $y$ and let our prediction be $\Tilde{y}$ so our goal is to minimize mean squared error 
+$(y-\Tilde{y})^2=var(y-\hat{y})^2=||y-\hat{y}||^2$ that is the squared distance
+\item here is our space \\ \includegraphics*[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_11/immages/w11_4.png}
+\item our estimator is a linear combination of our features $\hat{y}=\beta^T\Tilde{x}$ that implies we only can make 
+predictions along the plane these two features span ie $\hat{y}=span(x[1], x[2])$ which is a plane 
+\item then we want to take our response which is a third random variable and find the point taht is closest on the plane
+which is the projection of y onto the plane spanned by x[1],x[2]
+\item here is our space \\ \includegraphics*[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_11/immages/w11_5.png}
+\item so we know by defection $\forall \beta \in \mathbb{R}^{2}$ the vectors $\beta^t\Tilde{x}$ are the vectors on our plane 
+and further as $\ell_{mmse}$ is projected on the plane we know that $<\beta^t\Tilde{x}, (\Tilde{y}-\ell_{mmse}(\Tilde{x}))>=0$
+\item that is the residual of our model must be orthogonal to the plane containing all linear combinations of our input 
+features (this makes sense because if this were not the case we could get a combination of our input features that would
+further reduce the residual of our estimator)
+\item this can be expressed as $$0=<\beta^t\Tilde{x}, \Tilde{y}-\ell_{mmse}(\Tilde{x})>=
+<\beta^t\Tilde{x}, \Tilde{y}-\Tilde{x}^t\beta_{mmse}>=cov(\beta^t\Tilde{x}, \Tilde{y}-\Tilde{x}^t\beta_{mmse})$$
+$$=E[\beta^t\Tilde{x} \Tilde{y}-\Tilde{x}^t\beta_{mmse}]-E[\beta^t\Tilde{x}] E[\Tilde{y}-\Tilde{x}^t\beta_{mmse}]
+=E[\beta^t\Tilde{x}(\Tilde{y}-\Tilde{x}^t\beta_{mmse})]$$ $$=\beta^t(E[\Tilde{x}\Tilde{y}]-E[\Tilde{x}\Tilde{x}^t]\beta_{mmse})\forall \beta \in \mathbb{R}^2$$
+\item this condition only holds when $E[\Tilde{x}\Tilde{y}]=E[\Tilde{x}\Tilde{x}^t]\iff cov[\Tilde{x}\Tilde{y}]=cov[\Tilde{x} ,\Tilde{x}^t]$
+\subsection*{cross covariance}
+\item \textcolor{blue}{the cross covariance} is defined as $cov(\Tilde{x}, \Tilde{y})=\Sigma_{\Tilde{x}\Tilde{y}}$ where 
+$$\Sigma_{\Tilde{x}, \Tilde{y}}:E[ct(\Tilde{x})ct(\Tilde{y})]=\begin{pmatrix}
+    cov(\Tilde{x[1]}, \Tilde{y})\\ \cdots \\ cov(\Tilde{x}[d], \tilde{y})
+\end{pmatrix}$$
+\item this is the covariance between each feature and the response as a vector 
+\item so we have $0=<\beta^t\Tilde{x}, \tilde{y}-\ell_{mmse}(\Tilde{x})>=\beta^t[cov(\Tilde{x}, \Tilde{y}) - cov(\Tilde{x},\Tilde{x} \beta_{mmse})]=\beta^t(\Sigma_{\Tilde{x}\Tilde{y}}-\Sigma_{\Tilde{x}} \beta_{mmse})\iff \beta\Sigma_{\Tilde{x}\Tilde{y}}=\Sigma_{\Tilde{x}}\beta_{mmse}$
+\item and finally solving this yields $$\beta_{mmse}=\Sigma_{\Tilde{x}}^{-1}\Sigma_{\Tilde{x}\Tilde{y}}$$
+\item this will make the linear estimator as close as possible while staying on this plane (in this vector space of mean 
+
+zero random vectors)
+\subsection*{intercept term}
+\item the way we solved for $\beta_{mmmse}$ assumed that our data was mean zero, this may not be true for our data. 
+\item the most recent and third to last pictures are planes that are more or less shifted version of one another 
+\subsection*{general case}
+\item what if we do not have centered data then we are looking for $$\ell_{mmse}=\beta^t_{mmse}\Tilde{x}+\alpha_{mmse}$$
+\item and we want to optimize this thing with respect to mean squared error 
+\item so we have $$(\beta_{mmse}, \alpha_{mmse})=argmin_{\alpha,\beta}E[(\Tilde{y}-\beta^t\Tilde{x}-\alpha
+)^2]$$
+\subsection*{minium constant estimate or rv }
+\item what is the minium constant estimate of the random varible $\Tilde{a}$? well we want $$argmin_{c\in \mathbb{R}}E[(c-\alpha)^2]=
+argmin E[c^2-2\Tilde{a} c + \Tilde{a}^2]=c^2-2cE[\Tilde{a}]+E[\tilde{a}^2]$$
+then we can differentiate this wrt to c to get $2^c-2E[\Tilde{a}]\rightarrow c^*=E[\Tilde{a}]$
+\item so yeah the best constant estimator of a random variable with respect to mean squared error is the mean
+\subsection*{additive constant}
+\item so we have more or less the same problem $$\alpha^{*}=argmin_{\alpha \in \mathbb{R}}E[(\Tilde{y}-\beta^t\Tilde{x}-\alpha)^2]=E[\Tilde{y}]-\beta^tE[\Tilde{x}]=\mu_{y}-\beta^t\mu_{x}$$
+\item so we know that our alpha is more or less correcting for the mean. (it is kind of adding the portion of the mean missed by our $\beta$)
+\subsection*{linear coefficients}
+\item so we have a way to find the optimal $\alpha$ for any $\beta$ $$\alpha^{*}=argmin_{\alpha \in \mathbb{R}}E[(\Tilde{y}-\beta^t\Tilde{x}-\alpha)^2]=E[\Tilde{y}]-\beta^tE[\Tilde{x}]=\mu_{y}-\beta^t\mu_{x}$$
+\item so we have $mse(\beta, \alpha)\geq mse(\beta, \alpha^{*}(\beta))$ this allows us to reduce this optimization problem to 1 dimension
+\item so the question becomes $\beta_{mse}=argmin_{\beta}MSE(\beta, \alpha^{*}(\beta))$
+\item this is equivlent to centering our linear regression problem 
+$$MSE(\beta, \alpha^{*}(\beta))=E[(\Tilde{y}-\beta^t\Tilde{x}-\alpha^{*}(\beta))^2]=E[(\Tilde{y}-\beta^t\Tilde{x}-\mu_{y}+\beta^T\mu_{x})^2]$$
+$$=E[((\Tilde{y}-\mu_{y})-\beta^t(\Tilde{x}-\mu_{x}))^2]=E[ct(\Tilde{y}-\beta^t ct(\Tilde{x}))]$$
+$$=E[ct(\Tilde{y})]+\beta^tE[ct(\Tilde{x}\Tilde{x}^t)]\beta-2\beta^tE[ct(\Tilde{x})ct(\Tilde{y})]=\Sigma^2_{y}+\beta^t\Sigma_{x}\beta - 2\beta^t\Sigma_{x,y}=q(\beta)$$
+\item we need to check the hessian to make sure we have the right convexity $$\nabla^2(\beta)=2\Sigma_{\Tilde{x}}$$ 
+which is a covariance matrix and thus positive semi definite meaning our function is convex and that first order condition
+point is a global minimum 
+\subsection*{covariance matrix is PSD}
+\item a matrix  A is PSD if $\forall a\in \mathbb{R}^{d} $ we have $$a^tAa<geq 0$$
+\item so for an arbitrary vector $a\in \mathbb{R}^d$ and our covariance matrix $\Sigma_{x}$ we have 
+$$a^t\Sigma_{x}a=var(a^t\Tilde{x})\geq 0$$ by definition of variance meaning the covariance matrix is PSD 
+\subsection*{optimality}
+\item now taking the darivative of q wrt $\beta$ and setting equal to zero gives us 
+$$0=2 \beta^t\Sigma_{\Tilde{x}}-2\Sigma_{x,y}\Rightarrow \beta^{*}=\Sigma_{x}^{-1}\Sigma_{x,y}$$
+\item and this will be a minium as the function is convex 
+\item and this is the same as the mmmse estimator for $\beta$ using geometry
+\item so finally we get $$\beta_{mmse}=\Sigma_{x}^{-1}\Sigma_{x,y}$$ $$\alpha_{mmse}=\alpha(\beta_{mmse})=\mu_{y}-\beta^t_{mmse}\mu_{x}$$
+\item and this gives us our mmse linear estimator as 
+$$\ell_{mmse}(\Tilde{x})=\beta_{mmse}^{t}\Tilde{x}+\alpha_{mmse}=\Sigma_{x,y}^{t}\Sigma_{x}^{-1}(\Tilde{x})+\mu_{y}
+-\Sigma_{x}^{-1}\Sigma_{x,y}\mu_{x}=\Sigma_{x}^{-1}\Sigma_{x,y}(\Tilde{x}-\mu_{x})+\mu_{\Tilde{y}}
+$$
+
+\item so this is equivalent to taking our feature vector $\Tilde{x}$ centering it, multiplying by the inverse of it's
+covariance matrix, multiplying by the cross covariance with $\Tilde{y}$ and adding the mean of $\Tilde{y}$ to our prediction
+
+
+\subsection*{uncorrelated features}
+\item what if the feature of $\Tilde{x}$ are uncorrelated and response are zero mean and also uncorrelated
+\item $$\ell_{mmse}(\Tilde{x})=\beta_{mmse}^{t}\Tilde{x}+\alpha_{mmse}=\Sigma_{x,y}^{t}\Sigma_{x}^{-1}(\Tilde{x})+\mu_{y}
+$$
+\item note in this case our covariance matrix  $\Sigma_{x}$ will be diagonal since the features are uncorrelated
+\item $$\ell_{mmse}(\Tilde{x})=\beta_{mmse}^{t}\Tilde{x}+\alpha_{mmse}=\Sigma_{x,y}^{t}\Sigma_{x}^{-1}(\Tilde{x})+\mu_{y}
+=\begin{pmatrix}
+    cov(x_1, y)\\ \cdots \\ cov(x_n, y)
+\end{pmatrix}  \begin{pmatrix}
+    var(x_1) &\cdots &0\\ \cdots &\cdots &\cdots\\ \cdots & \cdots & var(x_n)
+\end{pmatrix}^{-1} \begin{pmatrix} x_1 \\ \cdots \\x_n \end{pmatrix} $$ $$=\begin{pmatrix}
+    cov(x_1, y)\\ \cdots \\ cov(x_n, y)
+\end{pmatrix}  \begin{pmatrix}
+    \frac{1}{var(x_1)} &\cdots &0\\ \cdots &\cdots &\cdots\\ \cdots & \cdots & \frac{1}{var(x_n)}
+\end{pmatrix}\begin{pmatrix} x_1 \\ \cdots \\x_n \end{pmatrix}= \Sigma_{i=1}^{d}\Tilde{x}_{i}\frac{cov(x_i, y_i)}{var(x_i)}=
+\Sigma_{i=1}^{d}cov(x_i,y)*var(x_1)^{-1}x_i$$ $$=\Sigma_{i=1}^{d}\Tilde{x}_{i}\ell_{mmse}(x[i])$$
+ \item so geometrically we are pretty much just assign orthogonal components separably and taking the sum since the features are orthogonal
+ \item the inverse covariance matrix accounts for the covariance between our input features
+\section{OLS}
+\subsection*{OLS}
+\item we are going back to the example we looked at earlier with mortality as y and x as smoking and median house hold income
+\item so we have a dataset $D=((x_1,y_1)\cdots (x_n,y_n))$
+\item we can basically shift from random vectors to data by just using the sample statistic equivalents
+\item that is $$\ell_{mmse}(\Tilde{x})\approx \ell_{ols}(x_i)=\Sigma^{T}_{X,Y}\Sigma_{X}^{-1}(x_i-m(X))+m(Y)=\beta_{ols}^{t}+\alpha_{ols} $$
+\item this is called \textcolor{blue}{ordinary least squares estimator} since we can view this as ERM where our loss function is least squares (which is just sample square error)
+\subsection*{data}
+\item we are going back to the example we looked at earlier with mortality as y and x as smoking and median house hold income
+\item we can calculate the ols estimator on our data 
+\item this is a plane bisecting our data 
+\item we could also look at the level curves of our plane over the original data 
+\subsection*{interpreting the coefficients}
+\item suppose we learned a model $\ell_{ols}(x_i)=15.7\text{tobaco}+3\text{income}+282$
+\item so these  coefficients are effect on the output (y) of a 1 unit change of $x_i$ holding all other features of $x$ constant
+
+\section{explained variance}
+\subsection*{decomposition of variance}
+\item recall that $<\ell_{mmse}(x), y-\ell_{mmse}(x)>=0=cov(\ell_{mmse}(x), y-\ell_{mmse}(x))$ ie our estimator and residual are orthogonal
+in this vector space and thus uncorrelated
+\item given this we can write $$var(\Tilde{y})=Var(\ell_{mmse}(x) + y-\ell_{mmse}(x))=||\ell_{mmse}(x) + y-\ell_{mmse}(x)||^2$$ 
+$$=||\ell_{mmse}(x)||^2 + ||y-\ell_{mmse}(x)||^2=var(\ell_{mmse}(x)) + var(y-\ell_{mmse}(x))$$
+\item we know the residual is zero mean. this must be the case since, if it is not true we could have a better estimator 
+\item we can show this quickly $E[y-\ell_{mse}(x)]=E[y-\beta_{mmse}(x) -\alpha_{mmse}]=E[y]-\beta_{mmse}E[x] -\alpha_{mmse}
+=E[y]-e[y]=0$
+\item this allows us to write $$MSE(y-\ell_{mse})=E[(y-\ell_{mse})^2]=E[(y-\ell_{mse})^2-0]=E[(y-\ell_{mse})^2-E[y-\ell_{mse}]]=var(y-\ell_{mse})$$
+\item so we can write $$var(\Tilde{y})=Var(\ell_{mmse}(x) + y-\ell_{mmse}(x))$$ $$=var(\ell_{mmse}(x)) + var(y-\ell_{mmse}(x))=var(\ell_{mmse}(x)) + mse(y-\ell_{mmse}(x))$$
+\item var(y) is fixed. 
+\item so the larger $var(\ell_{mmse}(x))$ the lower mse so we want to max this 
+\item we can further write it as \textcolor{blue}{the coefficients of determination is }$$R^2=\frac{var(\ell_{mmse}(x))}{var(y)}=1-\frac{mse}{var(y)}$$
+\subsection*{feature importance}
+\item look at this chart \\ \includegraphics*[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_11/immages/w11_6.png}
+\item where the black section is the mse of the model, the white section is the explained variance ie $var(\ell_{mse}(x))$
+\item and the total length of the bar is $var(y)$ which is fixed
+\item so we can compute the $R^2$ for each variable by deviling our bar by var(y) ie normalizing the bar 
+\item we can see that tobacco alone counts for a lot of variance
+\item we can see that income accounts for a bit less than half 
+\item then both models together account for only a bit more than each feature alone because they are highly corelate
+\item so we can get feature importance by looking at models built of different subsets of the features
+\item also note that a models $r^2$ can never be greater than zero and 1. 
+ \section{casual inference}
+ \subsection*{interpreting features}
+ \item when we interpreting features we say that a one unit increase in one feature would lead to a certain 
+ increase in the output variable holding other features constant
+ \item this seems to suggest causality but that is not the case necessarily  
+\item linear regression looks at corelation between features not causality so there may be confounding factors
+\item this was a big deal when trying to prove that smoking caused cancer (look into fisher and how he defended smoking)
+\subsection*{casual inference}
+\item the question in casual inference is if we had the same person and they had smoked versus had not smoked how would 
+the outcome change it is all about potential outcomes
+\item we can only really prove this if we have randomized control trials, which we can not do in the case of smoking 
+\item what happens if we modified a single feature holding all else constant 
+\item observed outcome $\Tilde{y}$
+\item treatment $\Tilde{t}$
+\item our goal is to understand the average casual effect of the treatment on the outcome
+\subsection*{potential outcome}
+\item potential outcomes capture what happens to the same person if the treatment had changed
+\item we get one observed potential outcome in the data, and the others are counter factual 
+\item this allows us to control for spurious  corelation
+\item a linear mode on observed data does not capture this since we are not controling 
+\subsection*{example}
+\item have data set on unemployment and temperature in spain 
+\item there is a corelation in the data 
+\item so we can build a linear model 
+\item but we can not view it is a casual since there is a confounding factors of tourism
+\item if we account for tourism the casual effect is more or less reduced to zero. 
+\subsection*{guinea-pig example}
+\item we want to fatten the g pigs, and we want to know if a supplement helps them gain weight 
+\item looking at the raw data there is a positive corelation if we give the supplement before they eat food
+\item we can do the same experiment but give them the supplement after they eat and there is in fact a negative corelation
+\item so there is a potential confounder of how much food they are before hand 
+\item we can try to do a randomized control trial on this data
+\subsection*{assumptions}
+\item if we just have observed data 
+\item we define potential outcomes that depend on a treatment and confounder 
+\item so we are saying the distribution of $\Tilde{po}_{t,c}=$the distribution of $\Tilde{po}_{t,c}$ conditioned on $\Tilde{t}=1 \cap \Tilde{c}c$ 
+that is the potential outcomes are conditionally independent of treatment and outcome 
+\item so given the confounder there is once we take into account the confounder nothing else effects potential outcome
+\item and we assume that the average casual effect is linear $E[\Tilde{po}_{t,c}]=\beta^{*}t+\gamma c$
+\item this can be generalized to more features and confounder
+\item so now we can fit a linear model  that includes the confounder
+\subsection*{features}
+\item we assume that the features and response are centered $\Tilde{x}=\begin{pmatrix}
+    \Tilde{t}\\\Tilde{c}
+\end{pmatrix}$ can be generalized to more features and confounders
+\item and we have $\Sigma_{x}=\begin{pmatrix}
+    \sigma^2_{t} & \sigma_{t,c}\\ \sigma_{t,c} & \sigma^2_{c}
+\end{pmatrix}$
+\item what is the cross covariance $\Sigma_{x,y}=cov(y,t)=E[yt]-E[y]E[t]=E[yt]=E[\mu_{\Tilde{y}\Tilde{c}|\Tilde{y}\Tilde{c}}(\Tilde{t},\Tilde{c})]$
+\item so this is iterated expectations which allows us to use our assumptions
+\item $\mu_{\Tilde{y}\Tilde{c}|\Tilde{y}\Tilde{c}}(t,x)=\int_y ytf_{y|t,c}(y|t,c)dy=\int_y ytf_{po_{t,c}|t,c}(po_{t,c}|t,c)dy
+= t\int_y yf_{po_{t,c}|t,c}(po_{t,c}|t,c)dy=t\int_y yf_{y}(y)dy=tE[\Tilde{po}_{t,x}]=\beta t^2+\gamma c*t$
+\item thus e $\Sigma_{t,y}=cov(y,t)=E[yt]-E[y]E[t]=E[yt]=E[\mu_{\Tilde{y}\Tilde{c}|\Tilde{y}\Tilde{c}}(\Tilde{t},\Tilde{c})]=E[\beta t^2+\gamma c*t]=\beta^{*}E[\tilde{t}^2]+\gamma E[\tilde{t}\Tilde{c}]$
+\item then by the same logic
+\item $\Sigma_{c,y}=cov(y,c)=E[yc]-E[y]E[c]=E[yc]=E[\mu_{\Tilde{y}\Tilde{t}|\Tilde{y}\Tilde{c}}(\Tilde{t},\Tilde{c})]=E[\beta c^2+\gamma c*t]=\gamma^{*}E[\tilde{c}^2]+\beta E[\tilde{t}\Tilde{c}]$
+\item so now we have the terms of our cross covariance vector
+\item so from here we can just use our normal formulas for $\beta_{mmse}, \alpha_{mmse}$
+\item so doing this out we see that $$\beta_{mmse}=\Sigma_{x}^{-1}\Sigma_{x,y}=\begin{pmatrix}
+    \sigma^2_{t} & \sigma_{t,c}\\ \sigma_{t,c} & \sigma^2_{c}
+\end{pmatrix}\begin{pmatrix}
+    \beta^{*}E[\tilde{t}^2]+\gamma E[\tilde{t}\Tilde{c}]^{-1}\\ 
+\gamma^{*}E[\tilde{c}^2]+\beta E[\tilde{t}\Tilde{c}]\end{pmatrix}^{-1}=\begin{pmatrix}
+    \sigma^2_{t} & \sigma_{t,c}\\ \sigma_{t,c} & \sigma^2_{c}
+\end{pmatrix}^{-1}\begin{pmatrix}
+    \beta^{*}\sigma_{t}^2+\gamma \sigma_{t,c}\\ 
+\gamma^{*}\sigma_{c}^2+\beta \sigma_{t,c}\end{pmatrix}=\begin{pmatrix}
+    \beta^{*}\\ \gamma
+\end{pmatrix}$$
+\item under the assumptions we end up getting $\beta_{mmse}=\begin{pmatrix}
+    \beta^{*}\\ \gamma
+\end{pmatrix}=$ that is under these assumptions we are able to understand the true casual effect between our feature and effect (x,y) is $\beta$
+\item then we can see that if the assumptions are right this will model the casual effect correctly, where as 
+if we do not control for causality we will be modeling the spurious corelation not the true effect. 
+
+
+\end{itemize}
+\end{document}
