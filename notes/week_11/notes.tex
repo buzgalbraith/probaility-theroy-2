@@ -30,7 +30,7 @@ $\Tilde{y}$
 in general 
 $$MSE(y,h(x))=E[(\Tilde{y}-h(\Tilde{x}))^2]$$ that is the squared average loss of our estimation
 \subsection*{example}
-\item suppose we have the following data \\\includegraphics*[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_11/immages/w11_1.png}
+\item suppose we have the following data \\\includegraphics*[width=10cm]{notes/week_11/immages/w11_1.png}
 \item so we want to get the rating for mission imposable what is the raining for mission imposable
 \item there is one dimension in this task 
 \item so what is the minium mean squared error estimator 
@@ -49,12 +49,12 @@ the input features $$\Tilde{y}\approx \ell (\Tilde{x}):=\Sigma_{i=1}^{d} \beta[i
 \item so our goal is to find the \textcolor{blue}{linear mean squared error estimator (LMMSE)} that is 
 $$(\beta' , \alpha')=argmin_{\beta , \alpha}E[(\Tilde{y}-\beta^t \Tilde{x}-\alpha)^2]$$ and $$\ell'(\Tilde{x})=\beta'^t\Tilde{x}+\alpha'$$ 
 \subsection*{counties in the united states }
-\item this is going to be our running example \\\includegraphics*[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_11/immages/w11_2.png}
+\item this is going to be our running example \\\includegraphics*[width=10cm]{notes/week_11/immages/w11_2.png}
 \item we can see there is interfeature corelation 
 \item we can see that in income is negatively associated with mortality 
 \item we can see that smoking is associated positively with mortality
 \item keep in mind graphically that a linear model in $\Tilde{x}\in \mathbb{R}^{d}$ and $\Tilde{y}\in \mathbb{R}$ 
-can be understood as fitting a hyperplane in $\mathbb{R}^d$ to the total space $\mathbb{R}^{d+1}$ \\ \\\includegraphics*[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_11/immages/w11_3.png}
+can be understood as fitting a hyperplane in $\mathbb{R}^d$ to the total space $\mathbb{R}^{d+1}$ \\ \\\includegraphics*[width=10cm]{notes/week_11/immages/w11_3.png}
 \item what is this LMMSE estimator
 \subsection*{zero mean feautre and response}
 \item assume that the mean of all features and response is zero then we can just think of our LMMSE as 
@@ -68,12 +68,12 @@ $$<x,y>=cov(x,y)$$
 \item the squared norm is the variance that is for a vector x in this space $$\sqrt{<x,x>}^2=\sqrt{cov(x,x)}^2=\sqrt{var(x)}^2=var(x)$$
 \item let our true response be $y$ and let our prediction be $\Tilde{y}$ so our goal is to minimize mean squared error 
 $(y-\Tilde{y})^2=var(y-\hat{y})^2=||y-\hat{y}||^2$ that is the squared distance
-\item here is our space \\ \includegraphics*[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_11/immages/w11_4.png}
+\item here is our space \\ \includegraphics*[width=10cm]{notes/week_11/immages/w11_4.png}
 \item our estimator is a linear combination of our features $\hat{y}=\beta^T\Tilde{x}$ that implies we only can make 
 predictions along the plane these two features span ie $\hat{y}=span(x[1], x[2])$ which is a plane 
 \item then we want to take our response which is a third random variable and find the point taht is closest on the plane
 which is the projection of y onto the plane spanned by x[1],x[2]
-\item here is our space \\ \includegraphics*[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_11/immages/w11_5.png}
+\item here is our space \\ \includegraphics*[width=10cm]{notes/week_11/immages/w11_5.png}
 \item so we know by defection $\forall \beta \in \mathbb{R}^{2}$ the vectors $\beta^t\Tilde{x}$ are the vectors on our plane 
 and further as $\ell_{mmse}$ is projected on the plane we know that $<\beta^t\Tilde{x}, (\Tilde{y}-\ell_{mmse}(\Tilde{x}))>=0$
 \item that is the residual of our model must be orthogonal to the plane containing all linear combinations of our input 
@@ -190,7 +190,7 @@ $$=||\ell_{mmse}(x)||^2 + ||y-\ell_{mmse}(x)||^2=var(\ell_{mmse}(x)) + var(y-\el
 \item so the larger $var(\ell_{mmse}(x))$ the lower mse so we want to max this 
 \item we can further write it as \textcolor{blue}{the coefficients of determination is }$$R^2=\frac{var(\ell_{mmse}(x))}{var(y)}=1-\frac{mse}{var(y)}$$
 \subsection*{feature importance}
-\item look at this chart \\ \includegraphics*[width=10cm]{/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_11/immages/w11_6.png}
+\item look at this chart \\ \includegraphics*[width=10cm]{notes/week_11/immages/w11_6.png}
 \item where the black section is the mse of the model, the white section is the explained variance ie $var(\ell_{mse}(x))$
 \item and the total length of the bar is $var(y)$ which is fixed
 \item so we can compute the $R^2$ for each variable by deviling our bar by var(y) ie normalizing the bar 
