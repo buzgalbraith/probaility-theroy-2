@@ -1,7 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1682027926 "/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_10/video_!/notes.tex" "notes.pdf" "notes" 1682027926
+["pdflatex"] 1682028095 "/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_10/video_!/notes.tex" "notes.pdf" "notes" 1682028095
   "/etc/texmf/web2c/texmf.cnf" 1679177133 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_10/video_!/notes.tex" 1682027926 7744 6cfbd9271457b6bdb9a51e9a52d92585 ""
+  "/home/buzgalbraith/work/school/spring_2023/probaility-theroy-2-2023/notes/week_10/video_!/notes.tex" 1682028094 7116 245abe4470c8ce7f04e1bb6e9273d10d ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1246382020 1120 1e8878807317373affa7f7bba4cf2f6a ""
@@ -181,9 +181,9 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1679177154 4379155 98693266ff65f58d9f98aff394de12d2 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1679177175 2800018 337a2069f86217164a7ce4581fbba3e2 ""
   "images/v10_1.png" 1681510840 27917 d7e4c4eab78e724edeb3957766febc9c ""
-  "notes.aux" 1682027926 686 1021e496efe4cd3ab536fd12e6d22f30 "pdflatex"
-  "notes.out" 1682027926 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "notes.tex" 1682027926 7744 6cfbd9271457b6bdb9a51e9a52d92585 ""
+  "notes.aux" 1682028095 686 1021e496efe4cd3ab536fd12e6d22f30 "pdflatex"
+  "notes.out" 1682028095 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "notes.tex" 1682028094 7116 245abe4470c8ce7f04e1bb6e9273d10d ""
   (generated)
   "notes.aux"
   "notes.log"
