@@ -173,7 +173,7 @@ Do you agree with the marketing department? Explain your reasoning.
 
 \begin{itemize}
     \color{blue}
-    \item no i do not 
+    \item no i do not agree with the marketing department 
     \item let $\Tilde{a}$ represents the amount spent on advertising, $\Tilde{s}$ the amount of sales, and $\Tilde{t}$ the temperature 
     \item also let $\Tilde{x}=\begin{pmatrix}
         \Tilde{a}\\ \Tilde{t}
@@ -256,10 +256,17 @@ Do you agree with the marketing department? Explain your reasoning.
         \item T=12 preforms by far the best 
         \item this makes sense as the granularity of our data is on a monthly basis
         \item also given you know the month you can have a good guess the range of weather a lot of the time 
-        
+        \item also here is the code i user for this 
+                \item \includegraphics[width=12cm]{homework_code/homework_11/immages/4a1.JPG}
+        \item \includegraphics[width=12cm]{homework_code/homework_11/immages/4a2.JPG}
     \end{itemize}
   \item Produce two plots comparing the actual maximum temperatures with
     the ones predicted by your model for $T:=T^{\ast}$; one for the training set and one for the test set. 
+
+    \begin{itemize}
+        \item \includegraphics[width=12cm]{homework_code/homework_11/immages/4c1.png}
+        \item \includegraphics[width=12cm]{homework_code/homework_11/immages/4c2.png}
+    \end{itemize}
 % \item Fit the modified model  
 %   \begin{align}
 %  y[t] = a + bt + d \sin(2\pi t/T^{\ast})
@@ -272,6 +279,8 @@ Do you agree with the marketing department? Explain your reasoning.
        \item b is the linear overall increase in temperature over the training period 
        \item c and d model seasonality, they both have a period of 12 (so 1 year) but they are off cycle so in some period they amplify one another modeling more hot months, in some cases cancel one another modding more temperate months, and in some cases they negatively amplify one another modeling colder months
        \item my b value is 0.00043 so yeah temperatures are rising by around that number of Celsius per year according to my model
+       \item we can see by plotting the the predictions for our model, we are effectively fitting 12 separate models one for each month, and all of them have positive slopes with time since start of training set
+       \item \includegraphics[width=15cm]{homework_code/homework_11/immages/4d.JPG}
    \end{itemize}
   \end{enumerate}
 
